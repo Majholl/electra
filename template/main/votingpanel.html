@@ -1,0 +1,29 @@
+{% extends 'main/home.html' %}
+
+{% block votingpanel %}
+    <a href="{% url 'adminpage' %}">back to home page</a>
+
+    <form method="POST" action="{% url 'AddNewVotePanel' %}" accept="image/*" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>name</label>
+        <input type="text" name="name" placeholder="Enter vote panel name?"></br>
+        <label>description</label>
+        <input type="text" name="description" placeholder="Enter description?"></br>
+
+    
+        <label>image</label>
+        <input type="file" name="image" placeholder="Enter image?"></br>
+
+        <button type="submit">Submit</button><br>
+
+    </form>
+
+    <p><a href=""> add one </a></p>
+    {% for i in votePanels %}
+        <p> {{ i.name }} </p>
+        <img src="{{i.image.url}}" width="250px" height="250px"></img>
+    {% endfor %}
+
+
+{% endblock %}

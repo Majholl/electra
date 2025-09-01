@@ -1,0 +1,30 @@
+{% extends 'main/home.html' %}
+
+{% block candidate %}
+
+    <a href="{% url 'adminpage' %}"> back to home page</a>
+    </br>
+    </br> <form method="POST" action="{% url 'submitcandidatetopanel' %}" accept="image/*" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label>candidate name</label>
+        <input type="text" name="name" placeholder="candidate name?"></br>
+
+        <label>description</label>
+        <input type="text" name="description" placeholder="candidate description?"> </br>
+
+        <label>image</label>
+        <input type="file" name="image" placeholder="candidate img?"> </br>
+        </br>
+        {% for i in votepanels %}
+            <input type="checkbox" name="panel" value="{{i.pk}}">
+            <p> {{ i.name }}</p>
+            <img src="{{ i.image.url }}" width="250px" height="250px"></img></br>
+        {% endfor %}
+        </br>
+        <button type="submit">submit</button>
+    </form>
+
+
+
+
+{% endblock %}

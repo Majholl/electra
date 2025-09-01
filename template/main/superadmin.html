@@ -1,0 +1,19 @@
+{% extends 'main/home.html' %}
+
+
+{% block superadmin %}
+<h1>{{ Username }}</h1>
+
+<p> welcome to superadmin page</p>
+
+<p>Add admin : <a href="#">NEW</a></p>
+
+<p>Add voting : <a href="{% url 'VotePanels' %}">NEW</a></p>
+
+<p>Add candidate : <a href="{% url 'Add_NewCandidate' %}">NEW</a></p>
+
+<p>Add votes : <a href="#">NEW</a></p>
+
+<p>exit() : <a href="{% url 'logoutFromSystem' %}">logout</a></p>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'main/home.html' %}
+
+{% block register %}
+
+
+<p>register now !!</p>
+
+<form method="POST" action="{% url 'register' %}">
+
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Enter your username" ><p>username</p>
+    <input type="password" name="password" placeholder="Enter your password" ><P> password</P>
+    <button type="submit">Register</button>
+
+
+</form>
+
+{% endblock %}
