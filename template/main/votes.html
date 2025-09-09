@@ -1,0 +1,16 @@
+{% extends 'main/home.html' %}
+
+
+{% block votes %}
+
+    <P>all available votings</P>
+    {% for i in allvotings %}
+        <p>voting name: {{ i.name }}</p>
+        <P> voting description : {{i.description }}</P>
+        <img src="{{i.image.url}}" width="250px" height="250px"></img>
+        <a href="{% url 'votedetails' id=i.pk  %}">open votes</a>
+    {% endfor %}
+
+
+
+{% endblock %}
