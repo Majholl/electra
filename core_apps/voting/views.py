@@ -4,6 +4,7 @@ from .models import VotePanelModel
 
 def load_votepanel_page(request):
     VotePanels = VotePanelModel.objects.all()
+    print(VotePanels)
     return render(request, template_name='main/votingpanel.html', context={'votePanels':VotePanels})
 
 

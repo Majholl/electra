@@ -18,7 +18,7 @@ class CandidateModel(models.Model):
     name = models.CharField(max_length=64,)
     description = models.CharField(max_length=128)
     image = models.ImageField(upload_to= CandidateImg)
-    votepanel = models.ManyToManyField(to = VotePanelModel)
+    votepanel = models.ManyToManyField(to = VotePanelModel, related_name='candidate')
     created_by = models.ForeignKey(to=Users, on_delete= models.RESTRICT)
     created_at = models.DateTimeField('Creatation datetime', auto_now_add=True)
     updated_at = models.DateTimeField('Last modification', auto_now=True)
