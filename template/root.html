@@ -2,6 +2,18 @@
 <html>
 
 
+<!-- include header -->
+{% include 'header.html' %}
+
+{% load static %}
+
+<!-- Load CSS of bootstap -->
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+
+
+
+
+
 <head>
     <title> Electra </> </title>
 </head>
@@ -18,6 +30,20 @@
 {% block register_page %} {% endblock %}
 
 
+<!-- include Footer -->
+{% include  'footer.html' %}
+
+
+
+<!-- Load JS of bootstap -->
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
 
 </body>
+
+
+
+
+
+
 </html>

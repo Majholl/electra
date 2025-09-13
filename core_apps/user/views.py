@@ -41,7 +41,7 @@ def RegisterPage(request):
 def loginUser(request):
     
     if not request.POST['username'] or  not request.POST['password'] : 
-        return render(request, template_name='main/login.html', context={'EmptyValues': 'Form is empty.'})
+        return render(request, template_name='authentications/login.html', context={'EmptyValues': 'Form is empty.'})
     try:
         user = User.objects.get(username = request.POST['username'])
     
@@ -50,10 +50,10 @@ def loginUser(request):
                 login(request, user)
                 return render(request, template_name='main/superadmin.html', context={'Username': user.username})
             else:
-                return render(request, template_name='main/login.html', context={'UserNotFound':'Password is incorrect.'})
+                return render(request, template_name='authentications/login.html', context={'UserNotFound':'Password is incorrect.'})
     
     except User.DoesNotExist:
-        return render(request, template_name='main/login.html', context={'UserNotFound':'User does not exits.'})
+        return render(request, template_name='authentications/login.html', context={'UserNotFound':'User does not exits.'})
 
 
 
