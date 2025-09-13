@@ -1,11 +1,38 @@
+from tkinter import NO
 from django.shortcuts import render
 from django.contrib.auth import  get_user_model , login, logout
 
 User =  get_user_model()
 
 
+
+
+
 def homePage(request):
-    return render(request, template_name='main/login.html', context={})
+    return render(request, template_name='main.html', context=None)
+
+
+
+def LoginPage(request):
+    return render(request, template_name='authentications/login.html', context=None)
+
+
+
+def RegisterPage(request):
+    return render(request, template_name='authentications/register.html', context=None)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

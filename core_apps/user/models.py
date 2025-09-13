@@ -32,13 +32,11 @@ class Users(AbstractUser):
         LOCKED = 'locked', 'Locked'
 
 
-
     email = models.EmailField('Email address', db_index=True, unique=True)
     profile = models.ImageField('User profile', upload_to=UserProfile, null=True)
     usertype = models.CharField('User type', max_length=10, choices=UserType.choices, default=UserType.USER)
     account_status = models.CharField('Account status', max_length=8, choices=AccountStatus.choices, default=AccountStatus.DEACTIVE)
-    is_active = models.BooleanField('Account activation', default=0)
-    
+    is_active = models.BooleanField('Account activation', default=0)    
     created_at = models.DateTimeField('Creatation datetime', auto_now_add=True)
     updated_at = models.DateTimeField('Last modification', auto_now=True)
     

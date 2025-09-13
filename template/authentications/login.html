@@ -1,9 +1,11 @@
-{% extends 'main/home.html' %}
+{% extends '../root.html' %}
 
-{% block login %}
+{% block login_page %}
 
 
-<p>login now !!</p>
+<h3>login now !!</h3>
+<p><a href="{% url 'AuthRegister' %}">Register NOW !! </a></p>
+
 
 <form method="post" action="{% url 'loginToSystem' %}">
 
@@ -22,5 +24,7 @@
     {% endif %}
     
 </form>
+<p><a href="{% url 'HomePage' %}">Back to home page</a></p>
+
 
 {% endblock %}

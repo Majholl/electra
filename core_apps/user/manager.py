@@ -13,6 +13,7 @@ def validate_email_address(email):
         return False
     
     
+    
 class CustomUserManger(UserManager):
     def _create_user(self, email, password, **extra_fields):
         if not email:
