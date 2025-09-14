@@ -72,7 +72,7 @@ def admins_list(request, page_num = 1):
         users = User.objects.all()
         paginator = Paginator(users, 2)
         pagination_objlist = paginator.get_page(page_num)
-        return render(request, template_name='admin/admindash.html', context={'obj_list': pagination_objlist.object_list,})
+        return render(request, template_name='admin/admin-page.html', context={'obj_list': pagination_objlist.object_list,})
         
         
     
