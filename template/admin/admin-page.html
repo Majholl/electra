@@ -1,0 +1,17 @@
+
+<ul>
+
+    {% for i in obj_list %}
+    <li>
+        {% if i.profile %}
+        <img src="{{ i.profile.url}}" alt="{{ i.username }}">profile</img>
+        {% endif %}
+        <h1>{{ i.username }}</h1>
+        <p>{{ i.usertype }}</p>
+        <p>{{ i.last_login }}</p>
+        <p>{{ i.account_status }}</p>
+        <p>{{ i.email }}</p>
+    </li>
+    {% endfor %}
+
+</ul>

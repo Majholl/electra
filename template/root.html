@@ -10,6 +10,8 @@
 <!-- Load CSS of bootstap -->
 <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
 
+<!-- Load CSS of Font-aweasome -->
+<link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
 
 
 
@@ -30,8 +32,16 @@
 {% block register_page %} {% endblock %}
 
 
+
+
+<!-- Admin Dashboard -->
+{% block admin_dash_page %} {% endblock %}
+
+
+
 <!-- include Footer -->
 {% include  'footer.html' %}
+
 
 
 
@@ -39,11 +49,9 @@
 <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 
 
+<!-- Load JS of Font-aweasome -->
+<script src="{% static 'fontawesome/js/all.js' %}"></script>
+
+
 </body>
-
-
-
-
-
-
 </html>

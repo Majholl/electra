@@ -1,0 +1,36 @@
+{% block admin_list_page %} 
+<aside class="left-sidebar">
+ 
+    <section class="sidebar">
+    
+        <div class="user-panel">
+        <div class="pull-left image">
+            <img src="{{ profile }}" class="img-circle" alt="{{ username }}" width="50px" height="50px">
+        </div>
+        <div class="pull-left info">
+            <p>{{ username }}</p>
+            <a><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+        </div>
+
+
+
+        <ul class="sidebar-menu" data-widget="tree">
+            {% if usertype == 'superadmin' %}
+    
+            <li class="sub-admins-page"><a href="{% url 'adminsList' %}"><i class="fa fa-dashboard"></i> <span>admins</span></a></li>
+            
+            <li class="user-page"><a href="#"><i class="fa fa-black-tie"></i> <span>votes</span></a></li>
+            <li class="vote-panels-page"><a href="{% url 'VotePanels' %}"><span class="glyphicon glyphicon-lock"></span> <span>voting</span></a></li>
+            <li class="candidate-page"><a href="{% url 'Add_NewCandidate' %}"><i class="fa fa-users"></i> <span>candidate</span></a></li>
+            <li class="votes-page"><a href="{% url 'all-votings' %}"><i class="fa fa-black-tie"></i> <span>votes</span></a></li>
+            {% endif %}
+                
+        </ul>
+        <p> exit() : <a href="{% url 'logoutFromSystem' %}">logout</a></p>
+
+    </section>
+
+</aside>
+
+{% endblock %}

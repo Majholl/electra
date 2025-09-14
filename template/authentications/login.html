@@ -4,24 +4,21 @@
 
 
 <h3>login now !!</h3>
+
 <p><a href="{% url 'AuthRegister' %}">Register NOW !! </a></p>
 
 
     <form method="post" action="{% url 'loginToSystem' %}">
 
         {% csrf_token %}
-        <label for="username">Username:</label>
+        <label for="username">Username:</label><br>
         <input type="text" name="username" placeholder="Enter your username"><br>
-        <label for="password">Password:</label>
+        <label for="password">Password:</label><br>
         <input type="password" name="password" placeholder="Enter your password" ><br>
         <button type="submit">login</button><br>
     
-    
     </form>
+
 <p><a href="{% url 'HomePage' %}">Back to home page</a></p>
-
-
-
-
 
 {% endblock %}
