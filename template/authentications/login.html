@@ -19,6 +19,14 @@
     
     </form>
 
+{% if wrong_data %}
+<P> your data is incorrect.</P>
+{% endif %}
+
+
 <p><a href="{% url 'HomePage' %}">Back to home page</a></p>
+
+
+
 
 {% endblock %}
