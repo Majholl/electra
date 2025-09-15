@@ -59,7 +59,7 @@ AUTH_USER_MODEL = 'user.Users'
 
 # Middwares 
 
-LOCAL_MIDDLEWARE = ['core_apps.user.middleware.CheckUserRequestMiddleware',]
+LOCAL_MIDDLEWARE = []
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -69,7 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-] #+ LOCAL_MIDDLEWARE
+] + LOCAL_MIDDLEWARE
 
 
 

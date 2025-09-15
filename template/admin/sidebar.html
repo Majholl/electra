@@ -16,7 +16,7 @@
         <ul class="sidebar-menu" data-widget="tree">
             {% if usertype == 'superadmin' %}
     
-            <li class="sub-admins-page"> <a href="#" onclick="loadAdminPage(); return false "><i class="side-btn fa fa-dashboard"></i> <span>admins</span></a></li>
+            <li class="sub-admins-page"> <a href="{% url 'adminsList' %}"><i class="side-btn fa fa-dashboard"></i> <span>admins</span></a></li>
             
             <li class="user-page"><a href="#"><i class="fa fa-black-tie"></i> <span>votes</span></a></li>
             <li class="vote-panels-page"><a href="{% url 'VotePanels' %}"><span class="glyphicon glyphicon-lock"></span> <span>voting</span></a></li>
@@ -32,6 +32,9 @@
 </aside>
 
 
+
+<!-- 
+ onclick="loadAdminPage()"
 <script>
     function loadAdminPage() {
         fetch("{% url 'adminsList' %}")
@@ -41,7 +44,7 @@
         })
     }
 
-</script>
+</script> -->
 
 {% endblock %}
 
