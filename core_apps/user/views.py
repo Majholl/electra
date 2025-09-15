@@ -1,6 +1,8 @@
+import re
+from django.template.loader import render_to_string
 from django.core.paginator import Paginator
-from django.shortcuts import render
-
+from django.shortcuts import redirect, render
+from django.urls import reverse
 
 from django.contrib.auth import  get_user_model , login, logout
 
@@ -9,6 +11,11 @@ from core_apps import user
 User =  get_user_model()
 
 
+def user_data(request):
+        profile_url = request.user.profile.url if request.user.profile else 'None'
+        username = request.user.username 
+        user_type = request.user.usertype 
+        return {'username' : username, 'profile':profile_url, 'usertype':user_type}
 
 
 
@@ -35,7 +42,7 @@ def RegisterPage(request):
 # // TODO add messages of incorrect login details
 
 def loginUser(request):
-    
+
     if not request.POST['username'] or not request.POST['password'] : 
         return render(request, template_name='authentications/login.html', context={'EmptyValues' : 'Form is empty.'})
     try:
@@ -44,10 +51,7 @@ def loginUser(request):
         if user :
             if user.check_password(request.POST['password']): 
                 login(request, user)
-                profile_url = user.profile.url if user.profile else 'None'
-                username = user.username 
-                user_type = user.usertype 
-                return render(request, template_name='admin/admindash.html', context={'username' : username, 'profile':profile_url, 'usertype':user_type})
+                return redirect(reverse('dashboard-superadmin'))
             else:
                 return render(request, template_name='authentications/login.html', context={'UserNotFound':'Password is incorrect.'})
     
@@ -59,9 +63,17 @@ def loginUser(request):
 
 
 
+def SuperAdminPage(request):
+                
+                return render(request, template_name='admin/admindash.html', context={** user_data(request)})
+
+
+
+
+
 def logoutUser(request):
     logout(request)
-    return render(request, template_name='authentications/login.html', context={})
+    return redirect(reverse('AuthLogin'))
 
 
 
@@ -72,7 +84,11 @@ def admins_list(request, page_num = 1):
         users = User.objects.all()
         paginator = Paginator(users, 2)
         pagination_objlist = paginator.get_page(page_num)
-        return render(request, template_name='admin/admin-page.html', context={'obj_list': pagination_objlist.object_list,})
+        content_html = render_to_string('admin/admins-page.html', context={'obj_list': pagination_objlist.object_list,})
+        return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
+
+
+
         
         
     
@@ -90,11 +106,6 @@ def admins_list(request, page_num = 1):
 
 
 
-
-
-
-def SuperAdminPage(request):
-    return render(request, template_name='admin/admindash.html', context={'Username': request.user.username})
 
 
 
