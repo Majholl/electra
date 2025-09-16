@@ -1,18 +1,41 @@
+{% for i in objs_list %}
+    <ul class="admins-info">
 
-<ul>
+        <li class="admins-pad">
+        
+            <h1 class="admin-username">{{ i.username }}</h1>
+           
+            <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_{{ i.id }}">نمایش جزییات</button>
+            <button type="submit" class="btn btn-light"><a href="{% url 'admininfoList' id=i.id %}">تغییر اطلاعات</a></button>
 
-    {% for i in obj_list %}
-    <li>
-        {% if i.profile %}
-        <img src="{{ i.profile.url}}" alt="{{ i.username }}">profile</img>
-        {% endif %}
-        <h1>{{ i.username }}</h1>
-        <p>{{ i.usertype }}</p>
-        <p>{{ i.last_login }}</p>
-        <p>{{ i.account_status }}</p>
-        <p>{{ i.email }}</p>
-    </li>
-    {% endfor %}
+            <div class="modal fade" id="modal_{{ i.id }}" tabindex="-1"  >
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modallabel_{{ i.id }}">اطلاعات {{i.username }} </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="بستن"></button>
+                        </div>
+                        <div class="modal-body">
+                            {% if i.profile %}
+                            <img src="{{ i.profile.url}}" alt="{{ i.username }}" width="50px" height="50px"> پروفایل کاربر </img>
+                            {% endif %}
+                            <p>نوع کاربر: {{ i.usertype }}</p>
+                            <p>آخرین ورود: {{ i.last_login }}</p>
+                            <p>وضعیت حساب: {{ i.account_status }}</p>
+                            <p>ایمیل: {{ i.email }}</p>
 
-</ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </li>
+    
+
+    </ul>
+{% endfor %}
+
 

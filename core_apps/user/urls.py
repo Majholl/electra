@@ -1,8 +1,10 @@
 from django.urls import path 
 from .views import (
-                homePage, LoginPage, RegisterPage,
-                    admins_list, registerUser, loginUser,
-                    logoutUser , SuperAdminPage)
+                homePage,
+                LoginPage, RegisterPage,
+                admins_list, admininfo_list, modifyadmin, 
+                registerUser, loginUser,
+                logoutUser , SuperAdminPage)
 
 
 urlpatterns = [
@@ -20,6 +22,8 @@ urlpatterns = [
     path('admins/<int:page_num>', admins_list, name='adminsList'),
     
     
+    path('admin/<int:id>', admininfo_list, name='admininfoList'),
+    path('modifyadmin', modifyadmin, name='modifyAdmin'),
     
  
     path('superadminpage', SuperAdminPage, name='adminpage'),

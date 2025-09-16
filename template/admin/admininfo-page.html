@@ -1,0 +1,30 @@
+
+
+<div >
+
+    <form method="POST" action="{% url 'modifyAdmin' %}"> 
+    {% csrf_token %}
+       
+        <input type="hidden" name="user_id" value="{{ obj_list.id }}">
+       
+        <p> نام کاربری : {{ obj_list.username }}</p> 
+        <p>نوع کاربر: {{ obj_list.usertype }}</p>
+            <select name="user_type" class="form-select user-type" aria-label="Default select example">
+                <option selected>انتخاب رول</option>
+                <option value="user">کاربر عادی</option>
+                <option value="admin">ادمین</option>
+                <option value="superadmin">سوپر ادمین</option>
+            </select>
+        <p>آخرین ورود: {{ obj_list.last_login }}</p> 
+        <p>وضعیت حساب: {{ obj_list.account_status }}</p>
+            <select name="acc_status" class="form-select acc-status" aria-label="Default select example">
+                <option selected>وضعیت حساب </option>
+                <option value="active">فعال</option>
+                <option value="deactive">غیر فعال</option>
+
+            </select>
+        <p>ایمیل: {{obj_list.email }}</p>
+
+        <button class="btn btn-primary" type="submit">ثبت</button><br>
+    </form>
+</div>

@@ -15,6 +15,7 @@ from django.core.paginator import Paginator
 User =  get_user_model()
 
 
+#// TODO add try /exception block
 
 
 def user_data(request :Request) -> Dict:
@@ -71,10 +72,47 @@ def SuperAdminPage(request :Request):
 
 def admins_list(request :Request, page_num :int =1) :
     users = User.objects.all()
-    paginator = Paginator(users, 2)
+    paginator = Paginator(users, 5)
     pagination_objlist = paginator.get_page(page_num)
-    content_html = render_to_string('admin/admins-page.html', context={'obj_list': pagination_objlist.object_list,})
+    content_html = render_to_string('admin/admins-page.html', context={'objs_list': pagination_objlist.object_list,})
     return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
+
+
+
+
+
+
+def admininfo_list(request :Request, id :int):
+    user = User.objects.get(id = id)
+    content_html = render_to_string('admin/admininfo-page.html', context={'obj_list': user}, request=request)
+    return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
+
+
+
+
+
+
+def modifyadmin(request :Request):
+    if request.method == 'POST':
+        print(request.POST)
+        userid = request.POST.get('user_id')
+        user_type = request.POST.get('user_type')
+        acc_status = request.POST.get('acc_status')
+        
+        user = User.objects.get(id = int(userid))
+        user.usertype = user_type
+        user.account_status = acc_status
+        user.save()
+        
+    return redirect(reverse('admininfoList', kwargs={'id': user.id}))
+
+   
+
+
+
+
+
+
 
 
 
