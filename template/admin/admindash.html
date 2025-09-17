@@ -5,14 +5,31 @@
 <div class="body-content">
         {% include 'admin/sidebar.html' %}
 
-
-
-<aside class="right-sidebar">
-        <div id="dynamic-content">{{ content | safe }}</div>
-</aside>
-
+        <aside class="right-sidebar">
+                <div class="dynamic-content">{{ content | safe }}</div>
+        </aside>
 
 </div>
+
+<style>
+.right-sidebar {
+        margin-left: 250px; 
+        padding: 0px 10px;
+        display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 120px;
+}
+
+
+.dynamic-content {
+    display: flex;
+    align-items: center;
+}
+
+
+</style>
+
 {% endblock %}
 
 
