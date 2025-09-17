@@ -1,0 +1,19 @@
+<div >
+
+    <form method="POST" action="{% url 'addnewadmin' %}"> 
+    {% csrf_token %}
+       
+    <p> اضافه کردن ادمین جدید </p> 
+        
+        <select name="addnewadmin" class="form-select user-type" aria-label="Default select example">
+            <option selected> کاربران </option>
+            {% for i in allusers %}
+            <option value="user_{{i.id}}">{{ i.username }}</option>
+            {% endfor %}
+        </select>
+
+        <button class="btn btn-primary" type="submit">ثبت</button><br>
+
+    </form>
+
+</div>

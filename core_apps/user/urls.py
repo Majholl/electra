@@ -2,9 +2,10 @@ from django.urls import path
 from .views import (
                 homePage,
                 LoginPage, RegisterPage,
-                admins_list, admininfo_list, modifyadmin, 
+                admins_list, admininfo_list, modifyadmin, addnewadmins_list, addnewadmin,
                 registerUser, loginUser,
-                logoutUser , SuperAdminPage)
+                logoutUser ,
+                SuperAdminPage, userpanel)
 
 
 urlpatterns = [
@@ -25,7 +26,12 @@ urlpatterns = [
     path('admin/<int:id>', admininfo_list, name='admininfoList'),
     path('modifyadmin', modifyadmin, name='modifyAdmin'),
     
+    path('addnewadminlist', addnewadmins_list, name='addnewadminlist'),
+    path('addnewadmin', addnewadmin, name='addnewadmin'),
+ 
  
     path('superadminpage', SuperAdminPage, name='adminpage'),
     path('register', registerUser, name='register'),
+    
+    path('panel', userpanel, name='userpanel')
 ]                

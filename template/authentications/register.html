@@ -10,12 +10,18 @@
 <form method="POST" action="{% url 'register' %}">
 
     {% csrf_token %}
-    <input type="text" name="username" placeholder="Enter your username" ><p>username</p>
-    <input type="password" name="password" placeholder="Enter your password" ><P> password</P>
+    <input type="text" name="username" placeholder="Enter your username" ><p>Username</p></br>
+    <input type="text" name="first_name" placeholder="Enter your first name" ><p>first name</p></br>
+    <input type="text" name="last_name" placeholder="Enter your last name" ><p>last name</p></br>
+    <input type="email" name="email" placeholder="Enter your email"><p>Email</p></br>
+    <input type="password" name="password" placeholder="Enter your password" ><P> Password</P></br>
     <button type="submit">Register</button>
-
-
 </form>
+
+{% if error %}
+<p>{{error}}</p>
+{% endif %}
+
 <p><a href="{% url 'HomePage' %}">Back to home page</a></p>
 
 
