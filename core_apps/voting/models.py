@@ -1,3 +1,4 @@
+from tabnanny import verbose
 from django.db import models
 from os import path
 from ..user.models import Users
@@ -14,14 +15,19 @@ def  VotePanelImg(instance, filename):
 
 
 class VotePanelModel(models.Model):
-    name = models.CharField(max_length=64,)
-    description = models.CharField(max_length=128)
-    image = models.ImageField(upload_to= VotePanelImg)
-    max_candidate = models.SmallIntegerField(null=True)
-    max_vote = models.BigIntegerField(null=True)
-    created_by = models.ForeignKey(to=Users, on_delete= models.RESTRICT)
-    started_date = created_at = models.DateTimeField('Creatation datetime', auto_now_add=True)
-    end_date = created_at = models.DateTimeField('Creatation datetime', auto_now_add=True)
-    is_active = models.SmallIntegerField(default=0)
+    name = models.CharField('Name of vote panel', max_length=64,)
+    description = models.CharField('Description of vote panle', max_length=128, null=True)
+    image = models.ImageField('Image of the vote panle', upload_to= VotePanelImg, null=True)
+    max_candidate = models.SmallIntegerField('Number of candidate can be added', null=True)
+    created_by = models.ForeignKey(verbose_name='Who created vote panel', to=Users, on_delete= models.RESTRICT)
+    started_date = created_at = models.DateTimeField('When voting started', auto_now_add=True)
+    end_date = created_at = models.DateTimeField('When voting ended', auto_now_add=True)
+    is_active = models.SmallIntegerField('Vote panle is active or not', default=0)
     created_at = models.DateTimeField('Creatation datetime', auto_now_add=True)
     updated_at = models.DateTimeField('Last modification', auto_now=True)
+    
+    
+    class Meta:
+        verbose_name = 'VotePanle'
+        db_table = 'votepanles'
+        ordering = ['-created_at']

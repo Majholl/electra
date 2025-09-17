@@ -1,11 +1,19 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.template.loader import render_to_string
+
 from .models import VotePanelModel
+from ..user.views import user_data
+
+
+
 
 def load_votepanel_page(request):
     VotePanels = VotePanelModel.objects.all()
-    print(VotePanels)
-    return render(request, template_name='main/votingpanel.html', context={'votePanels':VotePanels})
+    content_html = render_to_string('admin/votingpanels.html', context={'votingpanels': VotePanels,})
+    return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
+
+
 
 
 
