@@ -20,14 +20,14 @@ class VotePanelModel(models.Model):
     image = models.ImageField('Image of the vote panle', upload_to= VotePanelImg, null=True)
     max_candidate = models.SmallIntegerField('Number of candidate can be added', null=True)
     created_by = models.ForeignKey(verbose_name='Who created vote panel', to=Users, on_delete= models.RESTRICT)
-    started_date = created_at = models.DateTimeField('When voting started', auto_now_add=True)
-    end_date = created_at = models.DateTimeField('When voting ended', auto_now_add=True)
+    started_date =  models.DateTimeField('When voting started')
+    end_date =  models.DateTimeField('When voting ended')
     is_active = models.SmallIntegerField('Vote panle is active or not', default=0)
     created_at = models.DateTimeField('Creatation datetime', auto_now_add=True)
     updated_at = models.DateTimeField('Last modification', auto_now=True)
     
     
     class Meta:
-        verbose_name = 'VotePanle'
+        verbose_name = 'VotePanel'
         db_table = 'votepanles'
         ordering = ['-created_at']

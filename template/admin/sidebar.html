@@ -13,15 +13,15 @@
             </div>
         </a>
         <ul class="sidebar-menu" data-widget="tree">
+
             {% if usertype == 'superadmin' %}
-    
-            <li class="sub-admins-page"> <a href="{% url 'adminsList' %}"><i class="side-btn fa fa-dashboard"></i> <span>admins</span></a></li>
-            
+            <li class="sub-admins-page"> <a href="{% url 'AdminsList' %}"><i class="side-btn fa fa-dashboard"></i> <span>admins</span></a></li>
+            {% endif %}
             <li class="vote-panels-page"><a href="{% url 'VotePanels' %}"><span class="fa fa-square-poll-vertical"></span> <span>voting panels</span></a></li>
             
             <li class="candidate-page"><a href="{% url 'Add_NewCandidate' %}"><i class="fa fa-users"></i> <span>candidate</span></a></li>
             <li class="votes-page"><a href="{% url 'all-votings' %}"><i class="fa fa-black-tie"></i> <span>votes</span></a></li>
-            {% endif %}
+    
            <li > exit() : <a href="{% url 'logoutFromSystem' %}">logout</a></li>
         </ul>
         
