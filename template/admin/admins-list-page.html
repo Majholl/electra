@@ -1,5 +1,5 @@
 
-
+<!-- TODO add page pangination next/previous -->
 
 <p><a href="{% url 'addnewadminlist' %}">اضافه کردن ادمین جدید</a></p>
 
@@ -11,7 +11,7 @@
             <h1 class="admin-username">{{ i.username }}</h1>
            
             <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_{{ i.id }}">نمایش جزییات</button>
-            <button type="submit" class="btn btn-light"><a href="{% url 'admininfoList' id=i.id %}">تغییر اطلاعات</a></button>
+            <button type="submit" class="btn btn-light"><a href="{% url 'loadadmindata' id=i.id %}">تغییر اطلاعات</a></button>
 
             <div class="modal fade" id="modal_{{ i.id }}" tabindex="-1"  >
                 <div class="modal-dialog modal-dialog-centered">

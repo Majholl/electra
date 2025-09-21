@@ -1,0 +1,39 @@
+
+<!-- TODO remove button for the pannel -->
+
+<p><a href="{% url 'NewVoting' %}">اضافه کردن پنل جدید</a></p> 
+
+{% for i in votingpanels %}
+
+    </br><p>{{i.name}}</p>
+    {% if i.image %}
+    <img src="{{i.image.url}}" width="50px" height="50px"></img>
+    {% endif %}
+    <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_{{ i.id }}">نمایش جزییات</button>
+    <button type="button" class="btn "><a href="{% url 'loadvoteingpaneldata' id=i.id %}">تغییر اطلاعات</a></button>
+
+    
+    <div class="modal fade" id="modal_{{ i.id }}" tabindex="-1"  >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modallabel_{{ i.id }}">اطلاعات {{i.name }} </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="بستن"></button>
+                </div>
+                <div class="modal-body">
+                    <p>توضیحات : {{i.description }}</p>
+                    <p>تاریخ شروع : {{ i.started_date }}</p>
+                    <p>تاریخ پایان : {{ i.end_date }}</p>
+                    <p>وضعیت فعلی :‌ {{i.is_active }}</p>
+                    <p>تاریخ ایجاد : {{i.created_at }}</p>
+                    <p>آخرین بروزرسانی :‌ {{ i.updated_at }}</p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endfor %}

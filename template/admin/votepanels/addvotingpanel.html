@@ -1,0 +1,24 @@
+
+
+{% block votingpanel %}
+
+    <form method="POST" action="{% url 'AddNewVotePanel' %}" accept="image/*" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        </br>
+        <label>name</label>
+        <input type="text" name="name" placeholder="Enter vote panel name?"></br>
+        </br>
+        <label>description</label>
+        <input type="text" name="description" placeholder="Enter description?"></br>
+        </br>
+    
+        <label>image</label>
+        <input type="file" name="image" placeholder="Enter image?"></br>
+
+        <button type="submit">Submit</button><br>
+
+    </form>
+
+
+{% endblock %}
