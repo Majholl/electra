@@ -76,10 +76,10 @@ def SuperAdminPage(request :Request):
 
 
 def admins_list(request :Request, page_num :int =1) :
-    users = User.objects.all()
+    users = User.objects.filter(usertype__in = ['superadmin', 'admin'])
     paginator = Paginator(users, 5)
     pagination_objlist = paginator.get_page(page_num)
-    content_html = render_to_string('admin/admins-page.html', context={'objs_list': pagination_objlist.object_list,})
+    content_html = render_to_string('admin/admins-list-page.html', context={'objs_list': pagination_objlist.object_list,})
     return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
 
 
@@ -87,9 +87,9 @@ def admins_list(request :Request, page_num :int =1) :
 
 
 
-def admininfo_list(request :Request, id :int):
+def loadadmin(request :Request, id :int):
     user = User.objects.get(id = id)
-    content_html = render_to_string('admin/admininfo-page.html', context={'obj_list': user}, request=request)
+    content_html = render_to_string('admin/modifing-admin.html', context={'obj_list': user}, request=request)
     return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
 
 
@@ -97,7 +97,7 @@ def admininfo_list(request :Request, id :int):
 
 
 
-def modifyadmin(request :Request):
+def modify_admin_data(request :Request):
     if request.method == 'POST':
         print(request.POST)
         userid = request.POST.get('user_id')
@@ -105,13 +105,13 @@ def modifyadmin(request :Request):
         acc_status = request.POST.get('acc_status')
         user = User.objects.get(id = int(userid))
         if user_type not in ['admin', 'superadmin', 'user'] or acc_status not in ['active', 'deactive']:
-            return redirect(reverse('admininfoList', kwargs={'id': user.id}))
+            return redirect(reverse('loadadmindata', kwargs={'id': user.id}))
             
         user.usertype = user_type
         user.account_status = acc_status
         user.save()
         
-    return redirect(reverse('admininfoList', kwargs={'id': user.id}))
+    return redirect(reverse('loadadmindata', kwargs={'id': user.id}))
 
 
    

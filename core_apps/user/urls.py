@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (
                 homePage,
                 LoginPage, RegisterPage,
-                admins_list, admininfo_list, modifyadmin, addnewadmins_list, addnewadmin,
+                admins_list, loadadmin, modify_admin_data, addnewadmins_list, addnewadmin,
                 registerUser, loginUser,
                 logoutUser ,
                 SuperAdminPage, userpanel)
@@ -19,12 +19,12 @@ urlpatterns = [
     
     path('dashboard/', SuperAdminPage, name='dashboard-superadmin'),
     
-    path('admins/', admins_list, name='adminsList'),
-    path('admins/<int:page_num>', admins_list, name='adminsList'),
+    path('admins/', admins_list, name='AdminsList'),
+    path('admins/<int:page_num>', admins_list, name='AdminsList'),
     
     
-    path('admin/<int:id>', admininfo_list, name='admininfoList'),
-    path('modifyadmin', modifyadmin, name='modifyAdmin'),
+    path('admin/<int:id>', loadadmin, name='loadadmindata'),
+    path('modifyadmin', modify_admin_data, name='modifyAdmin'),
     
     path('addnewadminlist', addnewadmins_list, name='addnewadminlist'),
     path('addnewadmin', addnewadmin, name='addnewadmin'),
