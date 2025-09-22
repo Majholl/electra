@@ -1,0 +1,34 @@
+
+
+</br> <form method="POST" action="{% url 'SubmitCandidate' %}" accept="image/*" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>candidate name</label>
+    <input type="text" name="name" placeholder="candidate name?"></br>
+
+    <label>description</label>
+    <input type="text" name="description" placeholder="candidate description?"> </br>
+
+    <label>image</label>
+    <input type="file" name="image" placeholder="candidate img?"> </br>
+    </br>
+    <div class="votes_divs">
+        {% for i in obj_list %}
+            <input type="checkbox" name="panel" value="{{i.pk}}">
+            <p> {{ i.name }}</p>
+            <img  src="{{ i.image.url }}" width="150px" height="150px"></img></br>
+        {% endfor %}
+        </br>
+    </div>
+    <button type="submit">submit</button>
+</form>
+
+
+
+
+<style>
+    .votes_divs { 
+        display: flex;
+        margin: 20px;
+    }
+
+</style>

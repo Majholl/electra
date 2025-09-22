@@ -1,0 +1,23 @@
+
+
+
+
+{% for i in obj_list %}
+    <div class="panel_candidate">
+    <p class="votes"> نام پنل :‌{{ i.name }}</p>
+    {% for j in i.candidate.all %}
+        <p class="candidate"> کاندید :‌ {{ j.name }}</p>
+    {% endfor %}
+    </div>
+{% endfor %} 
+
+
+<style>
+    .panel_candidate { 
+        display: flex;
+        flex-direction: column;
+        margin: 25px;    
+    }
+
+</style>
+
