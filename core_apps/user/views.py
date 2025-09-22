@@ -49,11 +49,16 @@ def loginUser(request  :Request):
         if user :
             if user.check_password(request.POST['password']): 
                 login(request, user)
+                
                 if user.usertype == 'user':
                     return redirect(reverse('userpanel'))
                     
                 elif user.usertype == 'superadmin':
-                    return redirect(reverse('dashboard-superadmin'))
+                    return redirect(reverse('AdminDashboard'))
+                
+                else:
+                    return redirect(reverse('AdminDashboard'))
+                
             else:
                 return render(request, template_name='authentications/login.html', context={'wrong_data':'Your data is wrong.'})
          
@@ -66,7 +71,7 @@ def loginUser(request  :Request):
 
 
 
-def SuperAdminPage(request :Request):
+def AdminDashboard(request :Request):
     return render(request, template_name='admin/admindash.html', context={** user_data(request)})
 
 
@@ -79,7 +84,7 @@ def admins_list(request :Request, page_num :int =1) :
     users = User.objects.filter(usertype__in = ['superadmin', 'admin'])
     paginator = Paginator(users, 5)
     pagination_objlist = paginator.get_page(page_num)
-    content_html = render_to_string('admin/admins-list-page.html', context={'objs_list': pagination_objlist.object_list,})
+    content_html = render_to_string('admin/superadmin/admins-list-page.html', context={'objs_list': pagination_objlist.object_list,})
     return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
 
 
@@ -89,7 +94,7 @@ def admins_list(request :Request, page_num :int =1) :
 
 def loadadmin(request :Request, id :int):
     user = User.objects.get(id = id)
-    content_html = render_to_string('admin/modifing-admin.html', context={'obj_list': user}, request=request)
+    content_html = render_to_string('admin/superadmin/modifing-admin.html', context={'obj_list': user}, request=request)
     return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
 
 
@@ -117,7 +122,7 @@ def modify_admin_data(request :Request):
    
 def addnewadmins_list(request):
     user = User.objects.filter(usertype='user')
-    content_html = render_to_string('admin/addnewadmin.html', context={'allusers': user}, request=request)
+    content_html = render_to_string('admin/superadmin/addnewadmin.html', context={'allusers': user}, request=request)
     return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html}) 
  
  

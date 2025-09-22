@@ -1,11 +1,12 @@
 from django.urls import path 
 from .views import (
                 homePage,
-                LoginPage, RegisterPage,
+                LoginPage, RegisterPage, loginUser,  logoutUser ,
+                AdminDashboard,
+                
                 admins_list, loadadmin, modify_admin_data, addnewadmins_list, addnewadmin,
-                registerUser, loginUser,
-                logoutUser ,
-                SuperAdminPage, userpanel)
+                registerUser, 
+                userpanel)
 
 
 urlpatterns = [
@@ -17,7 +18,11 @@ urlpatterns = [
     path('login', loginUser, name='loginToSystem'),
     path('logout', logoutUser, name='logoutFromSystem'),
     
-    path('dashboard/', SuperAdminPage, name='dashboard-superadmin'),
+    
+    
+    path('dashboard/', AdminDashboard, name='AdminDashboard'),
+    
+    
     
     path('admins/', admins_list, name='AdminsList'),
     path('admins/<int:page_num>', admins_list, name='AdminsList'),
@@ -30,7 +35,7 @@ urlpatterns = [
     path('addnewadmin', addnewadmin, name='addnewadmin'),
  
  
-    path('superadminpage', SuperAdminPage, name='adminpage'),
+    path('superadminpage', AdminDashboard, name='adminpage'),
     path('register', registerUser, name='register'),
     
     path('panel', userpanel, name='userpanel')
