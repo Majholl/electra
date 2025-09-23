@@ -1,0 +1,83 @@
+<div class="dashboard-home-admin">
+
+    <div class="div-votes dahs">
+        <ul>
+            <li>
+                <a href="{% url 'all-votings' %}">
+                <i class="fa-solid fa-hand-point-up"></i>رای گیری
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+        
+    <div class="div-candidates dahs">
+        <ul>
+            <li>
+                <a href="{% url 'candidatelist' %}">
+                <i class="fa-solid fa-user-tie"></i>کاندید ها
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+
+    
+    <div class="div-votes dahs">
+        <ul>
+            <li>
+                <a href="{% url 'VotePanels' %}">
+                <i class="fa-solid fa-cube"></i> پنل ها
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+
+    <div class="div-admins dahs">
+        <ul>
+            <li>
+                <a href="{% url 'AdminsList' %}">
+                <i class="fa-solid fa-user"></i>ادمین ها
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+
+</div>
+
+
+<style>
+
+.dashboard-home-admin {
+    display: flex;
+    width: 100%;
+    justify-content: center;}
+    
+
+.dahs{
+    width: 100%;
+    font-size:30px;
+    direction: rtl;
+}
+
+.dahs ul {
+    list-style: none;
+    text-decoration: none;
+    text-align: center;
+}
+
+.dahs ul a {
+    color: rgb(107 107 107);
+    text-decoration: none;
+}
+
+.dahs ul a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+</style>
