@@ -5,7 +5,7 @@
 <div class="body-content">
         {% include 'admin/sidebar.html' %}
 
-        <aside class="right-sidebar">
+        <aside class="left-sidebar">
 
                 <div class="dynamic-content"> {{ content | safe }} </div>
 
@@ -18,9 +18,10 @@
 
 
 <style>
-.right-sidebar {
+.left-sidebar {
         display: flex;;
-        margin: 0px 250px; 
+        margin-left: 50px;
+        margin-right: 250px;
         justify-content: center;
         position: relative;
         top: 120px;
@@ -31,6 +32,7 @@
 .dynamic-content {
     display: flex;
     align-items: center;
+    width:100%
 }
 
 

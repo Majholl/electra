@@ -1,71 +1,83 @@
+<aside class="right-sidebar">
 
-<aside class="left-sidebar">
+    <section class="inner-top-sidebar">
 
-    
-        <section class="inner-left-sidebar">
+        <a class="rel-dashboard" href="{% url 'AdminDashboard' %}">
 
-            <a class="rel-dashboard" href="{% url 'AdminDashboard' %}">
+            <div class="inner-top-sidebar admin">
 
-                <div class="inner-left-sidebar admin">
+                <div class="user-panel">
 
-                    <div class="user-panel">
+                    <div class="admin-image-section">
+                        <img src="{{ profile }}" class="admin-image-section img" alt="{{ username }}" width="75px" height="75px">
+                    </div>
 
-                        <div class="admin-image-section">
-                            <img src="{{ profile }}" class="admin-image-section img" alt="{{ username }}" width="75px" height="75px">
-                        </div>
-
-                        <div class="admin-info-section">
-                            <i class="fa-solid fa-circle-user"></i>
-                            <p class="admin-info-section p ">{{ username }}</p>
-                        </div>
-
+                    <div class="admin-info-section">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <p class="admin-info-section p ">{{ username }}</p>
                     </div>
 
                 </div>
 
-            </a>
+            </div>
 
-        </section>
+        </a>
 
+    </section>
 
-<!-- need to be fix (bottom) -->
+    <section class="inner-bottom-sidebar">
 
-        <section>
-        <ul class="sidebar-menu" data-widget="tree">
+        <ul class="inner-bottom-sidebar menu" data-widget="tree">
 
             {% if usertype == 'superadmin' %}
-            <li class="sub-admins-page"> <a href="{% url 'AdminsList' %}"><i class="side-btn fa fa-dashboard"></i> <span>admins</span></a></li>
+            <li class="sub-admins-page"> 
+                <a href="{% url 'AdminsList' %}"><i class="side-btn fa fa-dashboard"></i><span>مدیران</span></a>
+            </li>
             {% endif %}
-            <li class="vote-panels-page"><a href="{% url 'VotePanels' %}"><span class="fa fa-square-poll-vertical"></span> <span>voting panels</span></a></li>
+
+            <li class="vote-panels-page">
+                <a href="{% url 'VotePanels' %}"><span class="fa fa-square-poll-vertical"></span><span>پنل رای گیری</span></a>
+            </li>
             
-            <li class="candidate-page"><a href="{% url 'candidatelist' %}"><i class="fa fa-users"></i> <span>candidate</span></a></li>
+            <li class="candidate-page">
+                <a href="{% url 'candidatelist' %}"><i class="fa fa-users"></i><span>کاندید ها</span></a>
+            </li>
             
-            <li class="votes-page"><a href="{% url 'all-votings' %}"><i class="fa fa-black-tie"></i> <span>votes</span></a></li>
+            <li class="votes-page">
+                <a href="{% url 'all-votings' %}"><i class="fa fa-black-tie"></i> <span>رای ها</span></a>
+            </li>
     
-           <li > exit() : <a href="{% url 'logoutFromSystem' %}">logout</a></li>
+            <li >
+                <a href="{% url 'logoutFromSystem' %}"><span>خروج</span></a>
+            </li>
+
         </ul>
         
-
     </section>
 
 </aside>
 
 
+
+
+
+
 <style>
 
-.left-sidebar {
+.right-sidebar {
         height: 100%;
         width: 200px;
         position: fixed;
         z-index: -1;
         top: 50px;
-        left: 0px;
-        background-color: #111;
+        right: 0px;
+        background-color: #334155;
         overflow-x: hidden;
         padding-top: 20px;
+        direction: rtl;
         }
 
-.left-sidebar a {
+.right-sidebar a {
     color: white;
     text-decoration: none;
     font-size: 18px;
@@ -74,7 +86,7 @@
 
 }
 
-.left-sidebar a:hover{
+.right-sidebar a:hover{
     color: #f1f1f1;
 }
 
@@ -84,7 +96,9 @@
     justify-items: center;
 }
 
-.inner-left-sidebar.admin {
+
+
+.inner-top-sidebar.admin {
     width: 100%;
 }
 
