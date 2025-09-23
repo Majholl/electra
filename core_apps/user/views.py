@@ -1,6 +1,8 @@
 
 # PY - modules
 from ast import Dict
+import re
+from tkinter import NO
 from urllib.request import Request
 
 # DJANGO - modules
@@ -19,30 +21,35 @@ User =  get_user_model()
 #// TODO add try /exception block
 
 
+
 def user_data(request :Request) -> Dict:
-        user_profile_url = request.user.profile.url if request.user.profile else 'None'
-        user_username = request.user.username 
-        user_user_type = request.user.usertype 
-        return {'profile':user_profile_url, 'username' : user_username,  'usertype':user_user_type}
+        if request.user.is_authenticated: 
+            user_profile_url = request.user.profile.url if request.user.profile else 'None'
+            user_username = request.user.username 
+            user_user_type = request.user.usertype 
+            return {'userauth': request.user, 'profile':user_profile_url, 'username' : user_username,  'usertype':user_user_type}
+        else:
+            return {'userauth': request.user}
+
 
 
 
 
 def homePage(request :Request):
-    return render(request, template_name='main.html', context=None)
+    return render(request, template_name='main.html', context={** user_data(request),})
 
 
 
 
 def LoginPage(request :Request):
-        return render(request, template_name='authentications/login.html', context=None)
+        return render(request, template_name='authentications/login.html', context={** user_data(request),})
 
 
 
 
 def loginUser(request  :Request):
     if not request.POST['username'] or not request.POST['password'] : 
-        return render(request, template_name='authentications/login.html', context={'wrong_data':'Fill the form.'})
+        return render(request, template_name='authentications/login.html', context={** user_data(request),'wrong_data':'Fill the form.'})
     try:
         user = User.objects.get(username = request.POST['username'])
     
@@ -60,10 +67,10 @@ def loginUser(request  :Request):
                     return redirect(reverse('AdminDashboard'))
                 
             else:
-                return render(request, template_name='authentications/login.html', context={'wrong_data':'Your data is wrong.'})
+                return render(request, template_name='authentications/login.html', context={** user_data(request),'wrong_data':'Your data is wrong.'})
          
     except User.DoesNotExist:
-        return render(request, template_name='authentications/login.html', context={'wrong_data':'Your data is wrong.'})
+        return render(request, template_name='authentications/login.html', context={** user_data(request),'wrong_data':'Your data is wrong.'})
 
 
 
@@ -72,7 +79,8 @@ def loginUser(request  :Request):
 
 
 def AdminDashboard(request :Request):
-    return render(request, template_name='admin/admindash.html', context={** user_data(request)})
+    content_html = render_to_string('admin/adminhome.html', context=None, request=request)
+    return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
 
 
 
