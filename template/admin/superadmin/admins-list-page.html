@@ -1,46 +1,212 @@
 
 <!-- TODO add page pangination next/previous -->
+<section class="admins-list-page" >
 
-<p><a href="{% url 'addnewadminlist' %}">اضافه کردن ادمین جدید</a></p>
+    <div class="top-buttons">
 
-{% for i in objs_list %}
-    <ul class="admins-info">
+        <button><a href="{% url 'addnewadminlist' %}">اضافه کردن ادمین جدید</a></button>
+        <button><a href="{% url 'AdminDashboard' %}">بازگشت به صفحه اصلی</a></button>
 
-        <li class="admins-pad">
-        
-            <h1 class="admin-username">{{ i.username }}</h1>
-           
-            <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_{{ i.id }}">نمایش جزییات</button>
-            <button type="submit" class="btn btn-light"><a href="{% url 'loadadmindata' id=i.id %}">تغییر اطلاعات</a></button>
+    </div>
 
-            <div class="modal fade" id="modal_{{ i.id }}" tabindex="-1"  >
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modallabel_{{ i.id }}">اطلاعات {{i.username }} </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="بستن"></button>
-                        </div>
-                        <div class="modal-body">
-                            {% if i.profile %}
-                            <img src="{{ i.profile.url}}" alt="{{ i.username }}" width="50px" height="50px"> پروفایل کاربر </img>
-                            {% endif %}
-                            <p>نوع کاربر: {{ i.usertype }}</p>
-                            <p>آخرین ورود: {{ i.last_login }}</p>
-                            <p>وضعیت حساب: {{ i.account_status }}</p>
-                            <p>ایمیل: {{ i.email }}</p>
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+
+    <div class="bottom-buttons">
+        {% for i in objs_list %}
+        <ul class="admins-info">
+
+            <li class="admins-pad">
+
+                <div class="username-img">
+                    {% if i.profile %}
+                    <img src="{{  i.profile.url }}" class="admin-image-section img" alt="{{ i.username }}" width="75px" height="75px">
+                    {% endif %}
+                    <h1 class="admin-username">
+                        {% if i.usertype == 'superadmin' %}
+                        <i class="fa-solid fa-star" style="color: #EFBF04;"></i>
+                        {% endif %}
+                        {{ i.username }}</h1>
+
+                </div>
+
+                <div class="admins-info-buttons">
+                    <button type="button"  data-bs-toggle="modal" data-bs-target="#modal_{{ i.id }}">نمایش جزییات</button>
+                    <button type="submit" ><a href="{% url 'loadadmindata' id=i.id %}">تغییر اطلاعات</a></button>
+                </div>  
+
+                <div class="modal fade" id="modal_{{ i.id }}" tabindex="-1"  >
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modallabel_{{ i.id }}">اطلاعات {{i.username }} </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="بستن"></button>
+                            </div>
+                            <div class="modal-body">
+                                {% if i.profile %}
+                                <img src="{{ i.profile.url}}" alt="{{ i.username }}" width="50px" height="50px"> پروفایل کاربر </img>
+                                {% endif %}
+                                <p>نوع کاربر: {{ i.usertype }}</p>
+                                <p>آخرین ورود: {{ i.last_login }}</p>
+                                <p>وضعیت حساب: {{ i.account_status }}</p>
+                                <p>ایمیل: {{ i.email }}</p>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-    
-        </li>
-    
-
-    </ul>
-{% endfor %}
+        
+            </li>
+        </ul>
+    {% endfor %}
 
 
+    </div>
+        <div class="footer-buttons">
+        {% if has__page.has_previous %}
+        <button><a href="{% url 'AdminsList' page_num=has__page.previous_page_number %}"> < قبلی </a></button>
+        {% endif %}
+        {% if has__page.has_next %}
+        <button><a href="{% url 'AdminsList' page_num=has__page.next_page_number %}"> بعدی > </a></button>
+        {% endif %}
+    </div>
+
+
+</section>
+
+
+
+
+<style>
+.admins-list-page {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+
+.top-buttons {
+    display: flex;
+    justify-content: right;
+    margin: 25px;
+}
+
+
+.top-buttons button {
+    background: #334155;
+    border: none;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 15px;
+    transition: border-radius;
+    transition-delay: 200ms;
+    transition-duration: 250ms;
+}
+
+.top-buttons button:hover {
+    border-radius: 5px;
+
+}
+
+
+.top-buttons button a {
+    text-decoration: none;
+    color: white;
+}
+
+
+
+
+.bottom-buttons {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+
+
+.admins-info{
+    width: 25%;
+    margin: 10px;
+    padding: 15px;
+    list-style: none;
+    background: aliceblue;
+    border-radius: 12px;
+    min-width: 100px;
+    overflow: hidden;
+}
+
+.admin-username {
+    text-align: center;
+    font-size: 24px;
+    margin-top:15px;
+}
+
+
+.username-img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
+
+
+
+.admins-info-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+.admins-info-buttons button {
+    background: #334155;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    transition: border-radius;
+    transition-delay: 200ms;
+    transition-duration: 250ms;
+}
+
+
+.admins-info-buttons button:hover {
+    border-radius: 0px;
+}
+
+
+.admins-info-buttons a {
+    text-decoration: none;
+    color: white;
+}
+
+
+.footer-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+
+.footer-buttons button {
+    border: none;
+    border-radius: 10px;
+    padding: 8px;
+    margin: 10px;
+    background-color: antiquewhite;
+
+}
+.footer-buttons button:hover {
+    border-radius: 5px;
+}
+
+.footer-buttons  a {
+    text-decoration: none;
+    color: black;
+}
+
+
+</style>

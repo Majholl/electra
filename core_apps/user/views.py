@@ -1,8 +1,6 @@
 
 # PY - modules
 from ast import Dict
-import re
-from tkinter import NO
 from urllib.request import Request
 
 # DJANGO - modules
@@ -90,9 +88,15 @@ def AdminDashboard(request :Request):
 
 def admins_list(request :Request, page_num :int =1) :
     users = User.objects.filter(usertype__in = ['superadmin', 'admin'])
-    paginator = Paginator(users, 5)
+    paginator = Paginator(users, 10)
     pagination_objlist = paginator.get_page(page_num)
-    content_html = render_to_string('admin/superadmin/admins-list-page.html', context={'objs_list': pagination_objlist.object_list,})
+    
+    context={'objs_list': pagination_objlist.object_list, 'has__page':paginator.page(page_num)}   
+        
+    content_html = render_to_string('admin/superadmin/admins-list-page.html', context=context)
+    
+   
+
     return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
 
 
