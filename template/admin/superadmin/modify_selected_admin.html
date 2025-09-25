@@ -1,0 +1,148 @@
+
+
+<!-- TODO add back button to the previous page -->
+<!-- TODO better style and text display -->
+
+<div class="modify-admin-section">
+
+    <div class="modify-admin-section form">
+
+        <form method="POST" action="{% url 'ModifySelectedAdmin' %}"> 
+        {% csrf_token %}
+        
+            <input type="hidden" name="user_id" value="{{ obj_list.id }}">
+
+
+            <div class="non-changable-data">
+                <p> نام کاربری : {{ obj_list.username }}</p> 
+                <p>آخرین ورود: {{ obj_list.last_login }}</p> 
+                <p>ایمیل: {{obj_list.email }}</p>
+            </div>
+
+
+            <div class="changable-data">
+
+                <p>نوع کاربر: {{ obj_list.usertype }}</p>
+                   
+                    <select name="user_type" class="form-select user-type" aria-label="Default select example">
+                        <option selected>انتخاب رول</option>
+                        <option value="user">کاربر عادی</option>
+                        <option value="admin">ادمین</option>
+                        <option value="superadmin">سوپر ادمین</option>
+                    </select>
+
+                <p>وضعیت حساب: {{ obj_list.account_status }}</p>
+                    
+                    <select name="acc_status" class="form-select acc-status" aria-label="Default select example">
+                        <option selected>وضعیت حساب </option>
+                        <option value="active">فعال</option>
+                        <option value="deactive">غیر فعال</option>
+                    </select>
+            </div>
+
+
+            <button class="btn btn-primary" type="submit">ثبت</button><br>
+
+        </form>
+
+    </div>
+
+
+    <div class="modify-admin-section success-msg">
+    
+        {% if messages %}
+        <div class="alert alert-success d-flex align-items-center fade show" role="alert">
+            {% for msg in messages %}
+            <div>
+                {{ msg }}
+            </div>
+            {% endfor %}
+            <i class="fa-solid fa-circle-check"></i>
+
+        </div>
+        {% endif %}    
+    </div>
+
+
+</div>
+
+
+<style>
+
+.modify-admin-section.form {
+    direction: rtl;
+    margin: 15px;
+}
+
+
+
+.non-changable-data { 
+    display: flex;
+    margin: 10px;
+    justify-content: center;
+}
+
+
+.changable-data {
+    margin-right: 50px;
+}
+
+
+.modify-admin-section {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    height: auto;
+}
+
+
+.modify-admin-section.success-msg { 
+    font-weight: bold;
+    width: 20%;
+    margin: auto;
+    position: relative;
+    left: 40%;
+}
+
+
+
+
+
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+setTimeout(function() {
+    var q_alert = document.querySelectorAll('.alert');
+    q_alert.forEach( function(alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            setTimeout(() => { alert.remove(), 500});}) 
+    }, 3000)
+
+
+</script>
