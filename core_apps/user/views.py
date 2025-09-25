@@ -1,3 +1,5 @@
+#//TODO add logger for diff loggs
+
 
 # PY - modules
 from ast import Dict
@@ -10,7 +12,7 @@ from django.contrib.auth import  get_user_model , login, logout
 from django.template.loader import render_to_string
 from django.contrib.auth.hashers import make_password
 from django.core.paginator import Paginator
-
+from django.contrib import messages
 
 
 User =  get_user_model()
@@ -35,6 +37,24 @@ def user_data(request :Request) -> Dict:
 
 def homePage(request :Request):
     return render(request, template_name='main.html', context={** user_data(request),})
+
+
+
+
+def NotFound404(request):
+    content_template = '404.html'
+    content_html = render_to_string(content_template, context=None)
+    userdata = user_data(request)
+    return render(request, template_name='admin/admindash.html', context={** userdata, 'content':content_html})
+
+
+
+
+def ServerError500(request):
+    content_template = 'server-500.html'
+    content_html = render_to_string(content_template, context=None)
+    userdata = user_data(request)
+    return render(request, template_name='admin/admindash.html', context={** userdata, 'content':content_html})
 
 
 
@@ -87,48 +107,94 @@ def AdminDashboard(request :Request):
 
 
 def admins_list(request :Request, page_num :int =1) :
-    users = User.objects.filter(usertype__in = ['superadmin', 'admin'])
-    paginator = Paginator(users, 10)
-    pagination_objlist = paginator.get_page(page_num)
-    
-    context={'objs_list': pagination_objlist.object_list, 'has__page':paginator.page(page_num)}   
+    try :
+        users = User.objects.filter(usertype__in = ['superadmin', 'admin'])
+        paginator = Paginator(users, 10)
+        pag_obj_list = paginator.get_page(page_num)
         
-    content_html = render_to_string('admin/superadmin/admins-list-page.html', context=context)
+        context={'objs_list': pag_obj_list.object_list, 'has__page': paginator.page(page_num)}
+        content_template = 'admin/superadmin/admins-list-page.html'
+        content_html = render_to_string(content_template, context)
+        
+        userdata = user_data(request)
+        return render(request, template_name='admin/admindash.html', context={** userdata, 'content':content_html})
     
-   
-
-    return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
-
+    except Exception as err :
+        return redirect(reverse("404-nf"))
 
 
 
 
 
-def loadadmin(request :Request, id :int):
-    user = User.objects.get(id = id)
-    content_html = render_to_string('admin/superadmin/modifing-admin.html', context={'obj_list': user}, request=request)
-    return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
+def load_selected_admin(request :Request, id :int):
+    try:
+        user = User.objects.get(id = id)
+        
+        context = {'obj_list': user}
+        content_template = 'admin/superadmin/modify_selected_admin.html'
+        content_html = render_to_string(content_template, context, request=request)
+        
+        return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
+    
+    except Exception as err :
+        print(err)
+        return redirect(reverse("404-nf"))
 
 
 
 
 
 
-def modify_admin_data(request :Request):
-    if request.method == 'POST':
-        print(request.POST)
-        userid = request.POST.get('user_id')
-        user_type = request.POST.get('user_type')
-        acc_status = request.POST.get('acc_status')
-        user = User.objects.get(id = int(userid))
-        if user_type not in ['admin', 'superadmin', 'user'] or acc_status not in ['active', 'deactive']:
-            return redirect(reverse('loadadmindata', kwargs={'id': user.id}))
+
+def modify_selected_admin(request :Request):
+    try:
+        
+        if request.method == 'POST':
+            try:
+                userid = request.POST.get('user_id')
+                user_type = request.POST.get('user_type')
+                acc_status = request.POST.get('acc_status')
+                
+                user = User.objects.get(id = int(userid))
+                
+                if user_type in ['admin', 'superadmin', 'user']:
+                    user.usertype = user_type
+                    
+                if acc_status in ['active', 'deactive']:
+                    user.account_status = acc_status
+                    
+                if acc_status in ['active', 'deactive'] or user_type in ['admin', 'superadmin', 'user'] :
+                    messages.add_message(request, messages.INFO, 'اطلاعات کاربر با موفقیت بروزرسانی شد')
+ 
+                user.save()
+                return redirect(reverse('LoadSelectedAdmin', kwargs={'id': user.id}))
             
-        user.usertype = user_type
-        user.account_status = acc_status
-        user.save()
+            except Exception as err :
+                redirect(reverse('500-se'))
         
-    return redirect(reverse('loadadmindata', kwargs={'id': user.id}))
+        return redirect(reverse('500-se'))
+    
+    except Exception as err :
+        print(err)
+        return redirect(reverse("404-nf"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
    
