@@ -163,10 +163,12 @@ def modify_selected_admin(request :Request):
                 if acc_status in ['active', 'deactive']:
                     user.account_status = acc_status
                     
+                user.save()   
+                 
                 if acc_status in ['active', 'deactive'] or user_type in ['admin', 'superadmin', 'user'] :
                     messages.add_message(request, messages.INFO, 'اطلاعات کاربر با موفقیت بروزرسانی شد')
  
-                user.save()
+                
                 return redirect(reverse('LoadSelectedAdmin', kwargs={'id': user.id}))
             
             except Exception as err :
