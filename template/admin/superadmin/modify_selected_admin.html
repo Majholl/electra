@@ -15,31 +15,46 @@
 
             <div class="non-changable-data">
                 <p> نام کاربری : {{ obj_list.username }}</p> 
-                <p>آخرین ورود: {{ obj_list.last_login }}</p> 
+                
+                {% if obj_list.last_login %}
+                <p>آخرین ورود: {{ obj_list.last_login }}</p>
+                {% else %}
+                <p>آخرین ورود: وارد سیستم نشده</p>
+                {% endif %}
+
                 <p>ایمیل: {{obj_list.email }}</p>
             </div>
 
 
             <div class="changable-data">
 
-                <p>نوع کاربر: {{ obj_list.usertype }}</p>
-                   
+                    {% if obj_list.usertype == 'superadmin' %}
+                    <p>نوع کاربر: سوپر ادمین</p>
+                    {% elif obj_list.usertype == 'admin' %}
+                    <p>نوع کاربر: ادمین</p>
+                    {% else %}
+                    <p>نوع کاربر: کاربر عادی</p>
+                    {% endif %}
                     <select name="user_type" class="form-select user-type" aria-label="Default select example">
-                        <option selected>انتخاب رول</option>
+                        <option selected>انتخاب</option>
                         <option value="user">کاربر عادی</option>
                         <option value="admin">ادمین</option>
                         <option value="superadmin">سوپر ادمین</option>
                     </select>
 
-                <p>وضعیت حساب: {{ obj_list.account_status }}</p>
+
+                    {% if obj_list.account_status == 'acitve' %}
+                    <p>وضعیت حساب: فعال</p>
+                    {% else  %}
+                    <p>وضعیت حساب: غیر فعال</p>
+                    {% endif %}
                     
                     <select name="acc_status" class="form-select acc-status" aria-label="Default select example">
-                        <option selected>وضعیت حساب </option>
+                        <option selected>انتخاب</option>
                         <option value="active">فعال</option>
                         <option value="deactive">غیر فعال</option>
                     </select>
             </div>
-
 
             <button class="btn btn-primary" type="submit">ثبت</button><br>
 
@@ -70,11 +85,18 @@
 <style>
 
 .modify-admin-section.form {
+    font-size: 20px;
     direction: rtl;
     margin: 15px;
 }
 
-
+.modify-admin-section.form button {
+    margin:  25px 50px 15px;
+    width: 100px;
+    height: 40px;
+    font-weight: bold;
+    background: #334155;
+}
 
 .non-changable-data { 
     display: flex;
@@ -82,10 +104,17 @@
     justify-content: center;
 }
 
+.non-changable-data p {
+    margin: 20px;
+    padding: 10px;
+}
 
 .changable-data {
+    background: aliceblue;
+    padding: 25px;
     margin-right: 50px;
 }
+
 
 
 .modify-admin-section {
