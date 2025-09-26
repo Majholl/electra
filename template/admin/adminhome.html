@@ -40,7 +40,8 @@
         <ul>
             <li>
                 <a href="{% url 'AdminsList' %}">
-                <i class="fa-solid fa-user"></i>مدیران
+                <i class="fa-solid fa-user-shield"></i>
+                مدیران
                 </a>
             </li>
             
@@ -53,31 +54,79 @@
 <style>
 
 .dashboard-home-admin {
-    display: flex;
     width: 100%;
+    height: 250px;
+    margin: auto;
+    display: flex;
     justify-content: center;}
     
 
 .dahs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #1E293B;
     width: 100%;
-    font-size:30px;
-    direction: rtl;
+    font-size: 30px;
+    margin: 30px;
+    border-radius: 25px;
+    transition: border-radius;
+    transition-duration: 250ms;
+    transition-timing-function: cubic-bezier(0.66, 0.7, 0.16, 0.48);
 }
 
+.dahs:hover { 
+    border-radius: 5px;
+    background-color: #0d2752
+}
+
+
+
 .dahs ul {
+    display: flex;
     list-style: none;
     text-decoration: none;
     text-align: center;
+    width: 100%;
+    justify-content: center;
+    margin: 0px 15px 0px 0px;
 }
+
+
+
+.dahs ul li { 
+    display: flex;
+    height: 200px;
+    width: 100%;
+    margin: 0px 11px 0px 0px;
+    font-size: 120%;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+}
+
+
 
 .dahs ul a {
-    color: rgb(107 107 107);
+    display: flex;
+    height: inherit;
     text-decoration: none;
+    color: #bdbdbd;
+    align-items: center;
+    transition: color;
+    transition-duration: 250ms;
+    transition-delay: 100ms;
 }
+
+
 
 .dahs ul a:hover {
-    color: black;
+    color: rgb(255, 255, 255);
     text-decoration: none;
 }
 
+
+.dahs ul li i {
+    margin: 15px;   
+}
 </style>
