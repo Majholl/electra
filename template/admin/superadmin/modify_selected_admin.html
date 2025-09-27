@@ -1,12 +1,15 @@
 
 
-<!-- TODO add back button to the previous page -->
-<!-- TODO better style and text display -->
-
 <div class="modify-admin-section">
+    
+    {% if messages %}
+    <div class="back-button-top">
+        <a href="{% url 'AdminsList' %}"><i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    {% endif %}
 
     <div class="modify-admin-section form">
-
+        
         <form method="POST" action="{% url 'ModifySelectedAdmin' %}"> 
         {% csrf_token %}
         
@@ -43,10 +46,10 @@
                     </select>
 
 
-                    {% if obj_list.account_status == 'acitve' %}
-                    <p>وضعیت حساب: فعال</p>
-                    {% else  %}
+                    {% if obj_list.account_status == 'deactive' %}
                     <p>وضعیت حساب: غیر فعال</p>
+                    {% else  %}
+                    <p>وضعیت حساب: فعال</p>
                     {% endif %}
                     
                     <select name="acc_status" class="form-select acc-status" aria-label="Default select example">
@@ -83,6 +86,35 @@
 
 
 <style>
+
+
+.back-button-top {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0px 50px 0px;
+    width: 75px;
+    position: fixed;
+    right: 250px;
+    border-radius: 10px;
+}
+
+.back-button-top:hover {
+    background-color: #1E283A;
+}
+
+
+.back-button-top a {
+    color: black;
+    padding: 0px 20px 0px 20px;
+}
+
+
+
+.back-button-top a:hover {
+    color: white;
+}
 
 .modify-admin-section.form {
     font-size: 20px;
@@ -133,30 +165,11 @@
     left: 40%;
 }
 
-
-
-
-
+.alert {
+    margin: auto;
+}
 
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -174,4 +187,4 @@ setTimeout(function() {
     }, 3000)
 
 
-</script>
+</script> 
