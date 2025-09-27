@@ -4,6 +4,8 @@
 # PY - modules
 from ast import Dict
 from urllib.request import Request
+import time
+
 
 # DJANGO - modules
 from django.shortcuts import redirect, render
@@ -108,7 +110,7 @@ def AdminDashboard(request :Request):
 
 def admins_list(request :Request, page_num :int =1) :
     try :
-        users = User.objects.filter(usertype__in = ['superadmin', 'admin'])
+        users = User.objects.filter(usertype__in = ['superadmin', 'admin']).exclude(id = request.user.id)
         paginator = Paginator(users, 10)
         pag_obj_list = paginator.get_page(page_num)
         
@@ -177,7 +179,7 @@ def modify_selected_admin(request :Request):
         return redirect(reverse('500-se'))
     
     except Exception as err :
-        print(err)
+        
         return redirect(reverse("404-nf"))
 
 
@@ -188,34 +190,71 @@ def modify_selected_admin(request :Request):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
    
-def addnewadmins_list(request):
-    user = User.objects.filter(usertype='user')
-    content_html = render_to_string('admin/superadmin/addnewadmin.html', context={'allusers': user}, request=request)
-    return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html}) 
+def new_admin_list(request :Request):
+    try :
+        
+        user = User.objects.filter(usertype='user')
+        
+        context = {'allusers': user}
+        content_template = 'admin/superadmin/addnewadmin.html'
+        content_html = render_to_string(content_template, context=context, request=request)
+        
+        return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html}) 
+    
+    except Exception as err :
+        return redirect(reverse("404-nf"))
+
  
  
+ 
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    
 def addnewadmin(request):
-    if request.method =='POST':
-        selected_user = request.POST.get('addnewadmin')
-        find_userid = selected_user.split('_')[-1]
-        user = User.objects.get(id = find_userid)
-        user.usertype = 'admin'
-        user.save()
-          
-    return redirect(reverse('adminsList'))
+    try:
+        
+        if request.method =='POST':
+            try:
+                selected_user = request.POST.get('addnewadmin')
+               
+                if selected_user == 'کاربران' :
+                    messages.add_message(request, messages.ERROR, 'یک کاربر را از لیست انتخاب کنید')
+                    return redirect(reverse('AddNewAdminList'))
+                
+                find_userid = selected_user.split('_')[-1]
+                
+                if selected_user != 'کاربران':
+                    user = User.objects.get(id = find_userid)
+                    user.usertype = 'admin'
+                    user.save()
+                                
+                return redirect(reverse('AdminsList'))
+            
+            
+            except Exception as err:
+                redirect(reverse('500-se'))    
+                
+        return redirect(reverse('500-se'))
+    
+    except Exception as err:
+        print(err)
+        return redirect(reverse("404-nf"))
+
+
+
+
+
+
 
 
 
