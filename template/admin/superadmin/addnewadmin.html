@@ -1,19 +1,107 @@
-<div >
+<div class="add-new-admin">
 <!-- TODO add back button to the previous page -->
-    <form method="POST" action="{% url 'addnewadmin' %}"> 
-    {% csrf_token %}
-       
-    <p> اضافه کردن ادمین جدید </p> 
+
+    <div class="add-new-admin form">
+
+        <form method="POST" action="{% url 'AddNewAdmin' %}"> 
+        {% csrf_token %}
         
-        <select name="addnewadmin" class="form-select user-type" aria-label="Default select example">
-            <option selected> کاربران </option>
-            {% for i in allusers %}
-            <option value="user_{{i.id}}">{{ i.username }}</option>
+        <p> اضافه کردن ادمین جدید </p> 
+            
+            <select name="addnewadmin" class="form-select user-type" aria-label="Default select example">
+                <option selected> کاربران </option>
+                {% for i in allusers %}
+                <option value="user_{{i.id}}">{{ i.username }}</option>
+                {% endfor %}
+            </select>
+
+            <button class="btn btn-primary" type="submit">ثبت</button><br>
+
+        </form>
+    </div>
+
+
+    <div class="modify-admin-section success-msg">
+    
+        {% if messages %}
+        <div class="alert alert-success d-flex align-items-center fade show" role="alert">
+            {% for msg in messages %}
+            <div>
+                {{ msg }}
+            </div>
             {% endfor %}
-        </select>
+            <i class="fa-solid fa-circle-check"></i>
 
-        <button class="btn btn-primary" type="submit">ثبت</button><br>
+        </div>
+        {% endif %}    
+    </div>
 
-    </form>
 
 </div>
+<style>
+
+.add-new-admin { 
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+
+    margin: auto;
+}
+
+
+.form form {
+    margin: 50px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+.form button {
+    margin: 20px 0px 10px 10px;
+    width: 75px;
+    font-size: 18px;
+    background: #454f5f;
+}
+
+.form button:hover{
+    background: #1E293B;;
+    color: white;
+}
+
+
+
+.success-msg { 
+    font-weight: bold;
+    width: 85%;
+    margin: auto;
+    position: relative;
+    left: 0;
+}
+
+.alert {
+    margin: auto;
+}
+
+</style>
+
+
+
+
+
+
+
+<!-- 
+<script>
+
+setTimeout(function() {
+    var q_alert = document.querySelectorAll('.alert');
+    q_alert.forEach( function(alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            setTimeout(() => { alert.remove(), 500});}) 
+    }, 3000)
+
+
+</script>  -->
