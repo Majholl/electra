@@ -25,6 +25,8 @@ User =  get_user_model()
 
 
 def user_data(request :Request) -> Dict:
+    try:
+        
         if request.user.is_authenticated: 
             user_profile_url = request.user.profile.url if request.user.profile else 'None'
             user_username = request.user.username 
@@ -32,7 +34,9 @@ def user_data(request :Request) -> Dict:
             return {'userauth': request.user, 'profile':user_profile_url, 'username' : user_username,  'usertype':user_user_type}
         else:
             return {'userauth': request.user}
-
+        
+    except Exception as err:
+        return redirect(reverse('500-se'))
 
 
 
@@ -43,16 +47,19 @@ def homePage(request :Request):
 
 
 
-def NotFound404(request):
-    content_template = '404.html'
-    content_html = render_to_string(content_template, context=None)
-    userdata = user_data(request)
-    return render(request, template_name='admin/admindash.html', context={** userdata, 'content':content_html})
+def NotFound404(request :Request):
+    try:
+        content_template = '404.html'
+        content_html = render_to_string(content_template, context=None)
+        userdata = user_data(request)
+        return render(request, template_name='admin/admindash.html', context={** userdata, 'content':content_html})
+    except Exception as err:
+        return redirect(reverse('500-se'))
 
 
 
 
-def ServerError500(request):
+def ServerError500(request :Request):
     content_template = 'server-500.html'
     content_html = render_to_string(content_template, context=None)
     userdata = user_data(request)
@@ -62,14 +69,18 @@ def ServerError500(request):
 
 
 def LoginPage(request :Request):
-        return render(request, template_name='authentications/login.html', context={** user_data(request),})
+    return render(request, template_name='authentications/login.html', context={** user_data(request),})
+
+
+
+
+
 
 
 
 
 def loginUser(request  :Request):
-    if not request.POST['username'] or not request.POST['password'] : 
-        return render(request, template_name='authentications/login.html', context={** user_data(request),'wrong_data':'Fill the form.'})
+    
     try:
         user = User.objects.get(username = request.POST['username'])
     
@@ -87,9 +98,11 @@ def loginUser(request  :Request):
                     return redirect(reverse('AdminDashboard'))
                 
             else:
-                return render(request, template_name='authentications/login.html', context={** user_data(request),'wrong_data':'Your data is wrong.'})
+                messages.add_message(request, messages.INFO, 'اطلاعات وارد شده اشتباه میباشد')
+                return render(request, template_name='authentications/login.html', context={** user_data(request)})
          
     except User.DoesNotExist:
+        messages.add_message(request, messages.INFO, 'اطلاعات وارد شده اشتباه میباشد')
         return render(request, template_name='authentications/login.html', context={** user_data(request),'wrong_data':'Your data is wrong.'})
 
 
@@ -208,19 +221,9 @@ def new_admin_list(request :Request):
  
  
  
+
    
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-def addnewadmin(request):
+def PromoteUsertoAdmin(request):
     try:
         
         if request.method =='POST':
@@ -249,12 +252,6 @@ def addnewadmin(request):
     except Exception as err:
         print(err)
         return redirect(reverse("404-nf"))
-
-
-
-
-
-
 
 
 

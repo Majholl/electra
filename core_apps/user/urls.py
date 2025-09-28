@@ -1,9 +1,10 @@
 from django.urls import path 
+
 from .views import (
                 homePage,
                 LoginPage, RegisterPage, loginUser,  logoutUser ,
                 AdminDashboard, NotFound404, ServerError500,
-                admins_list, load_selected_admin, modify_selected_admin, new_admin_list, addnewadmin,
+                admins_list, load_selected_admin, modify_selected_admin, new_admin_list, PromoteUsertoAdmin,
                 registerUser, 
                 userpanel)
 
@@ -24,19 +25,13 @@ urlpatterns = [
     path('admins/<int:page_num>', admins_list, name='AdminsList'),
     path('admin/<int:id>', load_selected_admin, name='LoadSelectedAdmin'), 
     path('admin/modifyadmin/', modify_selected_admin, name='ModifySelectedAdmin'),
-    
-    
-    
-    
-
     path('admins/add', new_admin_list, name='AddNewAdminList'),
-    path('addnewadmin', addnewadmin, name='AddNewAdmin'),
- 
- #// 
- 
- 
-    path('superadminpage', AdminDashboard, name='adminpage'),
-    path('register', registerUser, name='register'),
+    path('admins/promote', PromoteUsertoAdmin, name='AddNewAdmin'),
     
+    
+   
+    
+#// 
+    path('register', registerUser, name='register'),
     path('panel', userpanel, name='userpanel')
 ]                
