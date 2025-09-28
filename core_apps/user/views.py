@@ -4,7 +4,6 @@
 # PY - modules
 from ast import Dict
 from urllib.request import Request
-import time
 
 
 # DJANGO - modules
@@ -49,10 +48,13 @@ def homePage(request :Request):
 
 def NotFound404(request :Request):
     try:
+        
         content_template = '404.html'
         content_html = render_to_string(content_template, context=None)
         userdata = user_data(request)
+        
         return render(request, template_name='admin/admindash.html', context={** userdata, 'content':content_html})
+    
     except Exception as err:
         return redirect(reverse('500-se'))
 
@@ -60,9 +62,11 @@ def NotFound404(request :Request):
 
 
 def ServerError500(request :Request):
+    
     content_template = 'server-500.html'
     content_html = render_to_string(content_template, context=None)
     userdata = user_data(request)
+    
     return render(request, template_name='admin/admindash.html', context={** userdata, 'content':content_html})
 
 
@@ -80,31 +84,32 @@ def LoginPage(request :Request):
 
 
 def loginUser(request  :Request):
-    
     try:
-        user = User.objects.get(username = request.POST['username'])
-    
-        if user :
-            if user.check_password(request.POST['password']): 
-                login(request, user)
-                
-                if user.usertype == 'user':
-                    return redirect(reverse('userpanel'))
+        
+        try:
+            user = User.objects.get(username = request.POST['username'])
+        
+            if user :
+                if user.check_password(request.POST['password']): 
+                    login(request, user)
                     
-                elif user.usertype == 'superadmin':
-                    return redirect(reverse('AdminDashboard'))
-                
+                    if user.usertype == 'user':
+                        return redirect(reverse('userpanel'))
+                        
+                    else:
+                        return redirect(reverse('AdminDashboard'))
+                    
                 else:
-                    return redirect(reverse('AdminDashboard'))
-                
-            else:
-                messages.add_message(request, messages.INFO, 'اطلاعات وارد شده اشتباه میباشد')
-                return render(request, template_name='authentications/login.html', context={** user_data(request)})
-         
-    except User.DoesNotExist:
-        messages.add_message(request, messages.INFO, 'اطلاعات وارد شده اشتباه میباشد')
-        return render(request, template_name='authentications/login.html', context={** user_data(request),'wrong_data':'Your data is wrong.'})
-
+                    messages.add_message(request, messages.INFO, 'اطلاعات وارد شده اشتباه میباشد')
+                    return render(request, template_name='authentications/login.html', context={** user_data(request)})
+            
+        except User.DoesNotExist:
+            messages.add_message(request, messages.INFO, 'اطلاعات وارد شده اشتباه میباشد')
+            return render(request, template_name='authentications/login.html', context={** user_data(request),'wrong_data':'Your data is wrong.'})
+    
+    
+    except Exception as err :
+        return redirect(reverse('500-se'))
 
 
 
@@ -112,7 +117,7 @@ def loginUser(request  :Request):
 
 
 def AdminDashboard(request :Request):
-    content_html = render_to_string('admin/adminhome.html', context=None, request=request)
+    content_html = render_to_string('admin/adminhome.html', context={** user_data(request)}, request=request)
     return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
 
 
