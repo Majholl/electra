@@ -59,7 +59,9 @@ AUTH_USER_MODEL = 'user.Users'
 
 # Middwares 
 
-LOCAL_MIDDLEWARE = []
+LOCAL_MIDDLEWARE = ['core_apps.user.middleware.CustomMiddleware']
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
