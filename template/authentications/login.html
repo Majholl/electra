@@ -2,31 +2,166 @@
 
 {% block login_page %}
 
+<div class="login-page">
 
-<h3>login now !!</h3>
+    <div class="login-section">
 
-<p><a href="{% url 'AuthRegister' %}">Register NOW !! </a></p>
+        <h3>وارد شوید</h3>
+
+        <p class="login-section register-page"><a href="{% url 'AuthRegister' %}">ثبت نام کنید<i class="fa-solid fa-caret-up"></i></a></p>
+
+            <form class="login-section was-validated form-area" method="post" action="{% url 'loginToSystem' %}">
+                {% csrf_token %}
+                    <div class="from-username">
+
+                        <label for="validationUsername" class="form-label">Username</label>
+                        <input type="text" class="form-control is-invalid" name="username" id="validationServer05" aria-describedby="validationServer05Feedback" required placeholder="Enter your username">
+            
+                    </div>
+
+                    <div class="from-password">
+                
+                        <label for="validationPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control is-invalid" name="password" id="validationServer05" aria-describedby="validationServer05Feedback" required placeholder="Enter your password">
+                    
+                    </div>
+                   
+                    <button class="btn btn-primary" type="submit">login</button><br>
+            </form>
+
+        <p class="login-section back-url"><a href="{% url 'HomePage' %}">Back to home page</a></p>
+    </div>
+
+    <div class="success-msg">
+
+        {% if messages %}
+        <div class="alert alert-danger d-flex align-items-center fade-in" role="alert">
+            {% for msg in messages %}
+            <div>
+                {{ msg }}
+            </div>
+            {% endfor %}
+            <i class="fa-solid fa-comment"></i>
+
+        </div>
+        {% endif %} 
+
+    </div>
 
 
-    <form method="post" action="{% url 'loginToSystem' %}">
 
-        {% csrf_token %}
-        <label for="username">Username:</label><br>
-        <input type="text" name="username" placeholder="Enter your username"><br>
-        <label for="password">Password:</label><br>
-        <input type="password" name="password" placeholder="Enter your password" ><br>
-        <button type="submit">login</button><br>
+
+</div>
+
+
+
+
+
+
+<style>
+
+.login-page { 
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    width: 100%;
+    margin: 50px 0px 0px 0px;
+}
+
+div.login-section {
+    width: 30%;
+    margin: 25px 0px 25px;
     
-    </form>
+    background: rgb(224, 240, 255);
+    padding: 35px;
+    border-radius: 10px;
 
-{% if wrong_data %}
-<P> your data is incorrect.</P>
-{% endif %}
+}
+
+.login-page h3 {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+}
 
 
-<p><a href="{% url 'HomePage' %}">Back to home page</a></p>
+
+.register-page{
+    text-align: end;
+    font-size: 18px;
+}
+
+.register-page a {
+    text-decoration: none;
+    font-weight: 800;
+    color: black;
+
+}
+
+
+.register-page:hover a{
+    color: #1E293B;
+    text-decoration: underline;
+}
+
+.form-area {
+    margin: 0px 10px 10px 10px;
+    font-weight: 700;
+
+}
+
+.from-password {
+    margin: 0px 0px 15px 0px;}
 
 
 
+.from-username {
+    margin: 0px 0px 15px 0px;}
+
+
+
+.login-section button {
+    width: 100px;
+    height: 40px;
+    font-weight: bold;
+    background: #334155;
+}
+
+
+
+.success-msg { 
+    font-weight: bold;
+    width: 20%;
+    margin: auto;
+
+}
+
+.alert {
+    justify-content: center;
+    width: 250px;
+}
+
+
+
+</style>
+
+
+
+
+
+
+
+<script>
+
+setTimeout(function() {
+    var q_alert = document.querySelectorAll('.alert');
+    q_alert.forEach( function(alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            setTimeout(() => { alert.remove(), 500});}) 
+    }, 3000)
+
+
+</script>
 
 {% endblock %}
