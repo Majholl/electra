@@ -19,10 +19,6 @@ from django.contrib import messages
 User =  get_user_model()
 
 
-#// TODO add try /exception block
-
-
-
 def user_data(request :Request) -> Dict:
     try:
         
@@ -197,7 +193,6 @@ def modify_selected_admin(request :Request):
         return redirect(reverse('500-se'))
     
     except Exception as err :
-        
         return redirect(reverse("404-nf"))
 
 

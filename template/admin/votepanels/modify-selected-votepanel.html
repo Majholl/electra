@@ -5,7 +5,7 @@
 <!-- TODO add back button to the previous page -->
 <!-- TODO better style and text display -->
 
-    <form method="POST" action="{% url 'modifingvotepanel' %}"> 
+    <form method="POST" action="{% url 'ModifySelectedVotepanel' %}"> 
     {% csrf_token %}
        
         <input type="hidden" name="panel_id" value="{{ obj_list.id }}">
