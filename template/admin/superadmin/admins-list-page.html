@@ -1,3 +1,5 @@
+
+{% load jalali_tags %}
 <section class="admins-list-page" >
 
     <div class="top-buttons">
@@ -59,7 +61,7 @@
 
 
                                 {% if i.last_login %}
-                                <p>آخرین ورود: {{ i.last_login }}</p>
+                                <p>آخرین ورود: {{ i.last_login|to_jalali:'%H:%M:%S-%y/%m/%d' }}</p>
                                 {% else %}
                                 <p>آخرین ورود: وارد سیستم نشده</p>
                                 {% endif %}

@@ -1,4 +1,4 @@
-
+{% load jalali_tags %}
 
 <div class="modify-admin-section">
     
@@ -20,7 +20,7 @@
                 <p> نام کاربری : {{ obj_list.username }}</p> 
                 
                 {% if obj_list.last_login %}
-                <p>آخرین ورود: {{ obj_list.last_login }}</p>
+                <p>آخرین ورود: {{ obj_list.last_login|to_jalali:'%H:%M:%S-%y/%m/%d'}}</p>
                 {% else %}
                 <p>آخرین ورود: وارد سیستم نشده</p>
                 {% endif %}

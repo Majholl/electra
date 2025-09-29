@@ -18,7 +18,7 @@ if path.isfile(local_env_file):
 # Application definition
 LOCAL_APPS = ['core_apps.user', 'core_apps.voting', 'core_apps.candidate', 'core_apps.votes']
 
-THIRD_PARTY_APPS  = []
+THIRD_PARTY_APPS  = ['jalali_date']
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -104,7 +104,23 @@ STATICFILES_DIRS  = [path.join(BASE_DIR, 'static')]
 
 
 
-
+JALALI_DATE_DEFAULTS = {
+   'LIST_DISPLAY_AUTO_CONVERT': True,
+   'Strftime': {
+        'date': '%y/%m/%d',
+        'datetime': '%H:%M:%S-%y/%m/%d',
+    },
+    'Static': {
+        'js': [
+            'admin/js/django_jalali.min.js',
+        ],
+        'css': {
+            'all': [
+              'admin/css/django_jalali.min.css',
+            ]
+        }
+    },
+}
 
 
 
