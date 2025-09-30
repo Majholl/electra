@@ -1,27 +1,30 @@
 
 from urllib.request import Request
+from datetime import datetime
 
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.core.paginator import Paginator
 from django.template.loader import render_to_string
 from django.utils.timezone import make_aware
-from datetime import datetime
 
 
 from .models import VotePanelModel
-from ..user.views import user_data
+from ..user.views import user_data , User
 
 
 
+#//TODO add if the its superuser to see all the votes 
+#//TODO if the page has 'nt any next page return the current page
 
-
-
-def VotePanels_page(request:Request):
+def VotePanels_page(request :Request, page_num :int =1):
     try:
             
-        VotePanels = VotePanelModel.objects.all()
+        VotePanels = VotePanelModel.objects.filter(created_by = request.user.id)
+        paginator = Paginator(VotePanels, 10)
+        page_obj_list = paginator.get_page(page_num)
         
-        context = {'votingpanels': VotePanels,}
+        context = {'objs_list': page_obj_list.object_list, 'has__page':paginator.page(page_num)}
         content_template = 'admin/votepanels/votepanels-list-page.html'
         content_html = render_to_string(content_template, context=context)
         
