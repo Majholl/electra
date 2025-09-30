@@ -69,6 +69,9 @@ def ServerError500(request :Request):
 
 
 def LoginPage(request :Request):
+    if request.user.is_authenticated: 
+        return redirect(reverse('AdminDashboard'))
+        
     return render(request, template_name='authentications/login.html', context={** user_data(request),})
 
 
@@ -81,7 +84,7 @@ def LoginPage(request :Request):
 
 def loginUser(request  :Request):
     try:
-        
+
         try:
             user = User.objects.get(username = request.POST['username'])
         
