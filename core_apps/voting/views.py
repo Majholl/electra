@@ -19,6 +19,8 @@ from ..user.views import user_data , User
 
 def VotePanels_page(request :Request, page_num :int =1):
     try:
+        if request.user.usertype == 'supderadmin':
+            VotePanels - VotePanelModel.objects.all()
             
         VotePanels = VotePanelModel.objects.filter(created_by = request.user.id)
         paginator = Paginator(VotePanels, 10)
