@@ -14,13 +14,15 @@ from ..user.views import user_data , User
 
 
 
-#//TODO add if the its superuser to see all the votes 
+
 #//TODO if the page has 'nt any next page return the current page
 
 def VotePanels_page(request :Request, page_num :int =1):
-    try:
+    try:  
+        page_num = page_num
+        
         if request.user.usertype == 'supderadmin':
-            VotePanels - VotePanelModel.objects.all()
+            VotePanels = VotePanelModel.objects.all()
             
         VotePanels = VotePanelModel.objects.filter(created_by = request.user.id)
         paginator = Paginator(VotePanels, 10)
@@ -98,6 +100,14 @@ def modify_selected_votepanel(request ):
     
     except Exception as err:
         return redirect(reverse("404-nf"))
+
+
+
+
+
+
+
+
 
 
 
