@@ -14,9 +14,6 @@ from ..user.views import user_data , User
 
 
 
-
-#//TODO if the page has 'nt any next page return the current page
-
 def VotePanels_page(request :Request, page_num :int =1):
     try:  
         page_num = page_num
@@ -64,9 +61,6 @@ def load_selected_votepanel(request:Request, id:int):
 
 
 
-
-#//TODO check if the time is not behind now
-#//TODO check if the end time is not behind the start time
 def modify_selected_votepanel(request ):
     try:
         if request.method == 'POST':
@@ -110,32 +104,18 @@ def modify_selected_votepanel(request ):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def newvoting_page(request):
-    content_html = render_to_string('admin/votepanels/addvotingpanel.html', context={}, request= request)
-    return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
+    try:
+        context = None
+        content_template = 'admin/votepanels/addvotingpanel.html'
+        content_html = render_to_string(content_template, context=context, request=request)
+        return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
+    
+    except Exception as err :
+        return redirect(reverse("404-nf"))
 
-
+ 
+ 
 
 
 
