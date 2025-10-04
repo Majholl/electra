@@ -1,34 +1,240 @@
+{% load jalali_tags %}
 
 
-
-<div >
 <!-- TODO add back button to the previous page -->
-<!-- TODO better style and text display -->
 
-    <form method="POST" action="{% url 'ModifySelectedVotepanel' %}"> 
-    {% csrf_token %}
-       
-        <input type="hidden" name="panel_id" value="{{ obj_list.id }}">
-       
-        <p> نام پنل: {{ obj_list.name }}</p> 
-        <p>توضیحات :‌ {{ obj_list.description }}</p>
 
-        <p>تاریخ شروع : {{ obj_list.started_date }}</p>
-            <input type="datetime-local" name="start_date">
 
-        <p>تاریخ پایان : {{ obj_list.end_date }} </p>
-                <input type="datetime-local" name="end_date">
+<div class="modify-votepanel-section" >
+    
+    {% if messages %}
+    <div class="back-button-top">
+        <a href="{% url 'VotePanels' %}"><i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    {% endif %}
 
-        <p>وضعیت فعلی :‌ {{obj_list.is_active }}</p>
-            <select name="vote_status" class="form-select acc-status" aria-label="Default select example">
-                <option selected>وضعیت پنل </option>
-                <option value="active">فعال</option>
-                <option value="deactive">غیر فعال</option>
+    <div class="modify-votepanel-section form">
 
-            </select>
-        <p>تاریخ ایجاد : {{obj_list.created_at }}</p>
-        <p>آخرین بروزرسانی :‌ {{obj_list.updated_at }}</p>
+        <form method="POST" action="{% url 'ModifySelectedVotepanel' %}"> 
+        {% csrf_token %}
+        
+            <input type="hidden" name="panel_id" value="{{ obj_list.id }}">
 
-        <button class="btn btn-primary" type="submit">ثبت</button><br>
-    </form>
+            <div class="non-changable-data">
+                <p> نام پنل: {{ obj_list.name }}</p> 
+                <p>تاریخ ایجاد : {{obj_list.created_at|to_jalali:'%H:%M:%S-%y/%m/%d' }}</p>
+                <p>آخرین بروزرسانی :‌ {{obj_list.updated_at|to_jalali:'%H:%M:%S-%y/%m/%d' }}</p>
+            </div>
+                <p class="descrip" >توضیحات :‌ {{ obj_list.description }}</p>
+
+
+            <div class="changable-data">
+
+                <div class="start_date-div">
+                    {% if obj_list.started_date %}
+                    <p>تاریخ شروع : {{ obj_list.started_date|to_jalali:'%H:%M:%S-%y/%m/%d' }}</p>
+                    {% else %}
+                    <p>تاریخ شروع : تاریخی ثبت نشده</p>
+                    {% endif %}
+                        <input type="datetime-local" name="start_date">
+                </div> 
+
+                <div class="end_date-div">
+                    {% if obj_list.end_date %}
+                    <p>تاریخ پایان : {{ obj_list.end_date|to_jalali:'%H:%M:%S-%y/%m/%d' }} </p>
+                    {% else %}
+                    <p>تاریخ پایان : تاریخی ثبت نشده</p>
+                    {% endif %}
+                        <input type="datetime-local" name="end_date">
+                </div>
+                
+            </div>
+
+            <div class="changable-data-section-two">
+                {% if obj_list.is_active == 1 %}
+                <p>وضعیت فعلی :‌ فعال</p>
+                {% else %}
+                <p>وضعیت فعلی : غیرفعال</p>
+                {% endif %}
+
+                    <select name="vote_status" class="form-select acc-status" aria-label="Default select example">
+                        <option selected>وضعیت پنل </option>
+                        <option value="active">فعال</option>
+                        <option value="deactive">غیر فعال</option>
+                    </select>
+            </div>
+
+            <button class="btn btn-primary" type="submit">ثبت</button><br>
+            
+        </form>
+
+    </div>
+
+        
+    <div class="modify-votepanel-section success-msg">
+    
+        {% if messages %}
+        <div class="alert alert-success d-flex align-items-center fade show" role="alert">
+            {% for msg in messages %}
+            <div>
+                {{ msg }}
+            </div>
+            {% endfor %}
+            <i class="fa-solid fa-circle-check"></i>
+
+        </div>
+        {% endif %}    
+    </div>
+
 </div>
+
+
+
+<script>
+
+setTimeout(function() {
+    var q_alert = document.querySelectorAll('.alert');
+    q_alert.forEach( function(alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            setTimeout(() => { alert.remove(), 500});}) 
+    }, 3000)
+
+
+</script> 
+
+
+<style>
+
+.back-button-top {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0px 50px 0px;
+    width: 75px;
+    position: fixed;
+    right: 250px;
+    border-radius: 10px;
+}
+
+.back-button-top:hover {
+    background-color: #1E283A;
+}
+
+
+.back-button-top a {
+    color: black;
+    padding: 0px 20px 0px 20px;
+}
+
+
+
+.back-button-top a:hover {
+    color: white;
+}
+
+
+
+.modify-votepanel-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    direction: rtl;
+    margin: 15px;
+}
+
+.form {
+    padding: 10px;
+}
+
+.non-changable-data {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0px 10px 0px;
+}
+
+.descrip {
+    margin: auto;
+    width: 55%;
+}
+
+.non-changable-data  p {
+    margin: 20px;
+    font-weight: bold;
+}
+
+
+
+.changable-data {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 15px;
+
+}
+
+
+
+
+.start_date-div {
+    margin: 10px 30px 0px 30px;
+    padding: 15px;
+}
+
+
+.start_date-div input {
+    padding: 5px;
+    border-radius: 10px;
+}
+
+
+
+
+.end_date-div {
+    margin: 10px 30px 0px 30px;
+    padding: 15px;
+}
+
+.end_date-div input {
+    padding: 5px;
+    border-radius: 10px;
+}
+
+
+.changable-data-section-two {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    margin: auto;
+}
+
+
+.form button {
+    margin: auto;
+    width: 25%;
+    display: flex;
+    padding: 10px 35px 10px 35px;
+    justify-content: center;
+    font-weight: bold;
+    background: #1E293B;
+    border-radius: 15px;
+}
+
+.form button:hover{
+    background-color: #334155;
+}
+.modify-admin-section.success-msg { 
+    font-weight: bold;
+    width: 20%;
+    margin: auto;
+    position: relative;
+    left: 40%;
+}
+
+.alert {
+    margin: auto;
+}
+
+</style>
