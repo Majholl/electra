@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.core.paginator import Paginator
 from django.template.loader import render_to_string
 from django.utils.timezone import make_aware
-
+from django.contrib import messages
 
 from .models import VotePanelModel
 from ..user.views import user_data , User
@@ -90,7 +90,9 @@ def modify_selected_votepanel(request ):
                     vp_.end_date = make_aware(datetime.strptime(vp_enddate, "%Y-%m-%dT%H:%M"))
                     
                 vp_.save()    
-        
+                if  vp_startdate or vp_enddate or  vp_status != 'وضعیت پنل':
+                    messages.add_message(request, messages.INFO, 'اطلاعات با موفقیت ثبت شد')
+                    
                 return redirect(reverse('LoadSelectedVotePanel', kwargs={'id': vp_.pk}))
             
             except Exception as err :
