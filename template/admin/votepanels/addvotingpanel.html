@@ -1,24 +1,72 @@
 
 
 {% block votingpanel %}
+<div class="new-vote-panel-section">
 
     <form method="POST" action="{% url 'AddNewVotePanel' %}" accept="image/*" enctype="multipart/form-data">
         {% csrf_token %}
 
-        </br>
-        <label>name</label>
-        <input type="text" name="name" placeholder="Enter vote panel name?"></br>
-        </br>
-        <label>description</label>
-        <input type="text" name="description" placeholder="Enter description?"></br>
-        </br>
-    
-        <label>image</label>
+        <div class="from-data">
+            
+            <label>نام پنل</label>
+            <input type="text" name="name" placeholder="Enter vote panel name?">
+            
+            <label>توضیحات پنل</label>
+            <input type="text" name="description" placeholder="Enter description?">
+            
+        </div>
+
+        <label>عکس پنل</label>
         <input type="file" name="image" placeholder="Enter image?"></br>
 
-        <button type="submit">Submit</button><br>
+        <button type="submit">ثبت</button><br>
 
     </form>
 
+</div>
 
 {% endblock %}
+
+
+<style>
+
+
+
+
+.new-vote-panel-section{
+    display: flex;
+    width: 100%;
+    margin: auto;
+    justify-content: center;
+    direction: rtl;
+}
+
+.new-vote-panel-section form {
+    width: 100%;
+    text-align: center;
+}
+
+.from-data {
+    margin:  25px 10px 50px 10px;
+}
+
+
+.from-data input {
+    font-weight: bold;
+    border-radius: 6px;
+    margin: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
