@@ -121,14 +121,34 @@ def newvoting_page(request):
 
 
 
-def add_new_vote_panel(requset):
-    if requset.method == 'POST':
-        name = requset.POST['name']
-        description = requset.POST['description']
-        image = requset.FILES.get('image')
-        AddVotePanle = VotePanelModel.objects.create(name = name , description=description, image=image, created_by = requset.user)
-        return redirect(reverse('VotePanels'))
-    
+def add_new_vote_panel(request):
+    try :
+        
+        if request.method == 'POST':
+            
+            name = request.POST['name']
+            description = request.POST['description']
+            image = request.FILES.get('image')
+            vp_startdate = request.POST.get('start_date')
+            vp_enddate  = request.POST.get('end_date')
+            
+            AddVotePanle = VotePanelModel.objects.create(name = name , description=description, image=image, created_by = request.user)
+            
+            if vp_startdate and len(vp_startdate) > 0:
+                AddVotePanle.started_date = make_aware(datetime.strptime(vp_startdate, "%Y-%m-%dT%H:%M"))
+                    
+            
+            if  vp_enddate and len(vp_enddate) > 0:
+                AddVotePanle.end_date = make_aware(datetime.strptime(vp_enddate, "%Y-%m-%dT%H:%M"))
+            AddVotePanle.save()
+                    
+            return redirect(reverse('VotePanels'))
+        
+        
+        
+    except Exception as err :
+        return redirect(reverse("404-nf"))
+
     
     
     
