@@ -11,9 +11,24 @@ from ..candidate.models import CandidateModel
 
 
 def show_candidate_list(request):
-    votepanel = VotePanelModel.objects.all()
-    content_html = render_to_string('admin/candidate/candidate_list.html', context={'obj_list':votepanel}, request=request)
-    return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
+    try :
+        votepanel = VotePanelModel.objects.filter(created_by = request.user)
+        
+        content_html = render_to_string('admin/candidate/candidate_list-page.html', context={'obj_list':votepanel}, request=request)
+        return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
+    
+    except Exception as err:
+        print(err)
+        return redirect(reverse('404-nf'))
+
+
+
+
+
+
+
+
+
 
 
 

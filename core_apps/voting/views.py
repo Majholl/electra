@@ -33,7 +33,7 @@ def VotePanels_page(request :Request, page_num :int =1):
     
     
     except Exception as err:
-        print(err)
+       
         return redirect(reverse('404-nf'))
 
 
@@ -53,7 +53,7 @@ def load_selected_votepanel(request:Request, id:int):
         return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
 
     except Exception as err:
-        print(err)
+        
         return redirect(reverse('404-nf'))
 
 
