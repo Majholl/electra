@@ -5,31 +5,49 @@
 
 <div class="main-candidate">
 
-{% for i in obj_list %}
+
 
     <div class="panel_candidate">
 
-        <div class="vote-panel-section">
-                <p class="votes"> نام پنل :‌{{ i.name }}</p>
-            {% if i.image %}
-                <img src="{{ i.image.url }}" alt="panel_image_{{ i.name }}_{{ i.pk }}" width="50px" height="50px">
-            {% endif %}
-        </div>
+        <table class="candidate-table">
+            <thead>
+                <tr>
+                    <th scope="col"> نام پنل </th>
+                    <th scope="col"> تصویر پنل</th>
+                    <th scope="col">نام کاندید</th>
+                    <th scope="col">تصویر کاندید</th>
+                </tr>
+            </thead>
 
+            {% for i in obj_list %}
+            <tbody>
+                <tr>
 
-        <div class="vote-panel-section">
-            {% for j in i.candidate.all %}
-                <p class="candidate"> کاندید :‌ {{ j.name }}</p>
-                {% if j.image %}
-                    <img src="{{ j.image.url }}" alt="panel_image_{{ i.name }}_{{ i.pk }}"  width="50px" height="50px">
-                {% endif %}
+                    <th scope="row"> ‌{{ i.name }}</th>
+                    <th scope="row">
+                    {% if i.image %}
+                    <img src="{{ i.image.url }}" alt="panel_image_{{ i.name }}_{{ i.pk }}" width="50px" height="50px">
+                    {% endif %}</th>
+                    
 
-            {% endfor %}
-        </div>
+                    {% for j in i.candidate.all %}
+                    <th scope="row"> {{ j.name }} </th>
+                    <th scope="row">    
+                            {% if j.image %}
+                            <img src="{{ j.image.url }}" alt="panel_image_{{ i.name }}_{{ i.pk }}"  width="50px" height="50px">
+                            {% endif %} </th>
+                            
+                    {% endfor %}
+                </tr>
+            </tbody>
+            {% endfor %} 
+
+        </table>
+
 
 
     </div>
-{% endfor %} 
+
 </div>
 
 
@@ -42,6 +60,8 @@
     
 }
 
-
+.panel_candidate {
+    width: 100%;
+}
 </style>
 
