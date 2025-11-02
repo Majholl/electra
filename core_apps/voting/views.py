@@ -9,7 +9,10 @@ from django.template.loader import render_to_string
 from django.utils.timezone import make_aware
 from django.contrib import messages
 
-from .models import VotePanelModel
+
+
+from .models import VotePanelModel 
+from ..candidate.models import CandidateModel
 from ..user.views import user_data , User
 
 
@@ -45,15 +48,16 @@ def load_selected_votepanel(request:Request, id:int):
     try:    
     
         VotePanel = VotePanelModel.objects.get(id = int(id))
+        Candidates = CandidateModel.objects.filter(created_by = request.user).exclude(pk__in = VotePanel.candidate.all()).all()
         
-        context = {'obj_list':VotePanel}
+        context = {'obj_list':VotePanel, 'obj_list_2':Candidates}
         content_template = 'admin/votepanels/modify-selected-votepanel.html'
         content_html = render_to_string(content_template, context=context, request=request)
         
         return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
 
     except Exception as err:
-        
+        print(err)
         return redirect(reverse('404-nf'))
 
 
@@ -69,8 +73,15 @@ def modify_selected_votepanel(request ):
                 vp_startdate = request.POST.get('start_date')
                 vp_enddate  = request.POST.get('end_date')
                 vp_status = request.POST.get("vote_status")
+                vp_candidate = request.POST.getlist('candidates')
                 
+                candidate_ = CandidateModel.objects.filter(id__in = vp_candidate).all()
                 vp_ = VotePanelModel.objects.get(id = vp_id)
+                
+                for i in candidate_:
+                    
+                    vp_.candidate.add(i.pk)
+                
                 
                 if vp_status  in ['active', 'deactive']:
                     votestatus = 1 if vp_status == 'active' else 0
@@ -90,11 +101,13 @@ def modify_selected_votepanel(request ):
                 return redirect(reverse('LoadSelectedVotePanel', kwargs={'id': vp_.pk}))
             
             except Exception as err :
+                print(err)
                 redirect(reverse('500-se'))          
                   
         return redirect(reverse('500-se'))
     
     except Exception as err:
+        print(err)
         return redirect(reverse("404-nf"))
 
 
@@ -131,7 +144,12 @@ def add_new_vote_panel(request):
             image = request.FILES.get('image')
             vp_startdate = request.POST.get('start_date')
             vp_enddate  = request.POST.get('end_date')
-            
+                                        
+                                        
+            if ( len(name) or len(description)) == 0 :
+                messages.add_message(request, messages.INFO, 'فیلد ها نباید خالی باشد')
+                return redirect(reverse('NewVoting'))
+                
             AddVotePanle = VotePanelModel.objects.create(name = name , description=description, image=image, created_by = request.user)
             
             if vp_startdate and len(vp_startdate) > 0:
@@ -147,6 +165,7 @@ def add_new_vote_panel(request):
         
         
     except Exception as err :
+        print(err)
         return redirect(reverse("404-nf"))
 
     
