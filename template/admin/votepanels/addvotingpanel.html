@@ -3,6 +3,31 @@
 {% block votingpanel %}
 <div class="new-vote-panel-section">
 
+
+
+    <div class="addnew-vote-section">
+    
+        <button><a href="{% url 'VotePanels' %}">بازگشت به صفحه قبلی</a></button>
+        
+        <div class="modify-votepanel-section success-msg">
+        
+            {% if messages %}
+            <div class="alert alert-success d-flex align-items-center fade show" role="alert">
+                {% for msg in messages %}
+                <div>
+                    {{ msg }}
+                </div>
+                {% endfor %}
+                <i class="fa-solid fa-circle-check"></i>
+
+            </div>
+            {% endif %}    
+        </div>
+
+    </div>
+
+
+
     <form method="POST" action="{% url 'AddNewVotePanel' %}" accept="image/*" enctype="multipart/form-data">
         {% csrf_token %}
 
@@ -46,17 +71,76 @@
 {% endblock %}
 
 
+
+
+<!-- 
+<script>
+
+setTimeout(function() {
+    var q_alert = document.querySelectorAll('.alert');
+    q_alert.forEach( function(alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            setTimeout(() => { alert.remove(), 500});}) 
+    }, 3000)
+
+
+</script>  -->
+
+
+
+
+
+
 <style>
+
+
+.addnew-vote-section {
+    display: flex;
+    align-items: center;
+}
+
+
+.addnew-vote-section button {
+    background: #334155;
+    border: none;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 15px;
+    transition: border-radius;
+    transition-delay: 200ms;
+    transition-duration: 250ms;
+}
+
+.addnew-vote-section button:hover {
+    border-radius: 5px;
+}
+
+
+.addnew-vote-section button a {
+    text-decoration: none;
+    color: white;
+}
+
+
+.modify-votepanel-section {
+    width: 12%;
+}
+.alert {
+    margin: 0px 0px !important
+}
 
 
 
 
 .new-vote-panel-section{
     display: flex;
+    flex-direction: column;
     width: 100%;
     margin: auto;
     justify-content: center;
     direction: rtl;
+
 }
 
 .new-vote-panel-section form {

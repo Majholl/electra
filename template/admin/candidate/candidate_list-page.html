@@ -1,67 +1,117 @@
-
-
-
-
-
 <div class="main-candidate">
 
 
+    <div class="candidate-top-section">
+    
+        
+        <button><a href="{% url 'AddNewCandidate' %}"> اضافه کردن کاندید</a></button>
+        <button><a href="{% url 'AdminDashboard' %}">بازگشت به صفحه اصلی</a></button>
+
+    </div>
 
     <div class="panel_candidate">
 
-        <table class="candidate-table">
+        <table class="candidate-table table">
             <thead>
                 <tr>
-                    <th scope="col"> نام پنل </th>
-                    <th scope="col"> تصویر پنل</th>
+                    <th scope="col">ردیف</th>
                     <th scope="col">نام کاندید</th>
                     <th scope="col">تصویر کاندید</th>
+                    <th scope="col">جزییات کاندید</th>
                 </tr>
             </thead>
 
-            {% for i in obj_list %}
             <tbody>
-                <tr>
-
-                    <th scope="row"> ‌{{ i.name }}</th>
-                    <th scope="row">
-                    {% if i.image %}
-                    <img src="{{ i.image.url }}" alt="panel_image_{{ i.name }}_{{ i.pk }}" width="50px" height="50px">
-                    {% endif %}</th>
-                    
-
-                    {% for j in i.candidate.all %}
-                    <th scope="row"> {{ j.name }} </th>
-                    <th scope="row">    
-                            {% if j.image %}
-                            <img src="{{ j.image.url }}" alt="panel_image_{{ i.name }}_{{ i.pk }}"  width="50px" height="50px">
-                            {% endif %} </th>
-                            
-                    {% endfor %}
+                {% for i in obj_list %}
+                <tr scope="row">
+                    <th scope="row"> {{ forloop.counter }}</th>
+                    <th scope="row" > {{ i.name }} </th>
+                    <th scope="row">{% if i.image %}<img src="{{ i.image.url }}"  width="75px" height="75px" style="border-radius: 10px;">{% endif %}</th>  
+                    <th scope="row"><button class="candidate-detail-button"><a href="{% url 'ModifySelectedCandidate' id=i.pk %}">مشاهده</a></button></th>
                 </tr>
+                {% endfor %}
+
             </tbody>
-            {% endfor %} 
-
         </table>
-
-
 
     </div>
 
 </div>
 
 
-
-
 <style>
+
+
+
 .main-candidate {
     display: flex;
+    flex-direction: column;
     width: 100%;
     
 }
 
 .panel_candidate {
     width: 100%;
+    direction: rtl;
 }
+
+
+th {
+    align-content: center;
+    text-align: center;
+}
+
+
+
+
+
+
+.candidate-top-section{
+    display: flex;
+    justify-content: right;
+
+}
+
+
+.candidate-top-section button {
+    background: #334155;
+    border: none;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 15px;
+    transition: border-radius;
+    transition-delay: 200ms;
+    transition-duration: 250ms;
+}
+
+.candidate-top-section button:hover {
+    border-radius: 5px;
+
+}
+
+
+.candidate-top-section button a {
+    text-decoration: none;
+    color: white;
+}
+
+
+
+
+
+
+.candidate-detail-button {
+    border-radius: 10px;
+    padding: 10px 20px;
+    border:none;
+    font-size: 18px;
+}
+
+.candidate-detail-button a {
+    text-decoration: none;
+    color: black;
+}
+
+
 </style>
 

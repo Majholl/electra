@@ -1,0 +1,185 @@
+
+
+<!-- add back button && more design -->
+<div class="addnew-candidate-page">
+
+
+    <div class="candidate-top-section">
+    
+        <button><a href="{% url 'candidatelist' %}">بازگشت به صفحه قبلی</a></button>
+        
+        <div class="modify-candidate-section success-msg">
+        
+            {% if messages %}
+            <div class="alert alert-success d-flex align-items-center fade show" role="alert">
+                {% for msg in messages %}
+                <div>
+                    {{ msg }}
+                </div>
+                {% endfor %}
+                <i class="fa-solid fa-circle-check"></i>
+
+            </div>
+            {% endif %}    
+        </div>
+
+    </div>
+
+    <div class="candidate-bottom-section">
+
+        <div class="title-div">
+            <span><p>اضافه کردن کاندید جدید</p></span>
+        </div>
+        
+
+        <div class="form-div">
+        
+            <form method="POST" action="{% url 'SubmitCandidate' %}" accept="image/*" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="inpt-one">
+                    <input type="text" name="name" placeholder="....">
+                    <label>اسم کاندید </label>
+                </div>
+
+                <div class="inpt-two">
+                    <input type="text" name="description" placeholder="...."> 
+                    <label>توضیحات کاندید</label>
+                </div>
+
+                <div class="inpt-three">
+                    <input type="file" name="image" placeholder="...."> 
+                    <label>تصویر کاندید </label>
+                </div>
+
+                <button type="submit">ثبت</button>
+            </form>
+            
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+<script>
+
+setTimeout(function() {
+    var q_alert = document.querySelectorAll('.alert');
+    q_alert.forEach( function(alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            setTimeout(() => { alert.remove(), 500});}) 
+    }, 3000)
+
+
+</script> 
+
+
+
+
+
+
+<style>
+
+
+
+.addnew-candidate-page {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 50px;
+}
+
+
+
+
+
+
+.candidate-top-section {
+    display: flex;
+    justify-content: center;
+}
+
+.candidate-top-section button {
+    background: #334155;
+    border: none;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 15px;
+    transition: border-radius;
+    transition-delay: 200ms;
+    transition-duration: 250ms;
+}
+
+.candidate-top-section button:hover {
+    border-radius: 5px;
+
+}
+
+
+.candidate-top-section button a {
+    text-decoration: none;
+    color: white;
+}
+
+
+.modify-candidate-section {
+    width: 12%;
+}
+
+
+
+.candidate-bottom-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+}
+
+
+
+.title-div {
+    padding: 10px;
+    text-align: center;
+}
+.form-div {
+    display: flex;
+    padding: 15px;
+}
+
+div[class*='inpt-'] {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px;
+
+}
+
+
+div[class*='inpt-'] input {
+    border-radius: 5px;
+}
+
+button { 
+    padding: 5px 40px;
+    margin: 10px;
+    position: relative;
+    left: 35%;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: color background-color;
+    transition-duration: 250ms;
+    transition-delay: 100ms;
+}
+
+button:hover { 
+    color: white;
+    background-color: black;
+    border-radius: 0px;
+}
+
+</style>

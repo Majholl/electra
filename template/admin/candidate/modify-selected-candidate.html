@@ -1,0 +1,33 @@
+<div class="candidates-modify-section">
+
+        <div class="candidate_inner">
+
+                {% if obj_list.image %}<img src="{{ obj_list.image.url }}"  width="75px" height="75px" style="border-radius: 10px;">{% endif %}
+                <p class="candidate_description">{{ obj_list.description }} </p>
+                <p class="candidate_name"> {{ obj_list.name }} </p>
+
+        </div>
+
+</div>
+
+
+
+
+<style>
+.candidates-modify-section {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
+
+.candidate_inner {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+}
+ 
+.candidate_inner p {
+   margin: 20px;
+}
+</style>
