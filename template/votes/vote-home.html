@@ -1,0 +1,262 @@
+{% load jalali_tags %}
+
+
+<div class="dashboard-home-user">
+
+
+    <div class="votepanels-tovote-section">
+    {% for i in objs_list %}
+
+        <div class="votepanels">
+
+            
+            {% if i.image %}
+            <img src="{{i.image.url}}" width="150px" height="150px"></img>
+            {% endif %}
+
+            <div class="vote-infos">
+
+                <p class="vote-panel-name">{{i.name}}</p>
+
+                <div  class="votepanel-buttons">
+                    
+                    <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_{{ i.id }}">نمایش جزییات</button>
+
+                    <button type="button"  class="btn "><a href="{% url 'AllVotings' id=i.id %}">ثبت رای</a></button>
+
+                </div>
+
+            </div>
+
+        
+            <div class="modal fade" id="modal_{{ i.id }}" tabindex="-1"  >
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modallabel_{{ i.id }}"> اطلاعات پنل : {{ i.name }} </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="بستن"></button>
+                        </div>
+                        <div class="modal-body">
+                        
+                            <p>توضیحات : {{ i.description }}</p>
+
+                            <p>تاریخ شروع : {{ i.started_date|to_jalali:'%H:%M:%S-%y/%m/%d'  }}</p>
+                            <p>تاریخ پایان : {{ i.end_date|to_jalali:'%H:%M:%S-%y/%m/%d'  }}</p>
+                            
+                            
+                            {% if i.is_active == 1 %}
+                            <p>وضعیت فعلی :‌ فعال</p>
+                            {% else %}
+                            <p>وضعیت فعلی : غیر فعال</p>
+                            {% endif %}
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+        
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+
+
+
+.votepanels-tovote-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 50px 0px
+}
+
+
+
+.votepanels{
+    margin: 10px;
+    width: auto;
+    border: 1px solid;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    height: 350px;
+    overflow: hidden;
+    transition: transform;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+
+}
+  
+
+.votepanels:hover img {
+    animation: biggerimganim;
+    animation-duration: 4s;
+    animation-timing-function: forwards;
+
+}
+
+
+@keyframes biggerimganim {
+    from {transform: scale(1.0);}
+    to {transform: scale(1.4);}
+}
+
+
+
+.votepanel-buttons{
+    display: flex;
+    justify-content: space-around;
+    background: #b3b3b34f;
+}
+
+
+
+.vote-panel-name {
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+}
+
+
+.votepanel-buttons button { 
+    background: #1E293B;
+    border-radius: 0px;
+    border-color: white;
+    color: white;
+    border-style: none;
+    font-weight: bold;
+    margin: 10px 40px;
+    padding: 5px 15px;
+}
+
+
+.votepanel-buttons button:hover {
+    background-color: white;
+    color: black;
+}
+
+
+.votepanel-buttons button a {
+    text-decoration: none;
+    color: white;
+}
+
+
+.votepanel-buttons button:hover a {
+
+    background-color: white;
+    color: black;
+
+}
+
+.votepanel-buttons p {
+    
+    color: white;
+    font-weight: bold;
+    width: 125px;
+    text-align: center;
+    justify-content: flex-end;
+    margin-top: 8px;
+
+}
+
+
+.votepanels img {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+
+
+
+.vote-infos {
+    width: 100%;
+    z-index: 1;
+}
+
+
+
+
+.votepanels-top-section{
+    display: flex;
+    justify-content: right;
+    margin: 0px 50px;;
+
+}
+
+
+.votepanels-top-section button {
+    background: #334155;
+    border: none;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 15px;
+    transition: border-radius;
+    transition-delay: 200ms;
+    transition-duration: 250ms;
+}
+
+.votepanels-top-section button:hover {
+    border-radius: 5px;
+
+}
+
+
+.votepanels-top-section button a {
+    text-decoration: none;
+    color: white;
+}
+
+
+.modal-body {
+    direction: rtl
+}
+
+
+.btn-primary:active {
+    color: none !important; 
+    background-color: none !important;
+    border-color: none !important;
+    box-shadow: none !important
+}
+
+.btn-primary:focus {
+    color: none !important;
+    background-color: none !important;
+    border-color: none !important;
+    box-shadow: none  !important
+}
+
+</style>

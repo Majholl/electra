@@ -1,0 +1,17 @@
+{% extends 'main/home.html' %}
+
+{% block votetopanel %}
+
+
+
+    <p>Voting name: {{ VotePanel_.name }}</p>
+    <p>Voting description: {{ VotePanel_.description }}</p>
+    <img src="{{ VotePanel_.image.url }}" width="250px" height="250px" />
+
+    {% for i in candidate %}
+        <p>{{ i.name }}</p>
+        <p>{{ i.description }}</p>
+        <img src="{{ i.image.url }}" width="250px" height="250px" />
+    {% endfor %}
+
+{% endblock %}
