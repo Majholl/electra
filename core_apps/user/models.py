@@ -1,10 +1,13 @@
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 from django.db import models
+from django.conf import settings
+
 from os import path
 from time import time
 
-
 from .manager import CustomUserManger
+
 
 
 
@@ -34,9 +37,19 @@ class Users(AbstractUser):
 
     email = models.EmailField('Email address', db_index=True, unique=True)
     profile = models.ImageField('User profile', upload_to=UserProfile, null=True)
+    
     usertype = models.CharField('User type', max_length=10, choices=UserType.choices, default=UserType.USER)
+        
+    otp = models.CharField('One time password', max_length=6, null=True)
+    otp_expire_time = models.DateTimeField('One time password expiration', null=True, blank=True)
+    otp_attempt = models.IntegerField('One time password attempt', default=0)
+    
     account_status = models.CharField('Account status', max_length=8, choices=AccountStatus.choices, default=AccountStatus.DEACTIVE)
     is_active = models.BooleanField('Account activation', default=0)    
+    
+    maxpanelcount = models.SmallIntegerField('Number of panel careation by admins', null=True)
+    cancreatepanel = models.BooleanField('Allow admin to create panel', default=0)    
+    
     created_at = models.DateTimeField('Creatation datetime', auto_now_add=True)
     updated_at = models.DateTimeField('Last modification', auto_now=True)
     
@@ -48,5 +61,51 @@ class Users(AbstractUser):
         verbose_name = 'User'
         db_table = 'users'
         ordering = ['-created_at']
+        
+        
+        
+    def set_otp(self, code:str):
+        self.otp = code
+        self.otp_expire_time = timezone.now() + settings.OTP_EXPIRE_TIME
+        self.save()    
+    
+    
+      
+        
+    @property
+    def validate_otp_expiration(self):
+        return (timezone.now() - self.otp_expire_time) <= settings.OTP_EXPIRE_TIME
+   
+       
+        
+    @property
+    def otp_attempt_count(self):
+        if self.otp_attempt <4:
+            self.otp_attempt +=1 
+        if self.otp_attempt >= 3 :
+            self.account_status = Users.AccountStatus.LOCKED
+        self.save()        
+        
+
+    @property
+    def otp_code_expiration(self):
+        self.otp = None
+        self.otp_expire_time = None
+        self.otp_attempt = 0 
+        self.save()    
+
+
+
+
+
+
+
+class GroupUserAdminModel(models.Model):
+    user = models.ForeignKey(verbose_name='The user itself', to=Users, on_delete= models.RESTRICT, related_name='user_relation_to_admin')
+    relatedtoadmin = models.ForeignKey(verbose_name='The user who related to', to=Users, on_delete= models.RESTRICT, related_name='admin_relation_to_user')    
+    
+    class Meta :
+        verbose_name = 'User-Groups'
+        db_table = 'usersgroups'
         
         

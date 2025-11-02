@@ -5,8 +5,10 @@ from .views import (
                 LoginPage, RegisterPage, loginUser,  logoutUser ,
                 AdminDashboard, NotFound404, ServerError500,
                 admins_list, load_selected_admin, modify_selected_admin, new_admin_list, PromoteUsertoAdmin,
+                UserPanel, load_votes_tosuper_admin,
                 registerUser, 
-                userpanel)
+                
+                )
 
 
 
@@ -30,8 +32,12 @@ urlpatterns = [
     
     
    
+    path('panel/', UserPanel, name='UserPanel'),
+   
+    
     
 #// 
     path('register', registerUser, name='register'),
-    path('panel', userpanel, name='userpanel')
+    
+    
 ]                

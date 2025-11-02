@@ -15,6 +15,8 @@ from django.contrib.auth.hashers import make_password
 from django.core.paginator import Paginator
 from django.contrib import messages
 
+from ..votes.models import VotePanelModel
+
 
 User =  get_user_model()
 
@@ -70,7 +72,11 @@ def ServerError500(request :Request):
 
 def LoginPage(request :Request):
     if request.user.is_authenticated: 
-        return redirect(reverse('AdminDashboard'))
+        if request.user.usertype in ['superadmin', 'admin']:
+
+            return redirect(reverse('AdminDashboard'))
+        else :
+            return redirect(reverse('UserPanel'))
         
     return render(request, template_name='authentications/login.html', context={** user_data(request),})
 
@@ -93,7 +99,7 @@ def loginUser(request  :Request):
                     login(request, user)
                     
                     if user.usertype == 'user':
-                        return redirect(reverse('userpanel'))
+                        return redirect(reverse('UserPanel'))
                         
                     else:
                         return redirect(reverse('AdminDashboard'))
@@ -118,6 +124,45 @@ def loginUser(request  :Request):
 def AdminDashboard(request :Request):
     content_html = render_to_string('admin/adminhome.html', context={** user_data(request)}, request=request)
     return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
+
+
+
+
+
+
+
+
+
+
+
+
+def load_vote_section(request):
+    vote_panels = VotePanelModel.objects.all()
+    content_html = render_to_string('votes/vote-home.html', context={** user_data(request) , 'objs_list':vote_panels}, request=request)
+    return content_html
+
+
+
+#//TODO add paginator for vote panels to vote
+def UserPanel(request :Request):
+    return render(request, template_name='user/userdashborad.html', context={** user_data(request), 'content':load_vote_section(request)})
+
+
+
+
+
+def load_votes_tosuper_admin(request :Request):
+    return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':load_vote_section(request)})
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -289,10 +334,6 @@ def logoutUser(request :Request):
 
 def RegisterPage(request :Request):
     return render(request, template_name='authentications/register.html', context=None)
-
-
-def userpanel(request):
-    return render(request, template_name='user/userdashborad.html', context=None)
 
 
 
