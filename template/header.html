@@ -1,9 +1,11 @@
+
+
 <nav class="navbar navbar-expand-lg ">
 
 
     <div class="container-fluid">
         
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
             
             <form class="d-flex">
                 <input class="form-control me-2" type="sear
@@ -12,10 +14,9 @@
 
             </form>
 
+        </div> -->
 
-        </div>
-
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav icons-section me-auto mb-2 mb-lg-0 ">
 
                 {% if userauth.is_authenticated %}
                 <li class="nav-item">
@@ -41,11 +42,27 @@
 
 
 <style>
+
 .navbar.navbar-expand-lg{
     background-color: #1E293B !important; 
     z-index: 2;
     position: fixed;
     width: 100%;
+    direction: rtl;
 }
 
+
+.icons-section {
+    display: flex;
+    margin: 0px 0px 0px;
+    width: 100%;
+}
+
+
+.nav-item a  {
+    color: white;
+    font-weight: 900;
+    font-size: 20px;
+    margin: 0px 20px 0px 20px;
+}
 </style>

@@ -18,7 +18,13 @@ from django.contrib import messages
 from ..votes.models import VotePanelModel
 
 
+
+
 User =  get_user_model()
+
+
+
+
 
 
 def user_data(request :Request) -> Dict:
@@ -29,7 +35,9 @@ def user_data(request :Request) -> Dict:
             user_username = request.user.username 
             user_user_type = request.user.usertype 
             return {'userauth': request.user, 'profile':user_profile_url, 'username' : user_username,  'usertype':user_user_type}
+        
         else:
+            
             return {'userauth': request.user}
         
     except Exception as err:
