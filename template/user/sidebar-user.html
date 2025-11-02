@@ -1,0 +1,146 @@
+<aside class="right-sidebar">
+
+    <section class="inner-top-sidebar">
+
+        <a class="rel-dashboard" href="{% url 'UserPanel' %}">
+
+            <div class="inner-top-sidebar admin">
+
+                <div class="user-panel">
+
+                    <div class="admin-image-section">
+                        <img src="{{ profile }}" class="admin-image-section img" alt="{{ username }}" width="75px" height="75px">
+                    </div>
+
+                    <div class="admin-info-section">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <p class="admin-info-section p ">{{ username }}</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </section>
+
+    <section class="inner-bottom-sidebar">
+
+        <ul class="inner-bottom-sidebar menu" data-widget="tree">
+
+
+            
+            <li class="vote-panels-page">
+                <a href="{% url 'UserPanel' %}"><span class="fa fa-square-poll-vertical"></span><span>صفحه رای</span></a>
+            </li>
+            <!--
+            <li class="candidate-page">
+                <a href="#"><i class="fa fa-users"></i><span> -#- </span></a>
+            </li>
+            
+            <li class="votes-page">
+                <a href="#"><i class="fa fa-black-tie"></i> <span> -#- </span></a>
+            </li>
+            > -->
+            <li >
+                <a href="{% url 'logoutFromSystem' %}"><span>خروج</span></a>
+            </li>
+
+        </ul>
+        
+    </section>
+
+</aside>
+
+
+
+
+
+
+<style>
+
+.right-sidebar {
+        height: 100%;
+        width: 200px;
+        position: fixed;
+        z-index: 1;
+        top: 50px;
+        right: 0px;
+        background-color: #334155;
+        overflow-x: hidden;
+        padding-top: 20px;
+        direction: rtl;
+        }
+
+.right-sidebar a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    color: #e4e4e4;
+    display: block;
+
+}
+
+.right-sidebar a:hover{
+    color: #ffffff;
+}
+
+
+.rel-dashboard{
+    display: grid;
+    justify-items: center;
+}
+
+
+
+.inner-top-sidebar.admin {
+    width: 100%;
+}
+
+
+.admin-image-section {
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+.admin-image-section.img {
+    border-radius: 20px;
+}
+
+
+.admin-info-section { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;    
+    margin-top: 10px;
+    margin-bottom: 25px;
+
+}
+.admin-info-section.p{
+    font-size: 20px;
+} 
+
+
+.fa-circle-user{
+    padding-bottom: 10px;
+}
+
+.inner-bottom-sidebar ul li {
+    margin: 10px;
+    list-style: none;
+    font-weight: bold;
+}
+
+</style>
+
+
+
+
+
+
+
+
+

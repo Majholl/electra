@@ -1,2 +1,50 @@
-<P>user dash borad</P>
-<p> exit() : <a href="{% url 'logoutFromSystem' %}">logout</a></p>
+{% extends '../root.html' %}
+
+{% block user_dash_page %}
+
+<div class="body-content">
+        {% include './sidebar-user.html' %}
+
+        <aside class="left-sidebar">
+
+                <div class="dynamic-content"> {{ content | safe }} </div>
+
+        </aside>
+
+</div>
+
+
+
+
+
+<style>
+.left-sidebar {
+        display: flex;;
+        margin-left: 50px;
+        margin-right: 250px;
+        justify-content: center;
+        position: relative;
+        top: 40px;
+
+}
+ 
+
+.dynamic-content {
+    display: flex;
+    align-items: center;
+    width:100%;
+    min-width: 300px;
+    min-height: 250px;
+    overflow: scroll;
+    margin-top: 50px;
+}
+.dynamic-content::-webkit-scrollbar {
+        display: none;
+}
+
+</style>
+
+{% endblock %}
+
+
+

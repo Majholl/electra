@@ -10,11 +10,17 @@
 <!-- Load CSS of bootstap -->
 <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
 
+
 <!-- Load CSS of Font-aweasome -->
 <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
 
 
+<!-- Load CSS of select2 -->
+<link rel="stylesheet" href="{% static 'css/select2.min.css' %}">
 
+
+<!-- Load JQuery from DNS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 <head>
@@ -41,6 +47,15 @@
 
 
 
+
+<!-- User dashborad -->
+{% block user_dash_page %} {% endblock %}
+
+
+
+
+
+
 <!-- include Footer -->
 {% include  'footer.html' %}
 
@@ -54,8 +69,25 @@
 <!-- Load JS of Font-aweasome -->
 <script src="{% static 'fontawesome/js/all.min.js' %}"></script>
 
+
+<!-- Load JS of select2 -->
+<script src="{% static 'js/select2.min.js' %}"></script>
+
+
+
+
+
+
 </body>
 </html>
+
+
+
+
+
+
+<script></script>
+
 
 
 <style> 
