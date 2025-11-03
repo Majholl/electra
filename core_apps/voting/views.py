@@ -149,6 +149,19 @@ def add_new_vote_panel(request):
             if ( len(name) or len(description)) == 0 :
                 messages.add_message(request, messages.INFO, 'فیلد ها نباید خالی باشد')
                 return redirect(reverse('NewVoting'))
+            
+            user = User.objects.get(id = request.user.id)
+            
+            if user.allowunlimitpanelcreation == 0 :
+                if user.maxpanelcount > 0 :
+                    if (user.maxpanelcount - 1) == 0 :
+                        user.allowunlimitpanelcreation = 0
+                    user.maxpanelcount -=1 
+                    user.save()
+                messages.add_message(request, messages.INFO, 'امکان ساخت پنل برای شما وجود ندارد ، اشتراک شما تمام شده است')
+                return redirect(reverse('NewVoting'))
+            
+    
                 
             AddVotePanle = VotePanelModel.objects.create(name = name , description=description, image=image, created_by = request.user)
             

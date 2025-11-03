@@ -74,8 +74,10 @@ MIDDLEWARE = [
 ] + LOCAL_MIDDLEWARE
 
 
-
-
+AUTHENTICATION_BACKENDS = [
+    'core_apps.user.authentication.AllowInactiveUserBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 
 # Media root 

@@ -1,0 +1,28 @@
+{% extends 'root.html' %}
+
+{% block verify_otp %}
+<div class="verify-user-otp">
+    <p>برای وارد شدن به سیستم باید وریفای شوید </p>
+
+
+
+    <form method="post" action="{% url 'verify-user-otp' %}">
+        {% csrf_token %}
+
+        <label>OTP code</label>
+        <input type="text" name="otp-input">
+        <button>submit</button>
+
+    </form>
+</div>
+
+<style>
+
+.verify-user-otp {
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+}
+</style>
+{% endblock %}

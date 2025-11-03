@@ -9,7 +9,11 @@
                 <div class="user-panel">
 
                     <div class="admin-image-section">
-                        <img src="{{ profile }}" class="admin-image-section img" alt="{{ username }}" width="75px" height="75px">
+                    {% if profile %}
+                        <img src="{{ profile.url }}" class="admin-image-section img" alt="{{ username }}" width="75px" height="75px">
+                    {% else %}
+                        <img src="../static/user.png" class="admin-image-section img" alt="{{ username }}" width="75px" height="75px">
+                    {% endif %}
                     </div>
 
                     <div class="admin-info-section">
