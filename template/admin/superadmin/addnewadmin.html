@@ -15,6 +15,17 @@
                 {% endfor %}
             </select>
 
+
+            <div class="admin-limitation">
+            
+                <label>تعداد مجاز ساخت پنل</label>
+                <input type="number" name="number_making_votepanel">
+                
+                <label> بدون محدودیت ساخت پنل</label>
+                <input type="checkbox" name="limit_making_votepanel">
+
+            </div>
+
             <button class="btn btn-primary" type="submit">ثبت</button><br>
 
         </form>
@@ -82,6 +93,10 @@
 
 .alert {
     margin: auto;
+}
+
+.admin-limitation {
+    margin: 20px;
 }
 
 </style>

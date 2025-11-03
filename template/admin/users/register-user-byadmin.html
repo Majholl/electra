@@ -1,0 +1,115 @@
+<div class="add-user-by-admin">
+
+
+
+
+   
+   <form method="post" action="{% url 'register-user-by-admin' %}">
+    {% csrf_token %}
+    
+    <h2>Register your user</h2>
+
+    <div class="form-group">
+        <label for="first-name">First Name</label>
+        <input type="text" id="first-name" name="first-name" placeholder="Enter your first name" required>
+    </div>
+
+    <div class="form-group">
+        <label for="last-name">Last Name</label>
+        <input type="text" id="last-name" name="last-name" placeholder="Enter your last name" required>
+    </div>
+
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Choose a username" required>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+    </div>
+
+    <button type="submit">Submit</button>
+    </form>
+
+
+    <div class="modify-admin-section success-msg">
+    
+        {% if messages %}
+        <div class="alert alert-success d-flex align-items-center fade show" role="alert">
+            {% for msg in messages %}
+            <div>
+                {{ msg }}
+            </div>
+            {% endfor %}
+            <i class="fa-solid fa-circle-check"></i>
+
+        </div>
+        {% endif %}    
+    </div>
+
+</div>
+
+
+<style>
+  form {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 25px;
+    border-radius: 12px;
+    background-color: #f9fafb;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-family: 'Inter', sans-serif;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #444;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+
+  input:focus {
+    border-color: #007bff;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+</style>

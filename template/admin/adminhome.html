@@ -3,7 +3,7 @@
     <div class="div-votes dahs">
         <ul>
             <li>
-                <a href="#">
+                <a href="{% url 'VotesSection' %}">
                 <i class="fa-solid fa-hand-point-up"></i>رای گیری
                 </a>
             </li>
@@ -42,6 +42,21 @@
                 <a href="{% url 'AdminsList' %}">
                 <i class="fa-solid fa-user-shield"></i>
                 مدیران
+                </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+    {% endif %}
+    
+    {% if usertype == 'admin' %}
+    <div class="div-admins dahs">
+        <ul>
+            <li>
+                <a href="{% url 'load-page-register-user-by-admin' %}">
+                <i class="fa-solid fa-user-shield"></i>
+                کاربران
                 </a>
             </li>
             

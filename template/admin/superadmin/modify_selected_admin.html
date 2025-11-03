@@ -57,6 +57,31 @@
                         <option value="active">فعال</option>
                         <option value="deactive">غیر فعال</option>
                     </select>
+
+
+                    <div class="admin-limitation">
+
+                        <div class="num-make-votepanel">
+                            <p>تعداد فعلی مجاز ساخت انتخابات: {{ obj_list.maxpanelcount }} عدد</p>
+                            <label>تعداد مجاز ساخت انتخابات</label>
+                            <input type="number" name="number_making_votepanel">
+
+                        </div>
+
+                        <div class="limit-make-votepanel">
+
+                            
+                            {% if obj_list.allowunlimitpanelcreation  %}
+                            <p>وضعیت ساخت بدون محدودیت پنل: مجاز</p>
+                            {% else %}
+                            <p>وضعیت ساخت بدون محدودیت پنل:غیر مجاز</p>
+                            {% endif %}
+
+                            <label> بدون محدودیت ساخت پنل</label>
+                            <input type="checkbox" name="limit_making_votepanel">
+                        </div>
+
+                    </div>
             </div>
 
             <button class="btn btn-primary" type="submit">ثبت</button><br>

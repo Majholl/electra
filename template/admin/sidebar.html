@@ -9,9 +9,11 @@
                 <div class="user-panel">
 
                     <div class="admin-image-section">
-                        <img src="{{ profile }}" class="admin-image-section img" alt="{{ username }}" width="75px" height="75px">
-                    </div>
-
+                    {% if profile %}
+                        <img src="{{ profile.url }}" class="admin-image-section img" alt="{{ username }}" width="75px" height="75px">
+                    {% else %}
+                        <img src="../static/user.png" class="admin-image-section img" alt="{{ username }}" width="75px" height="75px">
+                    {% endif %}
                     <div class="admin-info-section">
                         <i class="fa-solid fa-circle-user"></i>
                         <p class="admin-info-section p ">{{ username }}</p>
@@ -30,8 +32,14 @@
         <ul class="inner-bottom-sidebar menu" data-widget="tree">
 
             {% if usertype == 'superadmin' %}
-            <li class="sub-admins-page"> 
+            <li class="sub-spadmins-page"> 
                 <a href="{% url 'AdminsList' %}"><i class="side-btn fa fa-dashboard"></i><span>مدیران</span></a>
+            </li>
+            {% endif %}
+
+            {% if usertype == 'admin' %}
+            <li class="sub-admin-page"> 
+                <a href="{% url 'load-page-register-user-by-admin' %}"><i class="side-btn fa fa-dashboard"></i><span>کابران</span></a>
             </li>
             {% endif %}
 
