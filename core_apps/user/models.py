@@ -47,8 +47,8 @@ class Users(AbstractUser):
     account_status = models.CharField('Account status', max_length=8, choices=AccountStatus.choices, default=AccountStatus.DEACTIVE)
     is_active = models.BooleanField('Account activation', default=0)    
     
-    maxpanelcount = models.SmallIntegerField('Number of panel careation by admins', null=True)
-    cancreatepanel = models.BooleanField('Allow admin to create panel', default=0)    
+    maxpanelcount = models.SmallIntegerField('Number of panel careation by admins', default=0)
+    allowunlimitpanelcreation = models.BooleanField('Allow admin to create panel', default=0)    
     
     created_at = models.DateTimeField('Creatation datetime', auto_now_add=True)
     updated_at = models.DateTimeField('Last modification', auto_now=True)
@@ -71,7 +71,11 @@ class Users(AbstractUser):
     
     
       
-        
+    @property 
+    def clear_otp(self):
+        self.otp = None
+        self.save()
+           
     @property
     def validate_otp_expiration(self):
         return (timezone.now() - self.otp_expire_time) <= settings.OTP_EXPIRE_TIME

@@ -10,9 +10,14 @@ class CustomMiddleware(MiddlewareMixin):
         
     def __call__(self, request):
         user = request.user
-        urls = [reverse('UserPanel'), reverse('AdminDashboard')]
-        response = self.get_response(request)
+        urls = [reverse('UserPanel'), reverse('AdminDashboard'),
+                reverse('AdminsList'), reverse('VotesSection'),
+                reverse('VotePanels'), reverse('candidatelist'),
+                reverse('load-page-register-user-by-admin'),
+                ]
         
+        response = self.get_response(request)
+
         if request.path in urls and not user.is_authenticated :
             return redirect(reverse("AuthLogin"))
                 
