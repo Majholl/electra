@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 from django.db import models
 from django.conf import settings
+from phonenumber_field.modelfields import PhoneNumberField
 
 from os import path
 from time import time
@@ -34,9 +35,12 @@ class Users(AbstractUser):
         DEACTIVE = 'deactive', 'Deactive'
         LOCKED = 'locked', 'Locked'
 
-
+    
+    national_code = models.BigIntegerField('Code meli of the user', unique=True, null=False)
+    
     email = models.EmailField('Email address', db_index=True, unique=True)
     profile = models.ImageField('User profile', upload_to=UserProfile, null=True)
+    phone_number = PhoneNumberField('Phone Number' , max_length=30 , unique=True, null=True)
     
     usertype = models.CharField('User type', max_length=10, choices=UserType.choices, default=UserType.USER)
         
@@ -53,7 +57,7 @@ class Users(AbstractUser):
     created_at = models.DateTimeField('Creatation datetime', auto_now_add=True)
     updated_at = models.DateTimeField('Last modification', auto_now=True)
     
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'email', 'password']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'email', 'national_code', 'password']
     
     objects = CustomUserManger()
     
@@ -70,18 +74,17 @@ class Users(AbstractUser):
         self.save()    
     
     
-      
     @property 
     def clear_otp(self):
         self.otp = None
         self.save()
+   
            
     @property
     def validate_otp_expiration(self):
         return (timezone.now() - self.otp_expire_time) <= settings.OTP_EXPIRE_TIME
+
    
-       
-        
     @property
     def otp_attempt_count(self):
         if self.otp_attempt <4:

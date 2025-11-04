@@ -24,66 +24,49 @@
 
 
 <head>
-    
     <title> Electra </> </title>
 </head>
 
-
-
 <body>
 
-{% block main_home_page %} {% endblock %}
+    <!-- Main page -->
+    {% block main_home_page %} {% endblock %}
 
+    <!-- Login & Register -->
+    {% block login_page %} {% endblock %}
 
+    {% block register_page %} {% endblock %}
 
-<!-- Login & Register -->
-{% block login_page %} {% endblock %}
+    <!-- OTP  -->
+    {% block verify_otp  %} {% endblock %}
 
-{% block register_page %} {% endblock %}
+    <!-- Admin Dashboard -->
+    {% block admin_dash_page %} {% endblock %}
 
-
-<!-- OTP  -->
-{% block verify_otp  %} {% endblock %}
-
-
-<!-- Admin Dashboard -->
-{% block admin_dash_page %} {% endblock %}
-
-
-
-
-<!-- User dashborad -->
-{% block user_dash_page %} {% endblock %}
+    <!-- User dashborad -->
+    {% block user_dash_page %} {% endblock %}
 
 
 
 
+    <!-- include Footer -->
+    {% include  'footer.html' %}
 
 
-<!-- include Footer -->
-{% include  'footer.html' %}
+    <!-- Load JS of bootstap -->
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 
 
+    <!-- Load JS of Font-aweasome -->
+    <script src="{% static 'fontawesome/js/all.min.js' %}"></script>
 
 
-<!-- Load JS of bootstap -->
-<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-
-
-<!-- Load JS of Font-aweasome -->
-<script src="{% static 'fontawesome/js/all.min.js' %}"></script>
-
-
-<!-- Load JS of select2 -->
-<script src="{% static 'js/select2.min.js' %}"></script>
-
-
-
-
-
+    <!-- Load JS of select2 -->
+    <script src="{% static 'js/select2.min.js' %}"></script>
 
 </body>
 </html>
+
 
 
 
@@ -92,14 +75,12 @@
 
 
 
+
+
 <style> 
 
 * { 
     font-family: 'Lato', sans-serif;
-        
-
 }
-
-
 
 </style>

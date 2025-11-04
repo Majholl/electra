@@ -9,7 +9,7 @@ from .views import (
                 
                 
                 #//
-                load_page_register_user_by_admin,
+                loadAddUserPage_byAdmin,
                 register_user_by_admin, 
                 verify_otp_page, verify_otp
                 
@@ -35,19 +35,22 @@ urlpatterns = [
     path('admin/modifyadmin/', modify_selected_admin, name='ModifySelectedAdmin'),
     path('admins/add', new_admin_list, name='AddNewAdminList'),
     path('admins/promote', PromoteUsertoAdmin, name='AddNewAdmin'),
+    
+    
+    
     path('panel/', UserPanel, name='UserPanel'),
    
    
    
    
    
+    path('register/', loadAddUserPage_byAdmin, name='LoadAddUserPage'),
    
    
     
     
     
 #// 
-    path('register', load_page_register_user_by_admin, name='load-page-register-user-by-admin'),
     path('register/submit', register_user_by_admin, name='register-user-by-admin'),
     
     path('verify/otp', verify_otp_page, name='verify-user-otp-page'),

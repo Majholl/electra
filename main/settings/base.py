@@ -18,7 +18,7 @@ if path.isfile(local_env_file):
 # Application definition
 LOCAL_APPS = ['core_apps.user', 'core_apps.voting', 'core_apps.candidate', 'core_apps.votes']
 
-THIRD_PARTY_APPS  = ['jalali_date']
+THIRD_PARTY_APPS  = ['jalali_date', 'phonenumber_field']
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -89,11 +89,14 @@ MEDIA_ROOT = path.join(BASE_DIR , "media")
 
 
 
-
 # Static files 
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS  = [path.join(BASE_DIR, 'static')]
+
+
+PHONENUMBER_DEFAULT_REGION = "IR"
+
 
 
 

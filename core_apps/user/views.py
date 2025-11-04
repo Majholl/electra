@@ -402,9 +402,6 @@ def RegisterPage(request :Request):
 
 
 
-def load_page_register_user_by_admin(request :Request):
-    content_html = render_to_string('admin/users/register-user-byadmin.html', context={** user_data(request)}, request=request)
-    return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
 
 
 
@@ -413,6 +410,21 @@ def load_page_register_user_by_admin(request :Request):
 
 
 
+
+def loadAddUserPage_byAdmin(request :Request):
+    try:
+        
+        content_template = 'admin/users/register-user-byadmin.html'
+        grusers = GroupUserAdminModel.objects.filter(relatedtoadmin = request.user).all()
+        content_html = render_to_string(content_template, context=None)
+        userdata = user_data(request)
+        print([i.user.first_name for i in grusers])
+        content_html = render_to_string(content_template, context={** userdata, 'obj_list':grusers}, request=request)
+        return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
+
+    except Exception as err:
+        print(err)
+        return redirect(reverse("404-nf"))
 
 
 
@@ -422,27 +434,36 @@ def load_page_register_user_by_admin(request :Request):
 
 #//TODO make it better
 def register_user_by_admin(request):
-    if request.method == "POST":
-        first_name = request.POST.get('first-name')
-        last_name = request.POST.get('last-name')
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+    # try:
         
-        if Users.objects.filter(username = username).exists() or Users.objects.filter(email= email).exists():
-            messages.add_message(request, messages.ERROR,'این کاربر در سیستم وجود دارد')
+    #     if request.method == "POST":
+    #         first_name = request.POST.get('first-name')
+    #         last_name = request.POST.get('last-name')
+    #         national_code = request.POST.get('national-code')
+            
+            
+    #         if Users.objects.filter(username = username).exists() or Users.objects.filter(email= email).exists():
+    #             messages.add_message(request, messages.ERROR,'این کاربر در سیستم وجود دارد')
 
-            return redirect(reverse('load-page-register-user-by-admin'))
+    #             return redirect(reverse('LoadAddUserPage'))
+                
+    #         create_user = Users.objects.create(username = username, email=email, first_name=first_name, last_name=last_name, password=make_password(password))
             
-        create_user = Users.objects.create(username = username, email=email, first_name=first_name, last_name=last_name, password=make_password(password))
-        
-        if settings.OTP_REQUIRED:
-            create_user.set_otp(generate_code())
-            create_user.account_status='deactive'
-            create_user.save()
+    #         if settings.OTP_REQUIRED:
+    #             create_user.set_otp(generate_code())
+    #             create_user.account_status='deactive'
+    #             create_user.save()
+                
+    #         GroupUserAdminModel.objects.create(user=create_user, relatedtoadmin=request.user)
+    #         return redirect(reverse('LoadAddUserPage'))
             
-        GroupUserAdminModel.objects.create(user=create_user, relatedtoadmin=request.user)
-        return redirect(reverse('load-page-register-user-by-admin'))
+    # except Exception as err:
+    #     print(err)
+    #     return redirect(reverse("404-nf"))
+
+    
+    pass
+    
     
     
     

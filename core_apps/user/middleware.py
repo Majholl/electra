@@ -13,7 +13,7 @@ class CustomMiddleware(MiddlewareMixin):
         urls = [reverse('UserPanel'), reverse('AdminDashboard'),
                 reverse('AdminsList'), reverse('VotesSection'),
                 reverse('VotePanels'), reverse('candidatelist'),
-                reverse('load-page-register-user-by-admin'),
+                reverse('LoadAddUserPage'),
                 ]
         
         response = self.get_response(request)
