@@ -1,0 +1,160 @@
+{% extends 'root.html' %}
+
+{% block verify_otp %}
+<div class="verify-user-otp">
+    
+    <div class="otp-img">
+        <img src="../static/opt.jpg" width="450px" height="350px">
+    </div>
+
+    <div class="otp-form">
+        <p>برای وارد شدن به سیستم باید وریفای شوید </p>
+
+        <form method="post" action="{% url 'verify-user-otp' %}">
+            {% csrf_token %}
+
+            <label>کد یکبار مصرف</label>
+            <input type="text" name="otp-input" placeholder="کد یکبار مصرف ارسال شده ؟">
+            {% if locked_account %}
+            <button disabled > امکان وریفای اکانت شما وجود ندارد</button>
+            {% else %}
+            <button>وریفای</button>
+            {% endif %}
+        </form>
+
+        <button class="logout-otp"><a href="{% url 'logoutFromSystem' %}">خروج</a></button>
+    </div>
+
+    <div class="success-msg">
+
+        {% if messages %}
+        <div class="alert alert-danger d-flex align-items-center fade-in" role="alert">
+            {% for msg in messages %}
+            <div>
+                {{ msg }}
+            </div>
+            {% endfor %}
+            <i class="fa-solid fa-comment"></i>
+
+        </div>
+        {% endif %} 
+
+    </div>
+    
+</div>
+
+
+<style>
+
+
+.verify-user-otp {
+    display: flex;
+    position: relative;
+    bottom: -130px;
+    flex-direction: row;
+    width: 100%;
+    height: 450px;
+    justify-content: center;
+ 
+    z-index: 2;
+    align-items: center;
+}
+
+
+.otp-form {
+    padding: 75px;
+    width: 40%;
+
+}
+
+.otp-form p {
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.otp-form form {
+    display: flex;
+    flex-direction: column;
+    direction: rtl;
+}
+
+
+
+.otp-form form label {
+    margin: 10px 0px 15px 0px;
+}
+
+
+.otp-form form input {
+    margin: 10px 0px 15px 0px;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    border-color: #1E293B;
+}
+
+
+
+.otp-form form button {
+    margin: auto;
+    width: 50%;
+    height: 40px;
+    font-weight: bold;
+    background: #1E293B;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 15px;
+}
+
+
+.otp-form form button:hover {
+    background-color: #334155;
+    color: #FFFFFF;
+    border-color: #334155;
+    border: 1px solid;
+}
+
+
+.verify-user-otp button {
+    margin: auto;
+    width: 20%;
+    height: 40px;
+    font-weight: bold;
+    background: #1E293B;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 15px;
+}
+
+.verify-user-otp button a {
+    color: white;
+    text-decoration: none;
+}
+.verify-user-otp button:hover {
+    background-color: #334155;
+    color: #FFFFFF;
+    border-color: #334155;
+    border: 1px solid;
+}
+
+</style>
+
+
+
+
+<script>
+
+setTimeout(function() {
+    var q_alert = document.querySelectorAll('.alert');
+    q_alert.forEach( function(alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            setTimeout(() => { alert.remove(), 500});}) 
+    }, 3000)
+
+
+</script>
+
+
+{% endblock %}
