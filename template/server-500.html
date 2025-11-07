@@ -1,8 +1,17 @@
+{% extends 'root.html' %}
+{% block 500sever %}
 
+<div class="sr500">
+    <img src="../static/server-not-responding.png">
+</div>
 
-<img src="../static/server-not-responding.png">
 
 <style>
+
+.sr500 {
+    margin: auto;
+    display: flex;
+}
 
 img { 
 
@@ -10,3 +19,5 @@ img {
 }
 
 </style>
+
+{% endblock %}
