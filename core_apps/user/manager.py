@@ -15,13 +15,18 @@ def validate_email_address(email):
     
     
 class CustomUserManger(UserManager):
+    
     def _create_user(self, email, password, **extra_fields):
+        
         if not email:
             raise ValueError('Email address must be provided')
+        
         if not password :
             raise ValueError('Password must be provided.')
+        
         email = self.normalize_email(email)
         verified_email = validate_email_address(email=email)
+        
         if not verified_email:
             return ValidationError('Email address is not Valied.')
     
@@ -42,6 +47,7 @@ class CustomUserManger(UserManager):
         return self._create_user(email, password, **extra_fields)
     
     
+    
     def create_admin(self, email, password, **extra_fields):
         extra_fields.setdefault('is_superuser', False)
         extra_fields.setdefault('is_staff', True)
@@ -49,6 +55,7 @@ class CustomUserManger(UserManager):
         extra_fields.setdefault('is_active', 1)
         extra_fields.setdefault('account_status', 'active')
         return self._create_user(email, password, **extra_fields)
+    
     
     
     def create_user(self, email, password, **extra_fields):
