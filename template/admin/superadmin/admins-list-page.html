@@ -18,14 +18,22 @@
             <li class="admins-pad">
 
                 <div class="username-img">
+
                     {% if i.profile %}
                     <img src="{{  i.profile.url }}" class="admin-image-section img" alt="{{ i.username }}" width="75px" height="75px">
                     {% endif %}
-                    <h1 class="admin-username">
-                        {% if i.usertype == 'superadmin' %}
-                        <i class="fa-solid fa-star" style="color: #EFBF04;"></i>
-                        {% endif %}
-                        {{ i.username }}</h1>
+
+
+                    <div class="admin-username-nationalcode">
+                        <p class="admin-username">
+                            {% if i.usertype == 'superadmin' %}
+                            <i class="fa-solid fa-star" style="color: #EFBF04;"></i>
+                            {% endif %} 
+                            نام کاربر: {{ i.first_name }} {{ i.last_name}}
+                        </p>
+                        <p class="admin-national-code">کد ملی: {{ i.national_code }}</p>
+                    </div>
+
 
                 </div>
 
@@ -173,11 +181,6 @@
     overflow: hidden;
 }
 
-.admin-username {
-    text-align: center;
-    font-size: 24px;
-    margin-top:15px;
-}
 
 
 .username-img {
@@ -262,4 +265,16 @@
 }
 
 
+
+
+.admin-username-nationalcode {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.admin-username-nationalcode  p {
+    margin: 10px 20px ;
+    font-weight: bold;
+}
 </style>

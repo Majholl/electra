@@ -11,9 +11,10 @@
             <div class="from-username">
 
                 <label for="validationUsername" class="form-label"> نام کاربری : </label>
-                <input type="text" class="form-control is-invalid" name="username" id="validationServer05" aria-describedby="validationServer05Feedback" required placeholder="نام کاربری ؟">
+                <input type="text" class="form-control is-invalid" name="username_field" id="validationServer05" aria-describedby="validationServer05Feedback" required placeholder="نام کاربری ؟">
     
             </div>
+
 
             <div class="from-password">
         
@@ -26,28 +27,31 @@
                 <button class="btn btn-primary" type="submit">ورود</button><br>
             </div>
 
+
         </form>
 
         <p class="login-section back-url"><a href="{% url 'HomePage' %}">بازگشت به صفحه اصلی</a></p>
-    </div>
 
 
-    <div class="success-msg">
 
-        {% if messages %}
-        <div class="alert alert-danger d-flex align-items-center fade-in" role="alert">
-            {% for msg in messages %}
-            <div>
-                {{ msg }}
+        <div class="success-msg">
+
+            {% if messages %}
+            <div class="alert alert-danger d-flex align-items-center fade-in" role="alert">
+                {% for msg in messages %}
+                <div>
+                    {{ msg }}
+                </div>
+                {% endfor %}
+                <i class="fa-solid fa-comment"></i>
+
             </div>
-            {% endfor %}
-            <i class="fa-solid fa-comment"></i>
+            {% endif %} 
 
         </div>
-        {% endif %} 
+        
 
     </div>
-
 
 
 
@@ -133,19 +137,6 @@ div.login-section {
 
 
 
-.success-msg { 
-    font-weight: bold;
-    width: 20%;
-    margin: auto;
-
-}
-
-.alert {
-    justify-content: center;
-    width: 250px;
-}
-
-
 
 .back-url{
     position: relative;
@@ -170,8 +161,22 @@ div.login-section {
 }
 
 
-</style>
+.success-msg { 
+    font-weight: bold;
+    width: 20%;
+    position: relative;
+    bottom: 35px;
+    left: 250px;
+}
 
+.alert {
+    justify-content: center;
+    width: 250px;
+    padding: 10px 0px 10px 0px;
+}
+
+
+</style>
 
 
 

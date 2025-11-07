@@ -1,9 +1,11 @@
 
 <div class="add-user-by-admin-all">
+
+
     <div class="add-user-by-admin-left">
     
-        <form method="post" action="{% url 'register-user-by-admin' %}">
-            {% csrf_token %}
+        <form method="post" action="{% url 'RegisterUserByadmin' %}">
+        {% csrf_token %}
 
         <h2>کاربر خود را وارد کنید</h2>
 
@@ -13,18 +15,19 @@
         </div>
 
         <div class="form-group">
-            <label for="last-name">نام خانوادگی</label>
+            <label for="last-name">نام‌خانوادگی</label>
             <input type="text" id="last-name" name="last-name" placeholder="" required>
         </div>
 
         <div class="form-group">
-            <label for="national-code">کد ملی</label>
+            <label for="national-code">کد‌ملی</label>
             <input type="text" id="national-code" name="national-code" placeholder="" required>
         </div>
 
         <div class="form-group">
-            <label for="phonenumber">شماره همراه</label>
+            <label for="phonenumber">شماره‌همراه</label>
             <input type="tel" id="national-code" name="phonenumber" placeholder="" required>
+
         </div>
 
             <button type="submit">ثبت</button>
@@ -71,14 +74,15 @@
                 <tbody>
                 
                     {% for i in obj_list %}
+                    
                     <tr scope="row">
-                        <th scope="row">{{ forloop.counter }}</th>
-                        <th scope="row">{{ i.user.first_name }}</th>
-                        <th scope="row">{{ i.user.last_name }}</th>
-                        <th scope="row">{{ i.user.national_code }}</th>  
-                        <th scope="row">{{ i.user.phone_number }}</th>  
-                        {% if i.user.account_status == 'acitve' %}<th scope="row">فعال</th>{% else %}<th scope="row">غیر فعال</th>{% endif %}
-                    </tr>
+                        <th scope="row"><a href="{% url 'LoadUserOfAdmin' id=i.user.national_code %}">{{ forloop.counter }}</a></th>
+                        <th scope="row"><a href="{% url 'LoadUserOfAdmin' id=i.user.national_code %}">{{ i.user.first_name }}</a></th>
+                        <th scope="row"><a href="{% url 'LoadUserOfAdmin' id=i.user.national_code %}">{{ i.user.last_name }}</a></th>
+                        <th scope="row"><a href="{% url 'LoadUserOfAdmin' id=i.user.national_code %}">{{ i.user.national_code }}</a></th>  
+                        <th scope="row"><a href="{% url 'LoadUserOfAdmin' id=i.user.national_code %}">{{ i.user.phone_number }}</a></th>  
+                        {% if i.user.account_status == 'active' %}<th scope="row">فعال</th>{% else %}<th scope="row">غیر فعال</th>{% endif %}</tr>
+                    
                     {% endfor %}
 
                 </tbody>
@@ -119,6 +123,10 @@
     flex-grow: 1;
 }
 
+th a {
+    text-decoration: none;
+    color: black;
+}
 
 
 .add-user-by-admin-right{
@@ -193,5 +201,6 @@ button:hover {
   background-color: #334155;
   color: #FFFFFF;
 }
+
 
 </style>

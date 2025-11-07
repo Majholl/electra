@@ -11,7 +11,7 @@
             <select name="addnewadmin" class="form-select user-type" aria-label="Default select example">
                 <option selected> کاربران </option>
                 {% for i in allusers %}
-                <option value="user_{{i.id}}">{{ i.username }}</option>
+                <option value="user_{{i.id}}">کد ملی : {{ i.national_code }} | {{ i.first_name }}-{{ i.last_name }} : نام و ناخانوادگی</option>
                 {% endfor %}
             </select>
 
