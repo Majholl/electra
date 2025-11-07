@@ -4,7 +4,7 @@
 # PY - modules
 from ast import Dict
 from urllib.request import Request
-import random
+import random , string
 
 
 # DJANGO - modules
@@ -28,10 +28,11 @@ from ..user.models import Users, GroupUserAdminModel
 User =  get_user_model()
 
 
-
-
 def generate_code():
     return ''.join(random.choice(["0","1","2","3","4","5","6","7","8","9"]) for _ in range(6))
+
+
+
 
 
 def user_data(request :Request) -> Dict:
@@ -40,6 +41,7 @@ def user_data(request :Request) -> Dict:
             user_profile_url = request.user.profile
             user_username = request.user.username 
             user_user_type = request.user.usertype 
+            
             return {'userauth': request.user, 'profile':user_profile_url, 'username' : user_username,  'usertype':user_user_type}
         
         else:
@@ -52,16 +54,10 @@ def user_data(request :Request) -> Dict:
 
 
 
-def homePage(request :Request):
-    return render(request, template_name='main.html', context={** user_data(request),})
-
-
-
-
 def NotFound404(request :Request):
     try:
         
-        content_template = '404.html'
+        content_template = 'nf-404.html'
         content_html = render_to_string(content_template, context=None)
         userdata = user_data(request)
         
@@ -74,67 +70,49 @@ def NotFound404(request :Request):
 
 
 def ServerError500(request :Request):
-    
-    content_template = 'server-500.html'
-    content_html = render_to_string(content_template, context=None)
-    userdata = user_data(request)
-    
-    return render(request, template_name='admin/admindash.html', context={** userdata, 'content':content_html})
+    return render(request, template_name='server-500.html', context=None)
+
+
+
+
+
+
+
+
+def homePage(request :Request):
+    return render(request, template_name='main.html', context={** user_data(request),})
+
+
+
 
 
 
 
 def LoginPage(request :Request):
-    if request.user.is_authenticated: 
-        if request.user.usertype in ['superadmin', 'admin']:
-
-            return redirect(reverse('AdminDashboard'))
-        else :
-            return redirect(reverse('UserPanel'))
-        
-    return render(request, template_name='authentications/login.html', context={** user_data(request),})
-
-
-
-
-
-
-
-
-
-def loginUser(request  :Request):
     try:
-
-        try:
-            user = User.objects.get(username = request.POST['username'])
+        if request.user.is_authenticated: 
             
-            if user :
-                if user.check_password(request.POST['password']): 
-                    
-                    if settings.OTP_REQUIRED and user.is_active==0:
-                        login(request, user, backend='core_apps.user.authentication.AllowInactiveUserBackend')
-                        return redirect(reverse('verify-user-otp-page')) 
-                    
-                    else:
-                        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-                        if user.usertype == 'user':
-                            return redirect(reverse('UserPanel'))
-                            
-                        else:
-                            return redirect(reverse('AdminDashboard'))
-                                
-                else:
-                    messages.add_message(request, messages.INFO, 'اطلاعات وارد شده اشتباه میباشد')
-                    return render(request, template_name='authentications/login.html', context={** user_data(request)})
+            if request.user.usertype in ['superadmin', 'admin']:
+                return redirect(reverse('AdminDashboard'))
             
-        except User.DoesNotExist:
-            messages.add_message(request, messages.INFO, 'اطلاعات وارد شده اشتباه میباشد')
-            return render(request, template_name='authentications/login.html', context={** user_data(request),'wrong_data':'Your data is wrong.'})
+            else :
+                return redirect(reverse('UserPanel'))
+            
+        return render(request, template_name='authentications/login.html', context={** user_data(request),})
     
-    
-    except Exception as err :
-        print(err)
+    except Exception as err:
         return redirect(reverse('500-se'))
+
+
+
+
+
+
+def logoutUser(request :Request):
+    logout(request)
+    return redirect(reverse('AuthLogin'))
+
+        
 
 
 
@@ -147,6 +125,51 @@ def AdminDashboard(request :Request):
 
 
 
+def UserPanel(request :Request):
+    return render(request, template_name='user/userdashborad.html', context={** user_data(request), 'content':load_vote_section(request)})
+
+
+
+
+
+
+
+def loginUser(request  :Request):
+    try:
+        
+        username_field = request.POST.get('username_field')
+        password = request.POST.get('password')
+        userFound = Users.objects.get(national_code = str(username_field))
+        print(userFound)
+
+        if userFound :
+            if userFound.check_password(password): 
+                
+                if settings.OTP_REQUIRED :
+                    if userFound.is_active == 0:
+                        login(request, userFound, backend='core_apps.user.authentication.AllowInactiveUserBackend')
+                        return redirect(reverse('verify-user-otp-page')) 
+                    
+                    
+                login(request, userFound, backend='django.contrib.auth.backends.ModelBackend')
+                
+                if userFound.usertype == 'user':
+                    return redirect(reverse('UserPanel')) 
+                else:
+                    return redirect(reverse('AdminDashboard'))
+                            
+            else:
+                messages.add_message(request, messages.INFO, 'رمز وارد شده اشتباه میباشد')
+                return render(request, template_name='authentications/login.html', context=None)
+               
+    except User.DoesNotExist:
+        messages.add_message(request, messages.INFO, 'اطلاعات وارد شده اشتباه میباشد')
+        return render(request, template_name='authentications/login.html', context={** user_data(request),'wrong_data':'Your data is wrong.'})
+    
+    
+    except Exception as err :
+        print(err)
+        return redirect(reverse('500-se'))
 
 
 
@@ -156,12 +179,24 @@ def AdminDashboard(request :Request):
 
 
 
-def load_vote_section(request):
-    grusers = GroupUserAdminModel.objects.get(user = request.user)
 
+
+
+
+
+
+
+
+
+
+
+def load_vote_section(request  :Request):
+    
     if request.user.usertype =='admin':
         vote_panels = VotePanelModel.objects.filter(created_by=request.user)
+        
     elif request.user.usertype =='user':
+        grusers = GroupUserAdminModel.objects.get(user = request.user)
         vote_panels = VotePanelModel.objects.filter(created_by = Users.objects.get(id = grusers.relatedtoadmin.id))
     else:
         vote_panels = VotePanelModel.objects.all()
@@ -171,11 +206,11 @@ def load_vote_section(request):
 
 
 
+
+
+
+
 #//TODO add paginator for vote panels to vote
-def UserPanel(request :Request):
-    return render(request, template_name='user/userdashborad.html', context={** user_data(request), 'content':load_vote_section(request)})
-
-
 
 
 
@@ -363,12 +398,150 @@ def PromoteUsertoAdmin(request):
 
 
 
-def logoutUser(request :Request):
-    logout(request)
-    return redirect(reverse('AuthLogin'))
 
+
+
+
+
+
+def loadAddUserPage_byAdmin(request :Request):
+    try:
         
+        content_template = 'admin/users/register-user-byadmin.html'
+        grusers = GroupUserAdminModel.objects.filter(relatedtoadmin = request.user).all()
+        content_html = render_to_string(content_template, context=None)
+        userdata = user_data(request)
+        content_html = render_to_string(content_template, context={** userdata, 'obj_list':grusers}, request=request)
+        return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
 
+    except Exception as err:
+        print(err)
+        return redirect(reverse("404-nf"))
+
+
+
+
+
+
+def registerUser_byadmin(request :Request):
+    try:
+        
+        if request.method == "POST":
+            first_name = request.POST.get('first-name')
+            last_name = request.POST.get('last-name')
+            national_code = request.POST.get('national-code')
+            phonenumber = request.POST.get('phonenumber')
+            
+            print(phonenumber)
+            
+            user = Users.objects
+            if user.filter(national_code = national_code).exists():
+                messages.add_message(request, messages.ERROR,'این کاربر در سیستم وجود دارد')
+                return redirect(reverse('LoadAddUserPage'))
+                    
+            create_user = Users.objects.create(national_code= national_code, 
+                first_name=first_name, last_name=last_name,
+                phone_number = phonenumber, password=make_password(phonenumber))
+            
+            if settings.OTP_REQUIRED is False :
+                create_user.is_active = 1
+                create_user.save()
+                
+            if settings.OTP_REQUIRED:
+                create_user.set_otp(generate_code())
+                create_user.account_status='deactive'
+                create_user.save()
+                
+            if request.user.usertype == 'admin':    
+                GroupUserAdminModel.objects.create(user=create_user, relatedtoadmin=request.user)
+                
+            return redirect(reverse('LoadAddUserPage'))
+            
+    except Exception as err:
+        print(err)
+        return redirect(reverse("404-nf"))
+
+    
+    
+    
+    
+    
+    
+
+def load_selected_user_byadmin(request :Request, id :int):
+    try:
+        user = User.objects.get(national_code = id)
+        
+        context = {'obj_list': user}
+        content_template = 'admin/users/modify_register_user.html'
+        content_html = render_to_string(content_template, context, request=request)
+        
+        return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
+    
+    except Exception as err :
+        print(err)
+        return redirect(reverse("404-nf"))
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+def verify_otp_page(request :Request):
+    try :
+        check_user = Users.objects.get(id = request.user.id)
+        
+        if check_user.is_active == 0 and check_user.otp_attempt >= 3 :
+            return render(request, template_name='authentications/verify-otp.html',  context={'locked_account':True},)
+        
+        return render(request, template_name='authentications/verify-otp.html',  context=None,)
+    
+    except Exception as err:
+        print(err)
+        redirect(reverse('500-se'))    
+                
+    
+    
+
+    
+def verify_otp(request :Request):
+    if request.method =='POST':
+        
+        otp_input = request.POST.get("otp-input")
+        user_verify = Users.objects.get(id = request.user.id)
+        
+        if user_verify.account_status != Users.AccountStatus.LOCKED:
+            
+            if user_verify.is_active == 0 :
+                
+                if user_verify.otp_attempt >= 3 :
+                    return redirect(reverse('verify-user-otp-page'))     
+                
+                if user_verify.verify_otp_code(otp_input):
+                    return redirect(reverse('UserPanel'))
+                
+                else:
+                    user_verify.otp_attempt_count
+                    messages.add_message(request, messages.INFO, 'کد تاییدیه شما اشتباه است')
+                    return redirect(reverse('verify-user-otp-page'))
+                
+        else:
+            messages.add_message(request, messages.INFO, 'اکانت شما قفل میباشد ')
+            return redirect(reverse('verify-user-otp-page'))
+        
+        
+        
+        
 
 
 
@@ -397,105 +570,3 @@ def RegisterPage(request :Request):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def loadAddUserPage_byAdmin(request :Request):
-    try:
-        
-        content_template = 'admin/users/register-user-byadmin.html'
-        grusers = GroupUserAdminModel.objects.filter(relatedtoadmin = request.user).all()
-        content_html = render_to_string(content_template, context=None)
-        userdata = user_data(request)
-        print([i.user.first_name for i in grusers])
-        content_html = render_to_string(content_template, context={** userdata, 'obj_list':grusers}, request=request)
-        return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
-
-    except Exception as err:
-        print(err)
-        return redirect(reverse("404-nf"))
-
-
-
-
-
-
-
-#//TODO make it better
-def register_user_by_admin(request):
-    # try:
-        
-    #     if request.method == "POST":
-    #         first_name = request.POST.get('first-name')
-    #         last_name = request.POST.get('last-name')
-    #         national_code = request.POST.get('national-code')
-            
-            
-    #         if Users.objects.filter(username = username).exists() or Users.objects.filter(email= email).exists():
-    #             messages.add_message(request, messages.ERROR,'این کاربر در سیستم وجود دارد')
-
-    #             return redirect(reverse('LoadAddUserPage'))
-                
-    #         create_user = Users.objects.create(username = username, email=email, first_name=first_name, last_name=last_name, password=make_password(password))
-            
-    #         if settings.OTP_REQUIRED:
-    #             create_user.set_otp(generate_code())
-    #             create_user.account_status='deactive'
-    #             create_user.save()
-                
-    #         GroupUserAdminModel.objects.create(user=create_user, relatedtoadmin=request.user)
-    #         return redirect(reverse('LoadAddUserPage'))
-            
-    # except Exception as err:
-    #     print(err)
-    #     return redirect(reverse("404-nf"))
-
-    
-    pass
-    
-    
-    
-    
-    
-    
-def verify_otp_page(request):
-    print(request.user)
-    return render(request, template_name='verify-otp.html', context=None,)
-    
-    
-    
-def verify_otp(request):
-    if request.method =='POST':
-        print(request.user)
-        
-        otp_input = request.POST.get("otp-input")
-        user_verify = Users.objects.get(id = request.user.id)
-        print(otp_input)
-        if user_verify.account_status != 'locked':
-            if user_verify.otp == otp_input:
-                user_verify.is_active =1
-                user_verify.clear_otp
-                user_verify.save()
-                return redirect(reverse('UserPanel'))
-            else:
-                user_verify.otp_attempt_count
-                messages.add_message(request, messages.INFO, 'کد تاییدیه شما اشتباه است')
-                return redirect(reverse('verify-user-otp-page'))
-                
-                
-        else:
-            user_verify.otp_attempt_count
-            messages.add_message(request, messages.INFO, 'اکانت شما قفل میباشد ')
-            
-            return redirect(reverse('verify-user-otp-page'))

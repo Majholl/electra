@@ -10,7 +10,10 @@ from .views import (
                 
                 #//
                 loadAddUserPage_byAdmin,
-                register_user_by_admin, 
+                registerUser_byadmin, 
+                load_selected_user_byadmin,
+                
+                
                 verify_otp_page, verify_otp
                 
                 
@@ -44,14 +47,14 @@ urlpatterns = [
    
    
    
-    path('register/', loadAddUserPage_byAdmin, name='LoadAddUserPage'),
    
-   
+    path('register/user', loadAddUserPage_byAdmin, name='LoadAddUserPage'),
+    path('register/submit', registerUser_byadmin, name='RegisterUserByadmin'),
+    path('admin/user/<int:id>/', load_selected_user_byadmin, name='LoadUserOfAdmin'),
     
     
     
 #// 
-    path('register/submit', register_user_by_admin, name='register-user-by-admin'),
     
     path('verify/otp', verify_otp_page, name='verify-user-otp-page'),
     path('verify/otp/submit', verify_otp, name='verify-user-otp')

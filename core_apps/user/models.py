@@ -24,7 +24,6 @@ def UserProfile(instance, filename):
          
           
 class Users(AbstractUser):
-    
     class UserType(models.TextChoices):
         USER = 'user', 'User'
         ADMIN = 'admin', 'Admin'
@@ -35,31 +34,38 @@ class Users(AbstractUser):
         DEACTIVE = 'deactive', 'Deactive'
         LOCKED = 'locked', 'Locked'
 
-    
-    national_code = models.BigIntegerField('Code meli of the user', unique=True, null=False)
-    
-    email = models.EmailField('Email address', db_index=True, unique=True)
+
+    national_code = models.BigIntegerField('National code', unique=True, null=False)
+    phone_number = PhoneNumberField('Phone number' , max_length=30 , unique=True, null=True, region=None)
+   
+    email = models.EmailField('Email address', unique=False, null=True)
+    username = models.CharField('Username', max_length=150, unique=False, null=True)
+   
     profile = models.ImageField('User profile', upload_to=UserProfile, null=True)
-    phone_number = PhoneNumberField('Phone Number' , max_length=30 , unique=True, null=True)
-    
     usertype = models.CharField('User type', max_length=10, choices=UserType.choices, default=UserType.USER)
+    
+    account_status = models.CharField('Account status', max_length=8, choices=AccountStatus.choices, default=AccountStatus.DEACTIVE)
+    is_active = models.BooleanField('Account activation', default=0)    
+        
         
     otp = models.CharField('One time password', max_length=6, null=True)
     otp_expire_time = models.DateTimeField('One time password expiration', null=True, blank=True)
     otp_attempt = models.IntegerField('One time password attempt', default=0)
     
-    account_status = models.CharField('Account status', max_length=8, choices=AccountStatus.choices, default=AccountStatus.DEACTIVE)
-    is_active = models.BooleanField('Account activation', default=0)    
     
     maxpanelcount = models.SmallIntegerField('Number of panel careation by admins', default=0)
-    allowunlimitpanelcreation = models.BooleanField('Allow admin to create panel', default=0)    
+    allowunlimitpanelcreation = models.BooleanField('Allow admin to create panel ultimately', default=0)    
     
     created_at = models.DateTimeField('Creatation datetime', auto_now_add=True)
     updated_at = models.DateTimeField('Last modification', auto_now=True)
     
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'email', 'national_code', 'password']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'email', 'password']
+    USERNAME_FIELD = 'national_code'
+    
     
     objects = CustomUserManger()
+    
+    
     
     class Meta:
         verbose_name = 'User'
@@ -67,19 +73,30 @@ class Users(AbstractUser):
         ordering = ['-created_at']
         
         
-        
+    def __str__(self):
+        return f"pk :{self.pk}|Name :{str(self.first_name) +'-'+ str(self.last_name)}|UserType :{self.usertype}"  
+     
     def set_otp(self, code:str):
         self.otp = code
         self.otp_expire_time = timezone.now() + settings.OTP_EXPIRE_TIME
         self.save()    
     
     
-    @property 
-    def clear_otp(self):
-        self.otp = None
-        self.save()
-   
-           
+    def verify_otp_code(self, code_otp):
+        
+        if self.otp == str(code_otp):
+            self.otp = None
+            self.otp_expire_time = None
+            self.otp_attempt = 0
+            self.account_status = Users.AccountStatus.ACTIVE
+            self.is_active = 1
+            self.save()
+            return True
+        
+        return False
+            
+            
+    
     @property
     def validate_otp_expiration(self):
         return (timezone.now() - self.otp_expire_time) <= settings.OTP_EXPIRE_TIME
