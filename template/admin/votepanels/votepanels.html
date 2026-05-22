@@ -1,0 +1,64 @@
+{% load jalali_tags %}
+{% load static %}
+
+
+<!-- TODO remove button for the pannel -->
+<!-- TODO add owner name on pannels -->
+<!-- TODO add search box -->
+
+<div class="votepanels-section">
+
+    <div class="votepanels-top-section">
+
+        <div class="button-section-votepanel">
+            <button><a href="{% url 'NewVoting' %}">اضافه کردن پنل جدید</a></button>
+        </div>
+
+        <div class="pagination-section-votepanel">
+            {% if has__page.has_previous %}
+            <button class="pagination-prev"><a href="{% url 'VotePanels' page_num=has__page.previous_page_number %}"> <i class="fa-solid fa-angles-left"></i> قبلی </a></button>
+            {% endif %}
+            {% if has__page.has_next %}
+            <button class="pagination-next"><a href="{% url 'VotePanels' page_num=has__page.next_page_number %}"> بعدی <i class="fa-solid fa-angles-right"></i></a></button>
+            {% endif %}
+        </div>
+
+    </div>
+
+
+
+    <div class="votepanels-bottoms-section">
+
+        {% for i in objs_list %}
+        <div class="votepanels" >
+            
+           
+            <a href="{% url 'LoadSelectedVotePanel' id=i.id %}" style="background-image: url('{{i.image.url}}'); width: 400px; height: 400px;">
+
+            <div class="votepanel-labels">
+                <p class="votepanel-name-label">نام انتخابات</p>
+                {% if usrtype == 'superadmin' %}
+                <p class="votepanel-owner-name-label">سازنده</p>
+                {% endif %}
+            </div>
+
+            <div class="votepanel-info">
+                <p class="votepanelname">{{i.name}}</p>
+                {% if usrtype == 'superadmin' %}
+                <p class="votepanel-owner-name">{{ i.created_by.first_name }}{{ i.created_by.last_name }}</p>
+                {% endif %}
+            </div>
+
+            </a>
+
+        </div>
+        {% endfor %}
+
+
+        
+    </div>
+
+
+
+</div>
+

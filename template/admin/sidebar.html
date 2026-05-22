@@ -1,164 +1,79 @@
-<aside class="right-sidebar">
-
-    <section class="inner-top-sidebar">
-
-        <a class="rel-dashboard" href="{% url 'AdminDashboard' %}">
-
-            <div class="inner-top-sidebar admin">
-
-                <div class="admin-image-section">
-                    {% if profile %}
-                    <img src="{{ profile.url }}" class="admin-image-section img" alt="{{ username }}" width="95px" height="95px">
-                    {% else %}
-                    <img src="../static/user.png" class="admin-image-section img" alt="{{ username }}" width="95px" height="95px">
-                    {% endif %}
-                </div>
-
-                <div class="admin-info-section">
-                    <p class="admin-info-section p ">{{ userauth.first_name }}{{ userauth.last_name }}</p>
-                    <i class="fa-solid fa-circle-user"></i>
-                </div>
-
-            
-
-            </div>
-
-        </a>
-
-    </section>
-
-    <hr style=" font-weight: bold; height: 2px;color: aliceblue;  border-radius: 10px;">
+{% load static %}
 
 
-    <section class="inner-bottom-sidebar">
+<div class="main-sidebar">
 
-        <ul class="inner-bottom-sidebar menu" data-widget="tree">
 
-            {% if usertype == 'superadmin' %}
-            <li class="sub-spadmins-page"> 
-                <a href="{% url 'AdminsList' %}"><i class="side-btn fa fa-dashboard"></i><span>مدیران</span></a>
-            </li>
-            {% endif %}
-
-            {% if usertype == 'admin' %}
-            <li class="sub-admin-page"> 
-                <a href="{% url 'LoadAddUserPage' %}"><i class="side-btn fa fa-dashboard"></i><span>کابران</span></a>
-            </li>
-            {% endif %}
-
-            <li class="vote-panels-page">
-                <a href="{% url 'VotePanels' %}"><span class="fa fa-square-poll-vertical"></span><span>پنل رای گیری</span></a>
-            </li>
-            
-            <li class="candidate-page">
-                <a href="{% url 'candidatelist' %}"><i class="fa fa-users"></i><span>کاندید ها</span></a>
-            </li>
-            
-            <li class="votes-page">
-                <a href="{% url 'VotesSection' %}"><i class="fa fa-black-tie"></i> <span>رای ها</span></a>
-            </li>
+    <div class="dashboard-menu">
     
-            <li >
-                <a href="{% url 'logoutFromSystem' %}"><span>خروج</span></a>
-            </li>
+        <div class="dashboard-menu-options">
 
-        </ul>
+            <ul class="options menu" data-widget="tree">
+
+                {% if usertype == 'superadmin' %}
+                <li class="sub-spadmins page"> <a href="{% url 'AdminsList' %}"><i class="side-btn fa fa-dashboard"></i><span> مدیران </span></a></li>
+                {% endif %}
+
+                {% if usertype == 'admin' %}
+                <li class="sub-admin page"><a href="{% url 'LoadAddUserPage' %}"><i class="side-btn fa fa-dashboard"></i><span> کابران </span></a></li>
+                {% endif %}
+
+                <li class="vote-panels page"><a href="{% url 'VotePanels' %}"><span class="fa fa-square-poll-vertical"></span><span> پنل رای گیری </span></a></li>
+                
+                <li class="candidate page"><a href="{% url 'candidatelist' %}"><i class="fa fa-users"></i><span> کاندید ها </span></a></li>
+                
+                <li class="votes page"><a href="{% url 'VotesSection' %}"><i class="fa fa-black-tie"></i> <span> رای ها </span></a></li>
         
-    </section>
+                <li class="exit page" ><a href="{% url 'logoutFromSystem' %}"><i class="fa fa-arrow-left"></i> <span> خروج </span></a></li>
 
-</aside>
+            </ul>
+            
+        </div>
 
-
-
-
-
-
-<style>
-
-.right-sidebar {
-        height: 100%;
-        width: 200px;
-        position: fixed;
-        z-index: 1;
-        top: 50px;
-        right: 0px;
-        background-color: #334155;
-        overflow-x: hidden;
-        padding-top: 20px;
-        direction: rtl;
-        }
-
-.right-sidebar a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    color: #ffffff;
-    display: block;
-
-}
-
-.right-sidebar a:hover{
-    color: #ffffff;
-}
+    
+    </div>
+        
+        
+    <div class="locations-of-user">صفحه {{userlocation }}<i class='fa-solid fa-location-dot'></i> </div>
 
 
-.rel-dashboard{
-    display: grid;
-    justify-items: center;
-}
+    <div class="userlogged-in">
 
-.inner-bottom-sidebar {
-    margin: 30px 0px 20px 0px;
-}
+        <div class="admin-info-sidebar">
 
-.inner-top-sidebar.admin {
-    width: 100%;
-    padding: 10px;
-}
+            <a class="rel-dashboard" href="{% url 'AdminDashboard' %}">
+
+                <div class="inner-admin-sidebar admin">
 
 
-.admin-image-section {
-    text-align: center;
-    margin: 10px;
-}
+                    <div class="admin-image-section">
 
+                        {% if profile %}
+                        <img src="{{ profile.url }}" class="admin-image-section img" alt="{{ username }}" width="95px" height="95px">
+                        {% else %}
+                        <img src="../static/user.png" class="admin-image-section img" alt="{{ username }}" width="95px" height="95px">
+                        {% endif %}
 
-.admin-image-section.img {
-    border-radius: 20px;
-}
+                    </div>
+
+                    <div class="admin-info-section">
+
+                        <p class="admin-info-section p ">{{ userauth.first_name }}{{ userauth.last_name }} 
+                         <i class="fa-solid fa-circle-user"></i> </p>
+                        <p class="usertype"> {% if usertype == 'superadmin' %} سطح دسترسی :‌ SuperUser  {% endif %}</p>
+
+                    </div>
+                    
+                </div>
+
+            </a>
+
+        </div>
+        
+    </div>
+
+</div>
 
 
 
-.admin-info-section { 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row-reverse;
-
-}
-.admin-info-section.p{
-    font-size: 20px;
-    margin : 0px 5px !important;
-} 
-
-
-
-.inner-bottom-sidebar ul li {
-    display: flex;
-    margin: 10px 5px;
-    list-style: none;
-    font-weight: bold;
-    align-items: center;
-    justify-content: center;
-}
-
-</style>
-
-
-
-
-
-
-
-
-
+                

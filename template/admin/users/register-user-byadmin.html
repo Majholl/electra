@@ -66,7 +66,7 @@
                         <th scope="col">نام‌خانوادگی کاربر</th>
                         <th scope="col">شماره ملی</th>
                         <th scope="col">شماره همراه</th>
-                        <th scope="col">وضعیت کاربر</th>
+                        <th scope="col"> کاربر وارد شده است؟</th>
                     </tr>
 
                 </thead>
@@ -74,7 +74,7 @@
                 <tbody>
                 
                     {% for i in obj_list %}
-                    
+                    <!--  //TODO add check mark of font aweasome  -->
                     <tr scope="row">
                         <th scope="row"><a href="{% url 'LoadUserOfAdmin' id=i.user.national_code %}">{{ forloop.counter }}</a></th>
                         <th scope="row"><a href="{% url 'LoadUserOfAdmin' id=i.user.national_code %}">{{ i.user.first_name }}</a></th>
