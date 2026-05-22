@@ -1,0 +1,319 @@
+
+.modify-admin-section {
+    display: flex;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    margin: 10px;
+    padding: 5px;
+}
+
+
+
+.search-box-section {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    margin: 5px;
+    text-align: center;
+}
+
+
+
+.search-box-section input {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border-radius: 8px;
+}
+
+
+.modify-admin-section-form {
+    width: 75%;
+    margin: 10px 10px 50px 10px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 0.2em 0.25em #0000001c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.modify-admin-section-form form {
+    width: inherit;
+    padding: 10px;
+    margin: 20px;
+}
+
+.non-changable-data {
+    display: flex;
+    align-items: center;
+    direction: rtl;
+    font-weight: bold;
+    font-size: 20px;
+    width: 100%;
+    margin: 10px;
+    padding: 5px;
+}
+
+
+.non-changable-data p {
+    width: 100%;
+    margin: 10px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.modify-usertype-section {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 5px;
+    margin: 10px;
+    direction: rtl;
+    font-weight: bold;
+}
+
+
+
+.modify-usertype-section p {
+    text-align: center;
+    width: 25%;
+    margin: 10px;
+    padding: 5px;
+}
+
+
+
+.form-user-type {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    text-align: center;
+}
+
+
+
+
+
+
+.modify-accountstatus-section {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 5px;
+    margin: 10px;
+    direction: rtl;
+    font-weight: bold;
+}
+
+
+.modify-accountstatus-section p {
+    text-align: center;
+    width: 25%;
+    margin: 10px;
+    padding: 5px;
+
+}
+
+
+
+.form-acc-status {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+.modify-adminlimitation-section {
+    display: flex;
+    width: 100%;
+    padding: 5px;
+    margin: 10px;
+    direction: rtl;
+    font-weight: bold;
+    flex-direction: column;
+}
+
+
+
+
+.num-make-votepanel {
+    padding: 20px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    direction: rtl;
+}
+
+
+
+.num-make-votepanel p {
+
+    text-align: center;
+    width: 35%;
+    margin: 10px;
+    padding:5px ;
+
+}
+
+
+
+.num-make-votepanel label {
+    text-align: center;
+    width: 25%;
+    margin: 10px;
+    padding:5px ;
+
+}
+
+
+
+.num-make-votepanel input {
+    width: 8%;
+    border-radius: 5px;
+    text-align: center;
+    margin: 2px;
+    padding: 2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.limit-make-votepanel {
+    width: 100%;
+    padding: 20px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    direction: rtl;
+}
+
+
+
+.limit-make-votepanel p {
+
+    text-align: center;
+    width: 45%;
+    margin: 10px;
+    padding:5px ;
+
+}
+
+
+
+.limit-make-votepanel label {
+
+    text-align: center;
+    width: 24%;
+    margin: 10px 5px 10px 0px;
+    padding:5px ;
+
+}
+
+
+
+.limit-make-votepanel input {
+    width: 2%;
+
+}
+
+
+.last-login {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    margin: 10px;
+    font-size: 18px;
+}
+
+
+
+
+
+
+
+.btn-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;  
+    width: 100%;
+    margin: 10px;
+    padding: 5px;
+}
+
+
+
+
+
+
+.btn-section button{
+    width: 15%;
+    padding: 10px;
+    margin: 20px;
+    background-color: #27354d;
+    color: white;
+    border-radius: 15px;
+    border-style: none;
+    box-shadow: #9a9a9a 0px 0px 1px;
+    text-align: center;
+    font-weight: bold;
+    transition: border-radius ;
+    transition-delay: 250ms;
+    transition-duration: 300ms;
+}
+
+
+
+.btn:hover {
+    background-color: #1e293b !important;
+    border-radius: 8px
+}
+
+
+
+.btn:focus  {
+    background-color: #1e293b !important;
+}
+
+
+
+
+.success-msg {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    margin: 10px;
+}
+
+

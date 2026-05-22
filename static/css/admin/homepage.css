@@ -1,0 +1,85 @@
+
+.dashboard-home-admin {
+    width: 100%;
+    height: auto;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+    
+
+
+
+
+.dahs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ebf2ff;
+    width: 100%;
+    font-size: 30px;
+    margin: 30px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 0.25em 0 #cacaca;
+    transition: border-radius;
+    transition-duration: 250ms;
+    transition-timing-function: cubic-bezier(0.66, 0.7, 0.16, 0.48);
+}
+
+
+.dahs:hover { 
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+}
+
+
+
+.dahs ul {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    list-style: none;
+    text-decoration: none;
+    width: 100%;
+    margin: 0px 15px 0px 15px;
+}
+
+
+
+.dahs ul li { 
+    height: 200px;
+    width: 100%;
+    font-size: 120%;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    direction: rtl;
+}
+
+
+
+.dahs ul a {
+    width: 100%;
+    height: inherit;
+    text-decoration: none;
+    color: #4a4747;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color;
+    transition-duration: 250ms;
+    transition-delay: 100ms;
+}
+
+
+
+.dahs ul a:hover {
+    text-decoration: none;
+}
+
+
+.dahs ul li i {
+    margin: 15px;   
+} 
+

@@ -1,0 +1,210 @@
+
+.add-new-admin { 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+
+
+
+
+.add-new-admin-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+    margin: 10px 10px 20px 10px;
+    padding: 5px;
+}
+
+
+
+
+.add-new-admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    direction: rtl;
+    padding: 5px;
+}
+
+
+
+
+.search-bar-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 90%;
+    margin: 10px;
+}
+
+
+.searchbar-form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+
+.txt-searchbor {
+    text-align: center;
+    border-radius: 5px;
+    width: 100%;
+    padding: 5px 5px 5px 15px;
+    margin: 10px;
+}
+
+
+.submit-searchbor {
+    position: relative;
+    left: 23%;
+    padding: 5px 8px 4px 26px;
+    border-radius: 5px;
+    border-style: none;
+}
+
+
+.search-bar-icon {
+    position: relative;
+    left: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+
+
+.add-new-admin-form p {
+    width: 80%;
+    display: flex;
+    text-align: right;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    font-size: 20px;
+
+}
+
+
+.outter-form {
+    width: 100%;
+    margin: 10px 10px 0px 10px;
+    padding: 5px;
+}
+
+
+
+.form-select-usertoadmin {
+    margin: 10px;
+    padding: 5px;
+    text-align: center;
+    direction: rtl;
+    font-size: 18px;
+    height: 50vh;
+}
+
+.admin-limitation {  
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 10px;
+}
+
+
+
+.admin-limitation label {
+    width: 50%;
+    margin: 10px 5px 10px 0px;
+    padding: 5px;
+    font-size: 16px;
+    font-weight: bold;
+
+}
+
+
+
+
+.allowunlimitpanelcreation {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+}
+
+
+
+
+.allowunlimitpanelcreation input {
+    width: 20px;
+}
+
+
+
+
+.numberofpanelcreation {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+}
+
+
+
+
+.numberofpanelcreation input {
+    width: 20%;
+    margin: 10px;
+    padding: 5px;
+    direction: rtl;
+    border-radius: 8px;
+}
+
+
+
+.button-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    margin: 10px;   
+}
+
+
+
+.button-section button{
+    width: 15%;
+    padding: 10px;
+    margin: 20px;
+    background-color: #27354d;
+    color: white;
+    border-radius: 15px;
+    border-style: none;
+    box-shadow: #9a9a9a 0px 0px 1px;
+    text-align: center;
+    font-weight: bold;
+    transition: border-radius ;
+    transition-delay: 250ms;
+    transition-duration: 300ms;
+}
+
+
+
+
+
+
+
+.modify-admin-section-success-msg {
+    width: 60%;
+    padding: 5px;
+    margin: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+

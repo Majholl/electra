@@ -1,0 +1,21 @@
+.down-sidebar {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+ 
+
+
+
+ .dynamic-content {
+    width: 90%;
+    margin: 0px 20px 20px;
+    padding: 5px;
+    overflow: scroll;
+}
+
+
+.dynamic-content::-webkit-scrollbar {
+        display: none;
+}

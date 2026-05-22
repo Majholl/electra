@@ -1,0 +1,260 @@
+.admins-list-page {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+
+.top-buttons {
+   display: flex;
+    margin: 10px;
+    padding: 5px;
+}
+
+
+.button-section-admins {
+    width: 15%;
+}
+
+.button-section-admins button {
+    background: #334155; 
+    border: none;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 15px;
+    transition: all;
+    transition-delay: 200ms;
+    transition-duration: 250ms;
+    
+}
+
+
+.button-section-admins button:hover {
+    border-radius: 5px;
+
+}  
+
+
+.button-section-admins button a {
+    text-decoration: none;
+    color: white;
+}
+
+
+
+
+
+
+
+.pagination-section-admin{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.pagination-prev , .pagination-next {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 9px;
+    width: 8%;
+    border-style: none;
+    margin: 15px;
+    padding: 5px;
+}
+
+
+
+.pagination-prev a , .pagination-next a {
+    width: 100%;
+    text-decoration: none;
+    color: black;
+}
+
+.pagination-prev:hover , .pagination-next:hover {
+    border-radius: 0px;
+}
+
+
+
+
+.bottom-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 10px 10px 50px 10px;
+}
+
+
+.admins-info{
+    width: 20%;
+    height: auto;
+    margin: 10px;
+    padding: 15px;
+    list-style: none;
+    background: #f0f6fc;
+    border-radius: 12px;
+    min-width: 100px;
+    overflow: hidden;
+    box-shadow: 0px 0px 0.1em 0 #cacaca;
+
+}
+
+.admins-pad {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+.username-img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    padding: 5px;
+}
+
+
+.username-img img {
+    border-radius: 2px;
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+}
+
+
+
+.admin-username-nationalcode {
+    display: flex;
+    width: 100%;
+    margin: 10px;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+}
+
+
+.admin-username-nationalcode  p {
+    width: 100%;
+    margin: 10px;
+    padding: 5px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+
+
+
+.admins-info-buttons {
+    width: auto;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 10px;
+    padding: 5px;
+}
+
+
+.admins-info-buttons button {
+    background: #334155;
+    color: white;
+    border-radius: 8px;
+    border-style: none;
+    margin: 10px;
+    padding: 10px;
+    transition: border-radius;
+    transition-delay: 200ms;
+    transition-duration: 250ms;
+}
+
+
+.admins-info-buttons button:hover {
+    border-radius: 0px;
+}
+
+
+.admins-info-buttons a {
+    text-decoration: none;
+    color: white;
+}
+
+
+
+
+
+
+
+
+.modal-header h5 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+}
+
+
+
+.modalbodynewdesign {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: auto;
+    width: 100%;
+    margin: 10px;
+    padding: 5px;
+}
+
+
+
+.modelinfodiv {
+    margin: 20px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+
+.modal-body p {
+   direction: rtl;
+    width: 100%;
+    padding: 5px;
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+
+.modal-footer {
+    justify-content: center !important;
+}
+
+.modal-footer button {
+    width: 30%;
+    margin: 10px;
+    padding: 5px;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
