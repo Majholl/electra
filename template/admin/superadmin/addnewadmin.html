@@ -1,114 +1,92 @@
+{% load static %}
+
+
+
+
+
 <div class="add-new-admin">
-<!-- TODO add back button to the previous page -->
 
-    <div class="add-new-admin form">
+    <div class="add-new-admin-form">
 
-        <form method="POST" action="{% url 'AddNewAdmin' %}"> 
-        {% csrf_token %}
+
+            <div class="add-new-admin-header">
+                <p> اضافه کردن ادمین جدید </p> 
+
+                <div class="search-bar-section">
+                        
+                        <input class="txt-searchbor" name="searchUserforbecomingAdmin" onchange="send_data()" id='searchuserTOadmin' type="text" placeholder="جست‌وجو کابر .. ؟" >
+                        <i class="fa-solid search-bar-icon fa-search"></i>
+                   
+                </div>
+
+            </div>
+
+            <form method="POST"  class='outter-form' action="{% url 'AddNewAdmin' %}"> 
+            {% csrf_token %}
         
-        <p> اضافه کردن ادمین جدید </p> 
-            
-            <select name="addnewadmin" class="form-select user-type" aria-label="Default select example">
+            <select name="addnewadmin" class="form-select  forms2 form-select-usertoadmin" id='selectionofuserstoadmin' aria-label="Default select example" multiple="multiple">
                 <option selected> کاربران </option>
                 {% for i in allusers %}
-                <option value="user_{{i.id}}">کد ملی : {{ i.national_code }} | {{ i.first_name }}-{{ i.last_name }} : نام و ناخانوادگی</option>
+                <option id="userstoadminopt" value="user_{{i.id}}"> کد ملی : {{ i.national_code }} -|-  نام و ناخانوادگی : {{ i.first_name }} {{ i.last_name }} </option>
                 {% endfor %}
             </select>
 
+               
 
             <div class="admin-limitation">
-            
-                <label>تعداد مجاز ساخت پنل</label>
-                <input type="number" name="number_making_votepanel">
-                
-                <label> بدون محدودیت ساخت پنل</label>
-                <input type="checkbox" name="limit_making_votepanel">
 
+                <div class="allowunlimitpanelcreation" >
+                    <input type="checkbox" name="limit_making_votepanel">
+                    <label> بدون محدودیت ساخت پنل</label>
+                
+                </div>
+
+
+                <div class="numberofpanelcreation">
+                    <input type="number" name="number_making_votepanel" value="-">
+                    <label> تعداد مجاز ساخت پنل </label>
+                </div>
+
+           
             </div>
 
-            <button class="btn btn-primary" type="submit">ثبت</button><br>
+            <div class="button-section">
+
+
+                <button class="btn btn-primary" type="submit">ثبت</button>
+
+                <div class="modify-admin-section-success-msg">
+    
+                    {% if messages %}
+                    <div class="alert alert-success d-flex align-items-center fade show" role="alert">
+                        {% for msg in messages %}
+                        <div>
+                            {{ msg }}
+                        </div>
+                        {% endfor %}
+                        <i class="fa-solid fa-circle-check"></i>
+
+                    </div>
+                    {% endif %}
+
+
+            </div>
 
         </form>
-    </div>
 
-
-    <div class="modify-admin-section success-msg">
-    
-        {% if messages %}
-        <div class="alert alert-success d-flex align-items-center fade show" role="alert">
-            {% for msg in messages %}
-            <div>
-                {{ msg }}
-            </div>
-            {% endfor %}
-            <i class="fa-solid fa-circle-check"></i>
-
-        </div>
-        {% endif %}    
     </div>
 
 
 </div>
-<style>
-
-.add-new-admin { 
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-
-    margin: auto;
-}
-
-
-.form form {
-    margin: 50px;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-
-.form button {
-    margin: 20px 0px 10px 10px;
-    width: 75px;
-    font-size: 18px;
-    background: #454f5f;
-}
-
-.form button:hover{
-    background: #1E293B;;
-    color: white;
-}
-
-
-
-.success-msg { 
-    font-weight: bold;
-    width: 85%;
-    margin: auto;
-    position: relative;
-    left: 0;
-}
-
-.alert {
-    margin: auto;
-}
-
-.admin-limitation {
-    margin: 20px;
-}
-
-</style>
 
 
 
 
 
 
-
-<!-- 
 <script>
+
+
 
 setTimeout(function() {
     var q_alert = document.querySelectorAll('.alert');
@@ -119,4 +97,53 @@ setTimeout(function() {
     }, 3000)
 
 
-</script>  -->
+
+
+async function send_data(){
+    const inputvalue = document.getElementById('searchuserTOadmin');
+    const selectionOfuserToadmin = document.getElementById('selectionofuserstoadmin')    
+    const crsftoken = document.cookie.split('=')[1]
+
+
+    console.log(inputvalue.value)
+    
+
+    let response = await fetch(`${window.location.protocol}//${window.location.host}/findusertoadmin/`, {
+
+        headers: { 'content-type': 'application/json', 'X-CSRFToken': crsftoken },
+        method : "post",
+        body: JSON.stringify(inputvalue.value)
+    });
+    
+    
+
+    let oo = document.querySelectorAll("option#userstoadminopt")
+        for ( i=0 ; i < oo.length; i++){
+        oo[i].remove()
+        }
+  
+
+
+    let result = await response.json();
+        if (result.status == 200){
+
+            
+            let dataReturned = result.data
+          
+
+            for (items in dataReturned){
+ 
+                let opttag = document.createElement('option')
+                opttag.id = 'userstoadminopt'
+                opttag.value = `user_${items}`
+                opttag.text = dataReturned[items]
+                selectionOfuserToadmin.appendChild(opttag)
+            }
+
+        } 
+}
+
+
+
+
+</script> 

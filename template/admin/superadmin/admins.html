@@ -1,0 +1,136 @@
+
+{% load jalali_tags %}
+{% load static %}
+<!-- TODO add search box -->
+
+<section class="admins-list-page" >
+
+    <div class="top-buttons">
+
+        <div class="button-section-admins">
+            <button class="addadminbtn"><a href="{% url 'AddNewAdminList' %}">اضافه کردن ادمین جدید</a></button>
+        </div>
+
+        <div class="pagination-section-admin">
+            {% if has__page.has_previous %}
+            <button class="pagination-prev"><a href="{% url 'AdminsList' page_num=has__page.previous_page_number %}"> <i class="fa-solid fa-angles-left"></i> قبلی </a></button>
+            {% endif %}
+            {% if has__page.has_next %}
+            <button class="pagination-next"><a href="{% url 'AdminsList' page_num=has__page.next_page_number %}"> بعدی <i class="fa-solid fa-angles-right"></i></a></button>
+            {% endif %}
+        </div>
+
+    
+    </div>
+
+
+
+    <div class="bottom-buttons">
+        {% for i in objs_list %}
+        <ul class="admins-info">
+
+            <li class="admins-pad">
+
+                <div class="username-img">
+
+                    {% if i.profile %}
+                    <img src="{{  i.profile.url }}" class="admin-image-section img" alt="{{ i.username }}" width="75px" height="75px">
+                    {% endif %}
+
+
+                    <div class="admin-username-nationalcode">
+                        <p class="admin-username">
+                            {% if i.usertype == 'superadmin' %}
+                            <i class="fa-solid fa-star" style="color: #EFBF04;"></i>
+                            {% endif %} 
+                             {{ i.first_name }} {{ i.last_name}} : نام کاربر 
+                        </p>
+                        <p class="admin-national-code">کد ملی: {{ i.national_code }}</p>
+                    </div>
+
+
+                </div>
+
+
+                <div class="admins-info-buttons">
+                    <button type="submit" ><a href="{% url 'LoadSelectedAdmin' id=i.national_code  %}">تغییر اطلاعات</a></button>
+                    <button type="button"  data-bs-toggle="modal" data-bs-target="#modal_{{ i.id }}">نمایش جزییات</button>
+                </div>  
+
+
+
+
+
+                <div class="modal fade" id="modal_{{ i.id }}" tabindex="-1"  >
+                
+                    <div class="modal-dialog modal-dialog-centered">
+            
+                        <div class="modal-content">
+            
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modallabel_{{ i.id }}"> {{i.username }} :‌ جزییات کاربر </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="بستن"></button>
+                            </div>
+            
+                            <div class="modal-body modalbodynewdesign">
+
+                                <div class="modelimgdiv">
+                                    {% if i.profile %}
+                                    <img src="{{ i.profile.url}}" alt="{{ i.username }}" width="150px" height="150px"></img>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="modelinfodiv">
+
+                                    <p >کد ملی : {{ i.national_code }}</p>
+
+                                    {% if i.usertype == 'superadmin' %}
+                                    <p >نوع کاربر : سوپر ادمین</p>
+                                    {% else  %}
+                                    <p >نوع کاربر : ادمین</p>
+                                    {% endif %}
+
+                                    {% if i.account_status == 'acitve' %}
+                                    <p>وضعیت حساب : فعال</p>
+                                    {% else %}
+                                    <p>وضعیت حساب : غیر فعال</p>
+                                    {% endif %}
+                                    
+                                    {% if i.email  %}
+                                    <p>ایمیل: {{ i.email }}</p>
+                                    {% else %}
+                                    <p>ایمیل : وارد نشده</p>
+                                    {% endif %}
+                                    
+                                    {% if i.last_login %}
+                                    <p>آخرین ورود: {{ i.last_login|to_jalali:'%H:%M:%S-%y/%m/%d' }}</p>
+                                    {% else %}
+                                    <p>آخرین ورود : وارد سیستم نشده</p>
+                                    {% endif %}
+
+                                    
+                                </div>    
+                            </div>
+            
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                            </div>
+                
+                        </div>
+                
+                    </div>
+                
+                </div>
+        
+            </li>
+
+        </ul>
+    {% endfor %}
+
+
+
+
+
+</section>
+
+
