@@ -4,10 +4,11 @@
 # PY - modules
 from ast import Dict
 from urllib.request import Request
-import random , string
+import random , json
 
 
 # DJANGO - modules
+
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.contrib.auth import  get_user_model , login, logout
@@ -16,6 +17,7 @@ from django.contrib.auth.hashers import make_password
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.conf import settings
+
 
 
 from ..votes.models import VotePanelModel
@@ -40,15 +42,33 @@ def user_data(request :Request) -> Dict:
         if request.user.is_authenticated: 
             user_profile_url = request.user.profile
             user_username = request.user.username 
-            user_user_type = request.user.usertype 
+            user_user_type = request.user.usertype
             
-            return {'userauth': request.user, 'profile':user_profile_url, 'username' : user_username,  'usertype':user_user_type}
+            path = request.path.removeprefix('/').removesuffix('/')
+            if path == 'dashboard': 
+                userloaction = 'اصلی'
+            elif path == 'admins':
+                userloaction = 'ادمین ها'
+            elif path == 'votepanels':
+                userloaction = 'پنل های انتخابات'
+            elif path == 'candidates':
+                userloaction = 'نامزد های انتخابات'
+            else:
+                userloaction = 'رای گیری '
+
+            return {'userauth': request.user, 
+                    'profile':user_profile_url,
+                    'username' : user_username,
+                    'usertype':user_user_type,
+                    'userlocation': userloaction
+                    }
         
         else:
             
             return {'userauth': request.user}
         
     except Exception as err:
+        
         return redirect(reverse('500-se'))
 
 
@@ -57,7 +77,7 @@ def user_data(request :Request) -> Dict:
 def NotFound404(request :Request):
     try:
         
-        content_template = 'nf-404.html'
+        content_template = 'errors/nf-404.html'
         content_html = render_to_string(content_template, context=None)
         userdata = user_data(request)
         
@@ -70,7 +90,7 @@ def NotFound404(request :Request):
 
 
 def ServerError500(request :Request):
-    return render(request, template_name='server-500.html', context=None)
+    return render(request, template_name='errors/server-500.html', context=None)
 
 
 
@@ -120,8 +140,13 @@ def logoutUser(request :Request):
 
 
 def AdminDashboard(request :Request):
-    content_html = render_to_string('admin/adminhome.html', context={** user_data(request)}, request=request)
+    content_html = render_to_string('admin/adminshomepage.html', context={** user_data(request)}, request=request)
     return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
+
+
+
+
+
 
 
 
@@ -139,7 +164,7 @@ def loginUser(request  :Request):
         
         username_field = request.POST.get('username_field')
         password = request.POST.get('password')
-        userFound = Users.objects.get(national_code = str(username_field))
+        userFound =  Users.objects.get(national_code = str(username_field)) if username_field.isdigit() else User.objects.get(username= username_field)
         print(userFound)
 
         if userFound :
@@ -226,15 +251,17 @@ def load_votes_tosuper_admin(request :Request):
 
 
 
+# SuperAdmin adding & modifying  admins pages
 
-def admins_list(request :Request, page_num :int =1) :
+
+def adminsList(request :Request, page_num :int =1) :
     try :
         users = User.objects.filter(usertype__in = ['superadmin', 'admin']).exclude(id = request.user.id)
         paginator = Paginator(users, 10)
         pag_obj_list = paginator.get_page(page_num)
         
         context={'objs_list': pag_obj_list.object_list, 'has__page': paginator.page(page_num)}
-        content_template = 'admin/superadmin/admins-list-page.html'
+        content_template = 'admin/superadmin/admins.html'
         content_html = render_to_string(content_template, context)
         
         userdata = user_data(request)
@@ -247,27 +274,23 @@ def admins_list(request :Request, page_num :int =1) :
 
 
 
-def load_selected_admin(request :Request, id :int):
+def loadSelectedAdmin(request :Request, id :int):
     try:
-        user = User.objects.get(id = id)
+        user = User.objects.get(national_code  = id)
         
         context = {'obj_list': user}
-        content_template = 'admin/superadmin/modify_selected_admin.html'
+        content_template = 'admin/superadmin/modifyselectedadmin.html'
         content_html = render_to_string(content_template, context, request=request)
         
         return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
     
     except Exception as err :
-        print(err)
         return redirect(reverse("404-nf"))
 
 
 
 
-
-
-
-def modify_selected_admin(request :Request):
+def modifySelectedAdmin(request :Request):
     try:
         
         if request.method == 'POST':
@@ -276,22 +299,30 @@ def modify_selected_admin(request :Request):
                 user_type = request.POST.get('user_type')
                 acc_status = request.POST.get('acc_status')
                 
-                isLimited = request.POST.get("limit_making_votepanel")
+                isLimited = request.POST.get("limit_making_votepanel_on")
+                notLimited = request.POST.get("limit_making_votepanel_off")
                 numLimitation = request.POST.get('number_making_votepanel')
-                
+
                 user = User.objects.get(id = int(userid))
                 
                 if isLimited=='on' and len(numLimitation):
                     messages.add_message(request, messages.ERROR,'کاربر نمیتواند همزمان دو مقدار داشته باشد')
-                    return redirect(reverse('LoadSelectedAdmin', kwargs={'id': user.id}))
+                    return redirect(reverse('LoadSelectedAdmin', kwargs={'id': user.national_code}))
                 
                
-                if isLimited == 'on':
-                        user.allowunlimitpanelcreation = 1
-                        user.maxpanelcount = 0
+                if notLimited == 'on':
+                    user.allowunlimitpanelcreation = 1
+                    user.maxpanelcount = 0
+                    
                 else :
                     if len(numLimitation) > 0 :
-                        user.maxpanelcount = int(numLimitation)
+                        user.allowunlimitpanelcreation = 0
+                        user.maxpanelcount = int(numLimitation)    
+                   
+                        
+                if isLimited =='on':
+                    user.allowunlimitpanelcreation = 0
+
 
                 if user_type in ['admin', 'superadmin', 'user']:
                     user.usertype = user_type
@@ -299,13 +330,15 @@ def modify_selected_admin(request :Request):
                 if acc_status in ['active', 'deactive']:
                     user.account_status = acc_status
                     
+                    
                 user.save() 
                 
-                if acc_status in ['active', 'deactive'] or user_type in ['admin', 'superadmin', 'user'] :
+                if acc_status in ['active', 'deactive'] or user_type in ['admin', 'superadmin', 'user']  or isLimited =='on' or notLimited == 'on':
                     messages.add_message(request, messages.INFO, 'اطلاعات کاربر با موفقیت بروزرسانی شد')
+                    
 
-                return redirect(reverse('LoadSelectedAdmin', kwargs={'id': user.id}))
-            
+                return redirect(reverse('LoadSelectedAdmin', kwargs={'id': user.national_code}))
+
             
             except Exception as err :
                 redirect(reverse('500-se'))
@@ -320,17 +353,14 @@ def modify_selected_admin(request :Request):
 
 
 
-
-
-
-
    
-def new_admin_list(request :Request):
+def newAdminList(request :Request):
+    
     try :
         
         user = User.objects.filter(usertype='user')
         
-        context = {'allusers': user}
+        context = {'allusers': user , }
         content_template = 'admin/superadmin/addnewadmin.html'
         content_html = render_to_string(content_template, context=context, request=request)
         
@@ -342,9 +372,8 @@ def new_admin_list(request :Request):
  
  
  
-
    
-def PromoteUsertoAdmin(request):
+def promoteUserToAdmin(request):
     try:
         
         if request.method =='POST':
@@ -393,6 +422,18 @@ def PromoteUsertoAdmin(request):
     except Exception as err:
         print(err)
         return redirect(reverse("404-nf"))
+
+# End section
+
+
+
+
+
+
+
+
+
+
 
 
 

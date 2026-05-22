@@ -50,7 +50,7 @@ class CustomUserManger(UserManager):
     
     def create_admin(self, email, password, **extra_fields):
         extra_fields.setdefault('is_superuser', False)
-        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('usertype' , 'admin')
         extra_fields.setdefault('is_active', 1)
         extra_fields.setdefault('account_status', 'active')

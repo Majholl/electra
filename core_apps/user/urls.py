@@ -4,9 +4,13 @@ from .views import (
                 homePage,
                 LoginPage, RegisterPage, loginUser,  logoutUser ,
                 AdminDashboard, NotFound404, ServerError500,
-                admins_list, load_selected_admin, modify_selected_admin, new_admin_list, PromoteUsertoAdmin,
-                UserPanel,
                 
+                
+                
+                #// Admins promotion & modifying modules //# 
+                adminsList, loadSelectedAdmin, modifySelectedAdmin, newAdminList, promoteUserToAdmin,
+                
+                UserPanel,
                 
                 #//
                 loadAddUserPage_byAdmin,
@@ -17,8 +21,8 @@ from .views import (
                 verify_otp_page, verify_otp
                 
                 
-                )
-
+    )
+from .searchs import findOnSearchToadmin
 
 
 
@@ -32,13 +36,19 @@ urlpatterns = [
     path('dashboard/', AdminDashboard, name='AdminDashboard'),
     path('404/', NotFound404, name='404-nf'),
     path('server-error/', ServerError500, name='500-se'),
-    path('admins/', admins_list, name='AdminsList'),
-    path('admins/<int:page_num>', admins_list, name='AdminsList'),
-    path('admin/<int:id>', load_selected_admin, name='LoadSelectedAdmin'), 
-    path('admin/modifyadmin/', modify_selected_admin, name='ModifySelectedAdmin'),
-    path('admins/add', new_admin_list, name='AddNewAdminList'),
-    path('admins/promote', PromoteUsertoAdmin, name='AddNewAdmin'),
     
+    
+    #// Admins promotion & modifying urls 
+    path('admins/', adminsList, name='AdminsList'),
+    path('admins/<int:page_num>', adminsList, name='AdminsList'),
+    path('admin/<int:id>', loadSelectedAdmin, name='LoadSelectedAdmin'), 
+    path('admin/modifyadmin/', modifySelectedAdmin, name='ModifySelectedAdmin'),
+    path('admins/add', newAdminList, name='AddNewAdminList'),
+    path('admins/promote', promoteUserToAdmin, name='AddNewAdmin'),
+    
+    
+    #// search boxs
+    path('findusertoadmin/', findOnSearchToadmin, name = 'FindUserToadmin' ),
     
     
     path('panel/', UserPanel, name='UserPanel'),
