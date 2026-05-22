@@ -17,26 +17,28 @@ from ..user.views import user_data , User
 
 
 
-def VotePanels_page(request :Request, page_num :int =1):
+
+
+def VotePanelsPage(request :Request, page_num :int =1):
     try:  
         page_num = page_num
         
-        if request.user.usertype == 'supderadmin':
+        if request.user.usertype == 'superadmin':
             VotePanels = VotePanelModel.objects.all()
-            
-        VotePanels = VotePanelModel.objects.filter(created_by = request.user.id)
-        paginator = Paginator(VotePanels, 10)
+        else :   
+            VotePanels = VotePanelModel.objects.filter(created_by = request.user.id)
+        paginator = Paginator(VotePanels, 20)
         page_obj_list = paginator.get_page(page_num)
         
-        context = {'objs_list': page_obj_list.object_list, 'has__page':paginator.page(page_num)}
-        content_template = 'admin/votepanels/votepanels-list-page.html'
+        context = {'objs_list': page_obj_list.object_list, 'has__page':paginator.page(page_num), 'usrtype':request.user.usertype}
+        content_template = 'admin/votepanels/votepanels.html'
         content_html = render_to_string(content_template, context=context)
         
         return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
     
     
     except Exception as err:
-       
+        print(err)
         return redirect(reverse('404-nf'))
 
 
@@ -44,14 +46,14 @@ def VotePanels_page(request :Request, page_num :int =1):
 
 
 
-def load_selected_votepanel(request:Request, id:int):
+def LoadSelectedVotePanel(request:Request, id:int):
     try:    
     
         VotePanel = VotePanelModel.objects.get(id = int(id))
         Candidates = CandidateModel.objects.filter(created_by = request.user).exclude(pk__in = VotePanel.candidate.all()).all()
         
         context = {'obj_list':VotePanel, 'obj_list_2':Candidates}
-        content_template = 'admin/votepanels/modify-selected-votepanel.html'
+        content_template = 'admin/votepanels/modifyselectedvotepanel.html'
         content_html = render_to_string(content_template, context=context, request=request)
         
         return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
@@ -59,6 +61,11 @@ def load_selected_votepanel(request:Request, id:int):
     except Exception as err:
         print(err)
         return redirect(reverse('404-nf'))
+
+
+
+
+
 
 
 
