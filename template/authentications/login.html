@@ -5,10 +5,13 @@
 <div class="login-page">
 
     <div class="login-section">
-        <h3>ورود به صفحه انتخابات</h3>
+
+        <h3> ورود به سامانه </h3>
+        <hr>
         <form class="login-section was-validated form-area" method="post" action="{% url 'loginToSystem' %}">
             {% csrf_token %}
-            <div class="from-username">
+
+            <div class="from-username forms">
 
                 <label for="validationUsername" class="form-label"> نام کاربری : </label>
                 <input type="text" class="form-control is-invalid" name="username_field" id="validationServer05" aria-describedby="validationServer05Feedback" required placeholder="نام کاربری ؟">
@@ -16,23 +19,24 @@
             </div>
 
 
-            <div class="from-password">
+            <div class="form-password forms">
         
                 <label for="validationPassword" class="form-label"> کلمه عبور : </label>
                 <input type="password" class="form-control is-invalid" name="password" id="validationServer05" aria-describedby="validationServer05Feedback" required placeholder="کلمه عبور ؟">
             
             </div>
 
-            <div class="form-buttom-button">
+
+            <div class="form-buttom-button forms">
+
                 <button class="btn btn-primary" type="submit">ورود</button><br>
+
             </div>
 
 
         </form>
 
-        <p class="login-section back-url"><a href="{% url 'HomePage' %}">بازگشت به صفحه اصلی</a></p>
-
-
+        
 
         <div class="success-msg">
 
@@ -56,128 +60,6 @@
 
 
 </div>
-
-
-
-
-
-
-<style>
-
-.login-page { 
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
-    width: 100%;
-    margin: auto;
-}
-
-div.login-section {
-    min-width: 350px;
-    width: 30%;
-    margin: 100px 0px 50px;
-    background: #F8FAFC;
-    padding: 35px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 5px -1px black;
-
-}
-
-.login-page h3 {
-    text-align: center;
-    margin: 10px;
-    padding: 10px;
-}
-
-
-
-.form-area {
-    margin: 0px 10px 10px 10px;
-    font-weight: 700;
-    direction: rtl;
-
-}
-
-
-.form-label {
-    margin: 15px 0px !important;
-}
-
-.from-password {
-    margin: 0px 0px 15px 0px;}
-
-
-
-.from-username {
-    margin: 0px 0px 15px 0px;}
-
-
-.form-buttom-button {
-    width: auto;
-    margin: 20px 0px 20px 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-.login-section button {
-    width: 35%;
-    height: 40px;
-    font-weight: bold;
-    background: #1E293B;
-}
-
-.login-section button:hover {
-    background-color: #334155;
-    color: #FFFFFF;
-    border-color: #334155;
-    border: 1px solid;
-}
-
-
-
-
-.back-url{
-    position: relative;
-    top: 15px;
-}
-
-
-.back-url a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    background: #1E293B;
-    padding: 10px 10px 10px;
-    border-radius: 10px;
-}
-
-.back-url a:hover {
-    background-color: #334155;
-    color: #FFFFFF;
-    border-color: #334155;
-    border: 1px solid;
-}
-
-
-.success-msg { 
-    font-weight: bold;
-    width: 20%;
-    position: relative;
-    bottom: 35px;
-    left: 250px;
-}
-
-.alert {
-    justify-content: center;
-    width: 250px;
-    padding: 10px 0px 10px 0px;
-}
-
-
-</style>
-
 
 
 
