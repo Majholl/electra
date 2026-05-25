@@ -11,10 +11,21 @@ from ..candidate.models import CandidateModel
 
 
 
-def show_candidate_list(request):
+
+
+
+
+def CandidatePage(request):
     try :
-        candidates = CandidateModel.objects.filter(created_by = request.user).all()
-        content_html = render_to_string('admin/candidate/candidate_list-page.html', context={'obj_list':candidates}, request=request)
+
+        if request.user.usertype == 'superadmin':
+            candidates = CandidateModel.objects.all()
+        elif request.user.usertype == 'admin':
+            candidates = CandidateModel.objects.filter(created_by = request.user).all()
+        else:
+            None
+            
+        content_html = render_to_string('admin/candidate/candidatespage.html', context={'obj_list':candidates}, request=request)
         return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
     
     except Exception as err:
@@ -60,7 +71,7 @@ def submitcandidate(request):
                                                     image = request.FILES.get('image'), 
                                                     created_by = request.user,)
                                             
-        return redirect(reverse('candidatelist'))
+        return redirect(reverse('candidateslist'))
 
     except Exception as err:
         print(err)

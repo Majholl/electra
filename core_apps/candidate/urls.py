@@ -1,10 +1,10 @@
 from django.urls import path 
-from ..candidate.views import addnewcandidate, submitcandidate, show_candidate_list, load_selected_candidate
+from ..candidate.views import  CandidatePage, addnewcandidate, submitcandidate, load_selected_candidate
 
 
 
 urlpatterns = [
-    path('candidates', show_candidate_list, name='candidatelist'),
+    path('candidates', CandidatePage, name='Candidateslist'),
     
     
     path('candidate/new', addnewcandidate, name='AddNewCandidate'),

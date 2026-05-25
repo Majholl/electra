@@ -15,7 +15,7 @@ class CustomMiddleware(MiddlewareMixin):
         user = request.user
         urls = [reverse('UserPanel'), reverse('AdminDashboard'),
                 reverse('AdminsList'), reverse('VotesSection'),
-                reverse('VotePanels'), reverse('candidatelist'),
+                reverse('VotePanels'), reverse('Candidateslist'),
                 reverse('LoadAddUserPage'),
                 ]
         
