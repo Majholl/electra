@@ -1,31 +1,32 @@
 {% load static %}
 
 
-<div class="main-candidate">
+<div class="main-candidate-page">
 
 
-    <div class="candidate-top-section">
+    <div class="candidate-top-div">
         <button><a href="{% url 'AddNewCandidate' %}"> اضافه کردن کاندید</a></button>
     </div>
 
-    <div class="panel_candidate">
+
+    <div class="candidate-bottom-div">
 
         <table class="candidate-table table">
             <thead>
                 <tr>
-                    <th scope="col">ردیف</th>
-                    <th scope="col">نام کاندید</th>
-                    <th scope="col">تصویر کاندید</th>
-                    <th scope="col">جزییات کاندید</th>
+                    <th class="headerth" scope="col">ردیف</th>
+                    <th class="headerth" scope="col">نام کاندید</th>
+                    <th class="headerth" scope="col">تصویر کاندید</th>
+                    <th class="headerth" scope="col">جزییات کاندید</th>
                 </tr>
             </thead>
 
             <tbody>
                 {% for i in obj_list %}
-                <tr scope="row">
+                <tr class="contenttr" scope="row">
                     <th scope="row"> {{ forloop.counter }}</th>
                     <th scope="row" > {{ i.name }} </th>
-                    <th scope="row">{% if i.image %}<img src="{{ i.image.url }}"  width="75px" height="75px" style="border-radius: 10px;">{% endif %}</th>  
+                    <th scope="row"> {% if i.image %}<img src="{{ i.image.url }}"  width="75px" height="75px" style="border-radius: 10px;">{% endif %}</th>  
                     <th scope="row"><button class="candidate-detail-button"><a href="{% url 'ModifySelectedCandidate' id=i.pk %}">مشاهده</a></button></th>
                 </tr>
                 {% endfor %}
@@ -36,12 +37,3 @@
     </div>
 
 </div>
-
-
-<style>
-
-
-
-
-</style>
-
