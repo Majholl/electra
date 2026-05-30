@@ -1,0 +1,197 @@
+.new-votepanel-section {
+    width: 100%;
+    margin: 10px;
+    padding: 5px;
+}
+
+
+.add-new-votepanel label {
+    font-weight: 500;
+}
+
+
+.addnew-vote-section {
+    display: flex;
+    justify-content: right;
+    margin: 0px 10px 0px;
+}
+
+.votepanel-section-alert-msg {
+    width: 25%;
+}
+
+
+
+.add-new-votepanel { 
+    display: flex;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    padding: 5px;
+}
+
+
+
+.add-new-votepanel form {
+    width: 50%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0px 0px 20px;
+    padding: 25px 5px 35px;
+    direction: rtl;
+    box-shadow: 0 0 0.2em 0.25em #0000001c;
+    border-radius: 10px;
+}
+
+
+.form-data-up {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+}
+
+
+
+.votepanel-name{ 
+    width: auto;
+    padding: 5px;
+    margin: 10px;
+}
+
+.votepanel-name input{
+    width: 75%;
+    border: none;
+    margin: 0px 10px 0px;
+    padding: 5px 10px 5px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 0.2em 0.09em #0000001c;
+}
+
+
+
+
+.votepanel-descrip  {
+    width: auto;
+    padding: 5px;
+    margin: 10px;
+}
+
+
+.votepanel-descrip textarea  {
+    width: 100%;
+    margin: 10px 5px 10px;
+    height: 200px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 0 0.2em 0.09em #0000001c;
+    padding: 10px 20px 0px;
+    word-break: break-all;
+}
+
+.datetime-data {
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    margin: 0px 0px 25px;
+}
+
+
+
+.datetime-data input {
+    text-align: center;
+    border-radius: 10px;
+    border: none;
+    margin: 0px 20px 0px;
+    padding: 5px 10px 5px; 
+    box-shadow: 0 0 0.2em 0.09em #0000001c;
+}
+
+
+.bottom-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 20px 0px 50px;
+    padding: 10px 0px 10px;
+}
+
+
+
+.image-div {
+    
+    padding: 0px 10px 0px;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: space-around;
+   
+}
+
+
+.image-div label {
+    border: 1px solid;
+    padding: 5px 20px 5px;
+    border-radius: 10px;
+    transition: all ;
+    transition-duration: 250ms;
+    transition-delay: 150ms;
+}
+
+.image-div .remove-selected-votepanel-img {
+    position: relative;
+    left: 10%;
+    bottom: 30%;
+    border: none;
+    border-radius: 10px;
+    align-items: center;
+    text-align: center;
+}
+
+
+
+.image-div label:focus-visible {
+    outline: none;
+}
+
+
+
+
+.image-div label:hover {
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 0.2em 0.09em #0000001c;
+}
+
+
+
+
+.bottom-form .submit-votepanel{
+    width: 25%;
+    padding: 5px 10px 5px;
+    background-color: #27354d;
+    color: white;
+    border-radius: 15px;
+    border-style: none;
+    box-shadow: #9a9a9a 0px 0px 1px;
+    text-align: center;
+    font-weight: bold;
+    transition: border-radius;
+    transition-delay: 250ms;
+    transition-duration: 300ms;
+}
+
+
+
+
+.bottom-form button:hover{
+    border-radius: 10px;
+}
+
+
+

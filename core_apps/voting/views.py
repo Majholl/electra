@@ -127,7 +127,7 @@ def modify_selected_votepanel(request ):
 def newvoting_page(request):
     try:
         context = None
-        content_template = 'admin/votepanels/addvotingpanel.html'
+        content_template = 'admin/votepanels/addvotepanel.html'
         content_html = render_to_string(content_template, context=context, request=request)
         return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
     

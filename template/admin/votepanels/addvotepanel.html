@@ -1,0 +1,134 @@
+{% load static %}
+
+{% block votingpanel %}
+
+<div class="new-votepanel-section">
+
+
+
+    <div class="addnew-vote-section">
+
+    <div class="votepanel-section-alert-msg">
+        
+            {% if messages %}
+            <div class="alert alert-warning d-flex align-items-center fade show" role="alert">
+                {% for msg in messages %}
+                <div>
+                    {{ msg }}
+                </div>
+                {% endfor %}
+                <i class="fa-solid fa-circle-check"></i>
+
+            </div>
+            {% endif %}    
+        </div>
+
+    </div>
+
+
+
+    <div  class="add-new-votepanel">
+
+
+        <form method="POST" action="{% url 'AddNewVotePanel' %}" accept="image/*" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-data-up">
+                
+                <div class="votepanel-name">
+                    <label>نام پنل : </label>
+                    <input type="text" name="name" placeholder="یک نام انتخاب کنید" >
+                </div>
+
+                <div class="votepanel-descrip">
+                    <label>توضیحات پنل :</label>
+                    <textarea  type="text" name="description" placeholder="توضیحات مناسب پنل را وارد کنید" ></textarea>
+                </div>
+            
+            </div>
+
+
+            <div class="datetime-data">
+
+                <div class="start-datetime-div">
+                    <label>تاریخ شروع :</label>
+                    <input type="datetime-local" name="start_date">
+                </div> 
+
+                <div class="end-datetime-div">
+                    <label>تاریخ پایان :</label>
+                    <input type="datetime-local" name="end_date">
+                </div>
+                
+            </div>
+
+            <div class="bottom-form">
+            
+              <div class="image-div">
+                <label for="img">انتخاب عکس پنل رای گیری<i class="fa-solid fa-image-portrait"></i></label>
+                <input type="file" name="image" id="img" hidden>
+                <img id="preview" alt="-" style="display: none; width: 175px; margin: 10px 15px 10px;"><button class="remove-selected-votepanel-img" id="buttonImgSelected" style="display: none;">*</button>
+                
+                </div>
+            
+                <button class="submit-votepanel"  type="submit">ثبت</button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+<script>
+
+setTimeout(function() {
+    var q_alert = document.querySelectorAll('.alert');
+    q_alert.forEach( function(alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            setTimeout(() => { alert.remove(), 500});}) 
+    }, 3000
+);
+
+
+
+const getInput = document.getElementById('img');
+const preImg = document.getElementById('preview');
+const btnRemovingImg = document.getElementById('buttonImgSelected');
+
+getInput.addEventListener('change', ()=>{
+    const file = getInput.files[0];
+    preImg.src = URL.createObjectURL(file);
+    preImg.style.display = 'block';
+    btnRemovingImg.style.display = 'block';
+})
+
+
+buttonImgSelected.addEventListener("click", (e) =>{
+    e.preventDefault();
+    btnRemovingImg.style.display = 'none';
+    preImg.style.display = 'none';
+    }
+)
+
+
+
+</script> 
+
+
+
+
+
+
+
