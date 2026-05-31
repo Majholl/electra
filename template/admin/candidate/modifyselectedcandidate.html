@@ -1,11 +1,24 @@
-<div class="candidates-modify-section">
+{% load static %}
+{% load jalali_tags %}
 
-        <div class="candidate_inner">
 
-                {% if obj_list.image %}<img src="{{ obj_list.image.url }}"  width="75px" height="75px" style="border-radius: 10px;">{% endif %}
-                <p class="candidate_description">{{ obj_list.description }} </p>
-                <p class="candidate_name"> {{ obj_list.name }} </p>
 
+
+<div class="modify-candidate-section">
+
+        <div class="candidate_data">
+            {% if obj_list.image %}<img src="{{ obj_list.image.url }}"  width="75px" height="75px" style="border-radius: 10px;">{% endif %}
+            
+            <div class="candidate_info">
+                <p class="candidate_name">نام کاندید :{{ obj_list.name }} </p>
+                <p class="candidate_description">توضیحات: {{ obj_list.description }} </p>
+                <p class='candi_createdate'>تاریخ ایجاد: {{ obj_list.created_at|to_jalali:'%H:%M:%S-%y/%m/%d' }}</p>
+                <p class='candi_updateddate'>آخرین بروزرسانی: {{ obj_list.created_at|to_jalali:'%H:%M:%S-%y/%m/%d' }}</p>
+            </div>
+            
+            <div class="modify-candidate-section-btns">
+                <button type="button" class="remove-candidate-btn"><a class="remove-candidate-url" href="#">حذف کاندید</a></button>
+            </div>
         </div>
 
 </div>
@@ -13,21 +26,3 @@
 
 
 
-<style>
-.candidates-modify-section {
-    display: flex;
-    margin: auto;
-    justify-content: center;
-}
-
-.candidate_inner {
-    width: 100%;
-    margin: auto;
-    display: flex;
-    align-items: center;
-}
- 
-.candidate_inner p {
-   margin: 20px;
-}
-</style>

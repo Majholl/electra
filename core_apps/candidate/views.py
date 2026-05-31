@@ -120,4 +120,8 @@ def LoadSelectedCandidate(request, id):
 
 
 
+def RemoveCandidate(request, id):
+    
+    pass
+
 

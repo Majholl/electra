@@ -1,0 +1,91 @@
+
+.modify-candidate-section {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
+
+
+
+.candidate_data {
+    height: 400px;
+    width: 100%;
+    margin: 10px;
+    padding: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+    display: flex;
+}
+ 
+.candidate_data img {
+    border-radius: 10px;
+    width: 300px;
+    height: 300px;
+    margin: 10px 15px 25px;
+}
+
+
+.candidate_info {
+    margin: 10px 40px 25px;
+    direction: rtl;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.candidate_info p {
+    margin: 10px;
+    width: 100%;
+    font-weight: 500;
+}
+
+
+.modify-candidate-section-btns {
+
+    display: flex;
+    justify-content: center;
+    width: 20%;
+    height: 300px;
+}
+
+
+
+
+
+.candidate_data button {
+    width: 150px;
+    border: none;
+    padding: 10px 20px 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 0.2em 0.06em #0000001c;
+    transition: all;
+    transition-duration: 250ms;
+    transition-delay: 150ms;
+    height: 50px;
+}
+
+
+
+.candidate_data button:hover {
+    border-radius: 5px;
+    box-shadow: 0 0 0.2em 0.06em #dd000080;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+
+.candidate_data button:focus-visible, .candidate_data button:focus{
+    outline: none;
+}
+
+
+.candidate_data button a {
+    text-decoration: none;
+    color: black;
+
+}

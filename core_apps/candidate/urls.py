@@ -1,5 +1,5 @@
 from django.urls import path 
-from ..candidate.views import  CandidatePage, addnewcandidate, submitcandidate, LoadSelectedCandidate
+from ..candidate.views import  CandidatePage, addnewcandidate, submitcandidate, LoadSelectedCandidate , RemoveCandidate
 
 
 
@@ -8,7 +8,11 @@ urlpatterns = [
     path('candidates/<int:page_num>', CandidatePage, name='Candidateslist'),
     path('candidate/new', addnewcandidate, name='AddNewCandidate'),
     path('submitcandidate', submitcandidate, name='SubmitCandidate'),
-    path('candidate/<int:id>/', LoadSelectedCandidate, name='ModifySelectedCandidate')
+    path('candidate/<int:id>/', LoadSelectedCandidate, name='ModifySelectedCandidate'),
     
+    
+    
+    
+    path('removedcandidate/<int:pk', RemoveCandidate, name='RemoveCandidate' )
     
 ]
