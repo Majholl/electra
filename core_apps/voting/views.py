@@ -72,7 +72,7 @@ def LoadSelectedVotePanel(request:Request, id:int):
 
 
 
-def modify_selected_votepanel(request ):
+def ModifySelectedVotepanel(request ):
     try:
         if request.method == 'POST':
             try:
@@ -124,7 +124,7 @@ def modify_selected_votepanel(request ):
 
 
 
-def newvoting_page(request):
+def AddNewVotePanelPage(request):
     try:
         context = None
         content_template = 'admin/votepanels/addvotepanel.html'
@@ -141,7 +141,7 @@ def newvoting_page(request):
 
 
 
-def add_new_vote_panel(request):
+def AddNewVotePanel(request):
     try :
         
         if request.method == 'POST':
@@ -151,23 +151,30 @@ def add_new_vote_panel(request):
             image = request.FILES.get('image')
             vp_startdate = request.POST.get('start_date')
             vp_enddate  = request.POST.get('end_date')
-                                        
+            
+            user = User.objects.get(id = request.user.id)                            
                                         
             if ( len(name) or len(description)) == 0 :
                 messages.add_message(request, messages.INFO, 'فیلد ها نباید خالی باشد')
                 return redirect(reverse('NewVoting'))
             
-            user = User.objects.get(id = request.user.id)
-            
-            if user.allowunlimitpanelcreation == 0 :
-                if user.maxpanelcount > 0 :
-                    if (user.maxpanelcount - 1) == 0 :
-                        user.allowunlimitpanelcreation = 0
-                    user.maxpanelcount -=1 
-                    user.save()
-                messages.add_message(request, messages.INFO, 'امکان ساخت پنل برای شما وجود ندارد ، اشتراک شما تمام شده است')
+        
+            if image is None:
+                messages.add_message(request, messages.INFO, 'تصویری برای پنل انتخابات ، انتخاب کنید')
                 return redirect(reverse('NewVoting'))
             
+            
+            if user.usertype != 'superadmin':
+                
+                if user.allowunlimitpanelcreation == 0 :
+                    if user.maxpanelcount > 0 :
+                        if (user.maxpanelcount - 1) == 0 :
+                            user.allowunlimitpanelcreation = 0
+                        user.maxpanelcount -=1 
+                        user.save()
+                    messages.add_message(request, messages.INFO, 'امکان ساخت پنل برای شما وجود ندارد ، اشتراک شما تمام شده است')
+                    return redirect(reverse('NewVoting'))
+                
     
                 
             AddVotePanle = VotePanelModel.objects.create(name = name , description=description, image=image, created_by = request.user)
