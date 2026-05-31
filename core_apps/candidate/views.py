@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.template.loader import render_to_string
 from django.contrib import messages
 from ..user.views import user_data
-
+from django.core.paginator import Paginator
 
 from ..voting.models import VotePanelModel
 from ..candidate.models import CandidateModel
@@ -15,9 +15,9 @@ from ..candidate.models import CandidateModel
 
 
 
-def CandidatePage(request):
+def CandidatePage(request, page_num:int=1):
     try :
-
+        
         if request.user.usertype == 'superadmin':
             candidates = CandidateModel.objects.all()
         elif request.user.usertype == 'admin':
@@ -25,7 +25,16 @@ def CandidatePage(request):
         else:
             None
             
-        content_html = render_to_string('admin/candidate/candidatespage.html', context={'obj_list':candidates}, request=request)
+        pageNum = page_num
+        Paginate = Paginator(candidates, 20)
+        page_obj_list = Paginate.get_page(pageNum)
+        
+        
+        context = {'obj_list':page_obj_list.object_list, 'has__page':Paginate.page(pageNum),}
+        
+        content_template = 'admin/candidate/candidates.html'
+        content_html = render_to_string(content_template, context=context, request=request)
+        
         return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
     
     except Exception as err:
@@ -91,12 +100,12 @@ def submitcandidate(request):
 
 
 
-def load_selected_candidate(request, id):
+def LoadSelectedCandidate(request, id):
     try:
         
         candidate = CandidateModel.objects.get(id = id)
         context = {'obj_list':candidate}
-        content_template = 'admin/candidate/modify-selected-candidate.html'
+        content_template = 'admin/candidate/modifyselectedcandidate.html'
         content_html = render_to_string(content_template, context=context, request=request)
         
         return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
