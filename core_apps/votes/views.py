@@ -67,6 +67,9 @@ def submit_vote(request):
         create_vote.candidate =  CandidateModel.objects.get(pk = i)
         create_vote.save()
     
+    if request.user.usertype == 'superadmin' or request.user.usertype =='admin':
+        return redirect(reverse('VotesSection'))
+    
     return redirect(reverse('UserPanel'))
 
 

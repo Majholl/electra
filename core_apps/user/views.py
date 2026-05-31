@@ -225,7 +225,7 @@ def load_vote_section(request  :Request):
     else:
         vote_panels = VotePanelModel.objects.all()
         
-    content_html = render_to_string('votes/vote-home.html', context={** user_data(request) , 'objs_list':vote_panels}, request=request)
+    content_html = render_to_string('votes/votelists.html', context={** user_data(request) , 'objs_list':vote_panels}, request=request)
     return content_html
 
 

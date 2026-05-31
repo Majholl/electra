@@ -10,9 +10,6 @@ urlpatterns = [
     path('submitcandidate', submitcandidate, name='SubmitCandidate'),
     path('candidate/<int:id>/', LoadSelectedCandidate, name='ModifySelectedCandidate'),
     
-    
-    
-    
     path('removedcandidate/<int:pk', RemoveCandidate, name='RemoveCandidate' )
     
 ]
