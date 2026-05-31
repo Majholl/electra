@@ -1,5 +1,4 @@
 {% load static %}
-
 {% block votingpanel %}
 
 <div class="new-votepanel-section">
@@ -107,6 +106,7 @@ const getInput = document.getElementById('img');
 const preImg = document.getElementById('preview');
 const btnRemovingImg = document.getElementById('buttonImgSelected');
 
+
 getInput.addEventListener('change', ()=>{
     const file = getInput.files[0];
     preImg.src = URL.createObjectURL(file);
@@ -121,8 +121,6 @@ buttonImgSelected.addEventListener("click", (e) =>{
     preImg.style.display = 'none';
     }
 )
-
-
 
 </script> 
 

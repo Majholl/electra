@@ -8,27 +8,88 @@
 .candidate-top-div {
     display: flex;
     justify-content: left;
-    width: max-content;
+    width: 100%;
     margin: 5px 0px 10px;
 }
 
 
-.candidate-top-div button {
+
+
+
+
+.candidate-top-div  > button {
     background: #334155;
     border: none;
-    padding: 5px 15px 5px;
+    padding: 10px 20px 10px;
     border-radius: 10px;
+    margin: 10px;
+    width: 12%;
 }
+
+
 
 .candidate-top-div button:hover {
     border-radius: 5px;
 }
+
+
 
 .candidate-top-div a {
     text-decoration: none;
     color: white;
     font-weight: 400;
 }
+
+
+
+
+
+
+
+.pagination-section-candidate {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.pagination-prev , .pagination-next {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 9px;
+    width: 8%;
+    border-style: none;
+    margin: 15px;
+    padding: 8px;
+}
+
+
+
+.pagination-prev a , .pagination-next a {
+    width: 100%;
+    text-decoration: none;
+    color: black;
+}
+
+.pagination-prev:hover , .pagination-next:hover {
+    border-radius: 0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -90,7 +151,6 @@ th {
     font-weight: 500;
     width: 100%;
 }
-
 
 
 

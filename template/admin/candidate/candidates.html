@@ -6,6 +6,17 @@
 
     <div class="candidate-top-div">
         <button><a href="{% url 'AddNewCandidate' %}"> اضافه کردن کاندید</a></button>
+
+        <div class="pagination-section-candidate">
+            {% if has__page.has_previous %}
+            <button class="pagination-prev"><a href="{% url 'Candidateslist' page_num=has__page.previous_page_number %}"> <i class="fa-solid fa-angles-left"></i> قبلی </a></button>
+            {% endif %}
+            {% if has__page.has_next %}
+            <button class="pagination-next"><a href="{% url 'Candidateslist' page_num=has__page.next_page_number %}"> بعدی <i class="fa-solid fa-angles-right"></i></a></button>
+            {% endif %}
+        </div>
+
+    
     </div>
 
 
