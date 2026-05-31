@@ -165,7 +165,6 @@ def loginUser(request  :Request):
         username_field = request.POST.get('username_field')
         password = request.POST.get('password')
         userFound =  Users.objects.get(national_code = str(username_field)) if username_field.isdigit() else User.objects.get(username= username_field)
-        print(userFound)
 
         if userFound :
             if userFound.check_password(password): 
