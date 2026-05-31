@@ -87,7 +87,8 @@ th {
 .candidate-detail-button a {
     text-decoration: none;
     color: black;
-    font-weight: 400;
+    font-weight: 500;
+    width: 100%;
 }
 
 
