@@ -55,12 +55,12 @@
 
         </div>
 
-            {% if truth_obj %}
-            <button class="btn submitbtn btn-primary" type="submit">ثبت</button><br>
-            {% else %}
-            <button class="btn submitbtn btn-primary" type="submit" disabled>رای شما ثبت شده</button><br>
-            {% endif %}
-       
+        {% if truth_obj %}
+        <button class="btn submitbtn btn-primary" type="submit">ثبت</button><br>
+        {% else %}
+        <button class="btn submitbtn btn-primary" type="submit" disabled>رای شما ثبت شده</button><br>
+        {% endif %}
+    
 
     </form>
 
@@ -234,31 +234,36 @@
 }
 
 
+
 .candidates-top-section button a {
     text-decoration: none;
     color: white;
 }
 
+
 .checkbox-btn-candidates {
     width: 10%;
 }
 
+
 .submitbtn {
-    position: absolute;
-    top: 50px;
-    left: 50px;
+
     width: 130px;
     background: #1E293B;
     color: white;
     font-weight: bold;
     border-style: none;
 }
+
+
+
 .btn-primary:active {
     color: none !important; 
     background-color: none !important;
     border-color: none !important;
     box-shadow: none !important
 }
+
 
 .btn-primary:focus {
     color: none !important;
