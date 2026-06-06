@@ -19,8 +19,30 @@
                 <p class='candi_updateddate'>آخرین بروزرسانی: {{ obj_list.created_at|to_jalali:'%H:%M:%S-%y/%m/%d' }}</p>
             </div>
             
+
+
             <div class="modify-candidate-section-btns">
-                <button type="button" class="remove-candidate-btn"><a class="remove-candidate-url" href="#">حذف کاندید</a></button>
+                <button type="button" class="remove-candidate-btn" id="rmcandidatebtn"><a class="remove-candidate-url">حذف کاندید</a></button>
+                
+               
+                <div class="confirmationmodel" id="removecandidate">
+                    
+                    <div class="insidemodel">
+
+                        <div class="contentmodel">
+                            <p>حذف این کاندید در صورتی است که جزی از هیچ انتخاباتی نباشد</p>
+                        </div>
+
+                        <div class="bottommodel">
+                            <a href="#">تایید</a>
+                            <button class="close-confirmmodel" id="cloesemodel">بستن</button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
             </div>
         </div>
 
@@ -28,4 +50,20 @@
 
 
 
+<script>
 
+var btnOpenModel = document.getElementById('rmcandidatebtn');
+
+var openModel = document.getElementById('removecandidate');
+
+btnOpenModel.onclick = function(){
+    openModel.style.display = 'flex'
+}
+
+var cloeseModel = document.getElementById('cloesemodel')
+
+cloeseModel.onclick = function() {
+    openModel.style.display = 'none'
+}
+
+</script>
