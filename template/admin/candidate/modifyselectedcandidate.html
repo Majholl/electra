@@ -9,6 +9,8 @@
 
 <div class="modify-candidate-section">
 
+
+
         <div class="candidate_data">
             {% if obj_list.image %}<img src="{{ obj_list.image.url }}"  width="75px" height="75px" style="border-radius: 10px;">{% endif %}
             
@@ -31,10 +33,25 @@
 
                         <div class="contentmodel">
                             <p>حذف این کاندید در صورتی است که جزی از هیچ انتخاباتی نباشد</p>
+
+                            <div class="modify-candidate-section success-msg">
+                                {% if messages %}
+                                <div class="alert alert-success d-flex align-items-center fade show" role="alert">
+                                    {% for msg in messages %}
+                                    <div>
+                                        {{ msg }}
+                                    </div>
+                                    {% endfor %}
+                                    <i class="fa-solid fa-circle-check"></i>
+
+                                </div>
+                                {% endif %}    
+                             </div>
+
                         </div>
 
                         <div class="bottommodel">
-                            <a href="#">تایید</a>
+                            <a href="{% url 'RemoveCandidate' id=obj_list.pk %}">تایید</a>
                             <button class="close-confirmmodel" id="cloesemodel">بستن</button>
                         </div>
 
@@ -42,16 +59,24 @@
 
                 </div>
 
+                
 
             </div>
+
         </div>
 
 </div>
 
 
+{% if messages %} 
+<script>
+    var openModel = document.getElementById('removecandidate');
+    openModel.style.display = 'flex'
+</script>
+{% endif %}
+
 
 <script>
-
 var btnOpenModel = document.getElementById('rmcandidatebtn');
 
 var openModel = document.getElementById('removecandidate');

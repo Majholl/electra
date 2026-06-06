@@ -121,7 +121,16 @@ def LoadSelectedCandidate(request, id):
 
 
 def RemoveCandidate(request, id):
+    try:
+        print(request, id)
+        Candidate = CandidateModel.objects.get(id = id)
+        try: 
+            Candidate.delete()
+        except Exception as notpossible :
+            messages.add_message(request, messages.INFO, 'امکان حذف کاندید وجود ندارد')
+            return redirect(reverse('ModifySelectedCandidate', kwargs={"id":Candidate.pk}))
     
-    pass
+    except Exception as err:
+        print(err)
 
 
