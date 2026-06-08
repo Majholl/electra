@@ -80,7 +80,7 @@ def submitcandidate(request):
                                                     image = request.FILES.get('image'), 
                                                     created_by = request.user,)
                                             
-        return redirect(reverse('candidateslist'))
+        return redirect(reverse('Candidateslist'))
 
     except Exception as err:
         print(err)
@@ -129,7 +129,8 @@ def RemoveCandidate(request, id):
         except Exception as notpossible :
             messages.add_message(request, messages.INFO, 'امکان حذف کاندید وجود ندارد')
             return redirect(reverse('ModifySelectedCandidate', kwargs={"id":Candidate.pk}))
-    
+        else :
+            return redirect(reverse('Candidateslist'))
     except Exception as err:
         print(err)
 
