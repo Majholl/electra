@@ -50,7 +50,10 @@ def LoadSelectedVotePanel(request:Request, id:int):
     try:    
     
         VotePanel = VotePanelModel.objects.get(id = int(id))
-        Candidates = CandidateModel.objects.filter(created_by = request.user).exclude(pk__in = VotePanel.candidate.all()).all()
+        if request.user.usertype =='superadmin':
+            Candidates = CandidateModel.objects.all().exclude(pk__in = VotePanel.candidate.all())
+        else:
+            Candidates = CandidateModel.objects.filter(created_by = request.user).exclude(pk__in = VotePanel.candidate.all()).all()
         
         context = {'obj_list':VotePanel, 'obj_list_2':Candidates}
         content_template = 'admin/votepanels/modifyselectedvotepanel.html'
