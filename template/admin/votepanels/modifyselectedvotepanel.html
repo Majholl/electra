@@ -134,8 +134,8 @@
             <tbody>
             
                 {% for i in obj_list.candidate.all %}
-                <tr scope="row">
-                    <th scope="row">❌</th>
+                <tr scope="row" id="candidaterow_{{i.pk}}" class="candidates" >
+                    <th scope="row" id="candidatepk_{{i.pk}}_{{obj_list.pk}}" onclick="removeCandidateVotepanel(this)">❌</th>
                     <th scope="row">{{ forloop.counter }}</th>
                     <th scope="row">{{ i.name }}</th>
                     <th scope="row">{% if i.image %}<img src="{{ i.image.url }}"  width="75px" height="75px" style="border-radius: 10px;">{% endif %}</th>  
@@ -178,6 +178,33 @@ setTimeout(function() {
 $(document).ready(function() {
     $('.form-select-candidate').select2();
 });
+
+
+
+
+async function removeCandidateVotepanel(elm){
+    let canid = elm.id;
+    
+    let votepanelPk = canid.split('_')[2];
+    let candpk = canid.split('_')[1];
+
+    candrow = `candidaterow_${candpk}`;
+    let rowCandidateCalled = document.getElementById(candrow);
+    rowCandidateCalled.style.display = 'none';
+    
+    let candidateVptepanel = [votepanelPk, candpk];
+
+    const crsftoken = document.cookie.split('=')[1];
+
+    let response = await fetch(`${window.location.protocol}//${window.location.host}/removecandidate/`, {
+
+        headers: { 'content-type': 'application/json', 'X-CSRFToken': crsftoken },
+        method : "post",
+        body: JSON.stringify(candidateVptepanel)
+    });
+    
+
+}
 
 
 </script> 
