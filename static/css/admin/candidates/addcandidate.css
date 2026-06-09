@@ -9,7 +9,7 @@
 
 .addcandidate-inner-section {
     width: 50%;
-    height: 350px;
+    height: 450px;
     min-height: 250px;
     margin: 10px 10px 50px;
     display: flex;
@@ -37,7 +37,7 @@
 }
 
 .addcandidate-form-section span {
-    width: 20%;
+    width: 22%;
     display: flex;
     justify-content: right;
     align-items: center;
@@ -48,7 +48,7 @@
 
 
 .addcandidate-form-div {
-    width: 60%;
+    width: 75%;
     margin: 0px 50px;
     display: flex;
     padding: 10px;
@@ -57,6 +57,7 @@
 
 .addcandidate-form-div form {
     width: 100%;
+    height: 250px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -109,44 +110,49 @@
 
 
 
-/* 
-
-.title-div {
-    padding: 10px;
-    text-align: center;
-}
-.form-div {
+.inpt-three{
+    
+    padding: 0px 10px 0px;
+    margin: 10px 10px 20px;
     display: flex;
-    padding: 15px;
-}
-
-div[class*='inpt-'] {
-    display: flex;
-    justify-content: space-between;
-    margin: 15px;
-
+    align-items: center;
+    width: 100%;
+    direction: rtl;
+    justify-content: space-around;
 }
 
 
-div[class*='inpt-'] input {
-    border-radius: 5px;
+.inpt-three label {
+    width: 40%;
+    border: 1px solid;
+    padding: 5px 20px 5px;
+    border-radius: 10px;
+    transition: all ;
+    transition-duration: 250ms;
+    transition-delay: 150ms;
 }
 
-button { 
-    padding: 5px 40px;
-    margin: 10px;
+.inpt-three .remove-selected-candidate-img {
     position: relative;
-    left: 35%;
+    left: 10%;
+    bottom: 30%;
     border: none;
     border-radius: 10px;
-    font-weight: bold;
-    transition: color background-color;
-    transition-duration: 250ms;
-    transition-delay: 100ms;
+    align-items: center;
+    text-align: center;
 }
 
-button:hover { 
-    color: white;
-    background-color: black;
-    border-radius: 0px;
-} */
+
+
+.inpt-three label:focus-visible {
+    outline: none;
+}
+
+
+
+
+.inpt-three label:hover {
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 0.2em 0.09em #0000001c;
+}

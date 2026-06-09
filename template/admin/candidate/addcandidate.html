@@ -41,12 +41,17 @@
                         <label>: توضیحات کاندید</label>
                     </div>
 
+
                     <div class="inpt-three">
-                        <input type="file" name="image"> 
-                        <label>تصویر کاندید</label>
+                                                
+                        <label for="candidate-img">انتخاب عکس کاندید<i class="fa-solid fa-image-portrait"></i></label>
+                        <input type="file" name="image" id="candidate-img" hidden>
+                        <img id="candidate-img-preview" alt="-" style="display: none; width: 125px; margin: 10px 15px 10px;">
+                        
+                        <button type="submit">ثبت</button>
                     </div>
 
-                    <button type="submit">ثبت</button>
+                   
                 </form>
                 
             </div>
@@ -74,6 +79,23 @@ setTimeout(function() {
             alert.classList.add('fade');
             setTimeout(() => { alert.remove(), 500});}) 
     }, 3000)
+
+
+
+
+
+const getInput = document.getElementById('candidate-img');
+const preImg = document.getElementById('candidate-img-preview');
+
+
+
+getInput.addEventListener('change', ()=>{
+    const file = getInput.files[0];
+    preImg.src = URL.createObjectURL(file);
+    preImg.style.display = 'block';
+    btnRemovingImg.style.display = 'block';
+})
+
 
 
 </script> 
