@@ -134,8 +134,8 @@
             <tbody>
             
                 {% for i in obj_list.candidate.all %}
-                <tr scope="row" id="candidaterow_{{i.pk}}" class="candidates" >
-                    <th scope="row" id="candidatepk_{{i.pk}}_{{obj_list.pk}}" onclick="removeCandidateVotepanel(this)">❌</th>
+                <tr scope="row" id="candidaterow_{{i.pk}}" class="candidatetabel" >
+                    <th scope="row" id="candidatepk_{{i.pk}}_{{obj_list.pk}}" class="removecandidate" onclick="removeCandidateVotepanel(this)"><span>❌</span></th>
                     <th scope="row">{{ forloop.counter }}</th>
                     <th scope="row">{{ i.name }}</th>
                     <th scope="row">{% if i.image %}<img src="{{ i.image.url }}"  width="75px" height="75px" style="border-radius: 10px;">{% endif %}</th>  

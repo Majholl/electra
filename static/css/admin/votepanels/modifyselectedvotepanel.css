@@ -1,0 +1,207 @@
+.modify-votepanel-section {
+    width: 100%;
+    display: flex;
+    direction: rtl;
+    margin: 10px 0px 50px;
+}
+
+
+
+.right-section{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+
+.left-section {
+    display: flex;
+    align-items: flex-start;
+    text-align: center;
+    padding: 5px;
+    margin: 25px;
+}
+
+.div-msg {
+    width: 35%;
+    display: flex;
+    justify-content: flex-start;
+    font-weight: bold;
+}
+
+.align-items-center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+    padding: 8px;
+    border-radius: 10px;
+
+}
+
+.static-votepanel-data {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.static-votepanel-data p {
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+
+
+.description-div > p {
+    margin: 5px 5px 10px 5px;
+    width: 10%;
+    font-weight: 500;
+}
+
+
+
+.desc-div {
+    border: 1px solid #0000004f;
+    border-radius: 5px;
+    width: 100%;
+    height: 150px;
+    padding: 15px;
+    word-break: break-all;
+}
+
+
+
+.datetime-div {
+    display: flex;
+    justify-content: right;
+    flex-direction: column;
+    margin: 10px 5px 10px 5px;
+}
+
+.datetime-div p {
+    margin: 0;
+}
+
+.start-datetime{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 10px 0px 10px;
+    padding: 10px 0px 10px;
+}
+
+
+.start-datetime input {
+    border-radius: 10px;
+    border-style: none;
+    box-shadow: 0 0 0.2em 0.025em #0000001c;
+    padding: 5px 10px 5px;
+    text-align: center;
+}
+
+.end-datetime {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 10px 0px 10px;
+    padding: 10px 0px 10px;
+}
+
+.end-datetime input {
+    border-radius: 10px;
+    border-style: none;
+    box-shadow: 0 0 0.2em 0.025em #0000001c;
+    padding: 5px 10px 5px;
+    text-align: center;
+}
+
+
+.status-section {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 5px;
+    padding: 1px;
+}
+
+
+
+.status-section p {
+    margin: 0px 0px 0px 50px;
+    align-items: center;
+    display: flex;
+}
+
+
+
+.status-section select {
+    width: 20%;
+    text-align: center;
+    border-radius: 10px;
+    padding: 5px;
+
+}
+
+.candidate-section label {
+    margin: 0px;
+    padding: 5px;
+}
+
+
+.form-select-candidate {
+    margin: 10px;
+}
+
+
+
+.candidate-section  {
+    margin: 10px;
+}
+
+.votepanel-button-div {
+    display: flex;
+    justify-content: left;
+    margin: 25px 25px 10px;
+}
+
+.votepanel-button-div button {
+    width: 20%;
+    background-color: #1E293B !important;
+}
+
+
+
+th , tr {
+    text-align: center;
+    vertical-align: center;
+}
+
+
+
+.removecandidate:hover  {
+    cursor: pointer;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
