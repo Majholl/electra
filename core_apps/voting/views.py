@@ -8,7 +8,7 @@ from django.core.paginator import Paginator
 from django.template.loader import render_to_string
 from django.utils.timezone import make_aware
 from django.contrib import messages
-
+import json
 
 
 from .models import VotePanelModel 
@@ -125,6 +125,24 @@ def ModifySelectedVotepanel(request ):
 
 
 
+def RemoveCandidateFromVotepanel(request):
+    try :
+        access_body = json.loads(request.body)
+        votepanel = VotePanelModel.objects.get(id= int(access_body[0]))
+        candidate = CandidateModel.objects.get(id =int(access_body[-1]))
+        
+        print(votepanel, candidate)
+        votepanel.candidate.remove(candidate)
+        return redirect(reverse('LoadSelectedVotePanel', kwargs={'id': votepanel.pk}))
+        
+    except Exception as err :
+        print(err)
+        return redirect(reverse("404-nf"))
+
+
+
+
+
 
 
 def AddNewVotePanelPage(request):
@@ -137,8 +155,11 @@ def AddNewVotePanelPage(request):
     except Exception as err :
         return redirect(reverse("404-nf"))
 
+
  
- 
+
+    
+     
 
 
 
