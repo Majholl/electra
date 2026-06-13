@@ -1,34 +1,53 @@
-# stage 1
-FROM python:3.12-slim AS builder
+FROM docker.arvancloud.ir/python:3.11-slim AS builder
 
-RUN apt-get update && apt-get install --no-install-recommends -y \
-    build-essential \
-    libpq-dev \
-    default-libmysqlclient-dev \
-    pkg-config \
-    gcc \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade && apt-get install --no-install-recommends -y \
+   pkg-config \  
+   build-essential \ 
+   libpq-dev \  
+   default-libmysqlclient-dev 
 
+RUN mkdir /app
 
-WORKDIR /build
+WORKDIR /app
 
-COPY requirements.txt .
+ENV PYTHONDONTWRITEBYTECODE=1
 
-RUN pip install --upgrade pip && pip wheel --wheel-dir=/wheel -r requirements.txt
+ENV PYTHONUNBUFFERED=1 
 
+RUN pip install --upgrade pip 
 
+COPY requirements.txt /app/
 
-# stage 2 
-# FROM python:3.12-slim-bookworm AS runtime
-
-# RUN apt-get update && apt-get install --no-install-recommends -y \
-#     build-essential \ 
-#     libpq-dev \
-#     default-libmysqlclient-dev \
-#     pkg-config \
-#     gcc \   
-#     && rm -rf /var/lib/apt/lists/*
+RUN pip install --no-cache-dir -r requirements.txt
 
 
 
 
+FROM docker.arvancloud.ir/python:3.11-slim
+ 
+RUN useradd -m -r appuser && \
+   mkdir /app && \
+   chown -R appuser /app
+
+#  run apt-get upgrade later 
+RUN apt-get update && apt-get upgrade && apt-get install --no-install-recommends -y \
+   libmariadb3 \
+   && rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /usr/local/lib/python3.11/site-packages/ /usr/local/lib/python3.11/site-packages/
+# remove extra things from user local bin later
+COPY --from=builder /usr/local/bin/ /usr/local/bin/
+
+WORKDIR /app
+
+COPY --chown=appuser:appuser . .
+
+ENV PYTHONDONTWRITEBYTECODE=1
+
+ENV PYTHONUNBUFFERED=1 
+
+USER appuser
+
+EXPOSE 8000 
+
+CMD ["python3", "manage.py", "runserver"]
