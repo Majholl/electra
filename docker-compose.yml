@@ -1,0 +1,54 @@
+services:
+  db:
+    image: docker.arvancloud.ir/mysql:8.0
+    hostname: db
+    container_name: MYSQL
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: electra
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+      MYSQL_ROOT_PASSWORD: rootpassword
+
+    ports:
+      - "3307:3306" 
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
+    hostname: electra-web
+    container_name: electra-web
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    # mount code for live development (optional, remove for production)
+    #volumes:
+      #- .:/app
+    environment:
+      - DB_NAME=electra
+      - DB_USER=myuser
+      - DB_PASSWORD=mypassword
+      - DB_HOST=db
+      - DB_PORT=3306
+
+    depends_on:
+      db:
+        condition: service_healthy
+        
+    command: > 
+        sh -c "
+        python3 manage.py migrate &&
+        python3 manage.py runserver 0.0.0.0:8000
+        "
+
+volumes:
+  mysql_data:
+
