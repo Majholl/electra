@@ -1,7 +1,12 @@
 asgiref==3.9.1
 Django==5.2.6
+django-jalali-date==2.0.0
+django-phonenumber-field==8.3.0
 dotenv==0.9.9
+jalali_core==1.0.0
+jdatetime==5.2.0
 mysqlclient==2.2.7
+phonenumberslite==9.0.17
 pillow==11.3.0
 python-dotenv==1.1.1
 sqlparse==0.5.3

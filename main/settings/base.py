@@ -1,7 +1,7 @@
 from os import path, getenv
 from dotenv import load_dotenv
 from pathlib import Path
-
+import os
 
 
 # Base Dir
@@ -39,7 +39,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': getenv('DB_NAME'),
-        'HOST': getenv('DB_HOST'),
+        'HOST':getenv('DB_HOST'),
         'USER': getenv('DB_USER'),
         'PASSWORD': getenv('DB_PASSWORD'),
         'PORT': getenv('DB_PORT'),
