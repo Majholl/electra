@@ -81,3 +81,5 @@ db.sqlite3-journal
 front/
 *.mwb
 *.mwb.bak
+mydocker.txt
+electra.tar
