@@ -1,7 +1,7 @@
+import os
 from os import path, getenv
 from dotenv import load_dotenv
 from pathlib import Path
-import os
 
 
 # Base Dir
@@ -12,6 +12,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 local_env_file = path.join(BASE_DIR, '.envs', '.env.local')
 if path.isfile(local_env_file):
     load_dotenv(local_env_file)
+
 
 
 
@@ -74,10 +75,13 @@ MIDDLEWARE = [
 ] + LOCAL_MIDDLEWARE
 
 
+
 AUTHENTICATION_BACKENDS = [
     'core_apps.user.authentication.AllowInactiveUserBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+
 
 
 # Media root 
@@ -93,7 +97,6 @@ MEDIA_ROOT = path.join(BASE_DIR , "media")
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS  = [path.join(BASE_DIR, 'static')]
-
 
 PHONENUMBER_DEFAULT_REGION = "IR"
 
@@ -123,6 +126,7 @@ TEMPLATES = [
 
 
 
+
 # Jelali calendar
 JALALI_DATE_DEFAULTS = {
    'LIST_DISPLAY_AUTO_CONVERT': True,
@@ -145,21 +149,15 @@ JALALI_DATE_DEFAULTS = {
 
 
 
-
-
-
-
-
-
-
-
 ROOT_URLCONF = 'main.urls'
+
 
 
 WSGI_APPLICATION = 'main.wsgi.application'
 
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+
+
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -177,8 +175,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
+
+
+
 
 LANGUAGE_CODE = 'en-us'
 
@@ -188,9 +187,5 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
