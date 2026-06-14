@@ -17,8 +17,9 @@
 
 .left-section {
     display: flex;
-    align-items: flex-start;
+    align-items: flex-end;
     text-align: center;
+    flex-direction: column;
     padding: 5px;
     margin: 25px;
 }
@@ -174,6 +175,41 @@
     background-color: #1E293B !important;
 }
 
+
+
+
+
+
+.hardremovecandidate-section {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    margin: 10px;
+    padding: 5px;
+}
+
+
+.hardremovecandidate-section button{
+    margin: 0px 20px 0px ;
+    width: 15%;
+    background-color: #1E293B !important;
+    border: none;
+    color: white;
+    padding: 5px 10px 5px;
+    border-radius: 10px;
+}
+
+
+
+
+.hardremove-msg {
+    width: 35%;
+    background: #00800052;
+    height: 35px;
+    padding: 5px;
+    border-radius: 10px;
+    font-weight: 600;
+}
 
 
 th , tr {
