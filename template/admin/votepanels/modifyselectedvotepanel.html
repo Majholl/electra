@@ -91,6 +91,7 @@
 
                         <label>لیست کاندیدها :</label>
                         <select name="candidates" class="form-select-candidate forms2 form-select"  multiple="multiple">
+                        
                             {% for j in obj_list_2 %}
                             <option value="{{ j.pk }}">{{ j.name }}</option>
                             {% endfor %}
@@ -120,6 +121,12 @@
 
         <table class="table table-striped table-hover  candidate-table">
 
+            <div class="hardremovecandidate-section">
+                <button id="hardremove_{{ obj_list.pk }}" onclick="hardRemoveCandidateVotepanel(this)">حذف کاندیدها</button>
+                <div id="success-msg" class="hardremove-msg" style="display: none;"></div>
+
+            </div>
+
             <thead>
 
                 <tr class="table-light">
@@ -132,16 +139,16 @@
             </thead>
 
             <tbody>
-            
+              
                 {% for i in obj_list.candidate.all %}
                 <tr scope="row" id="candidaterow_{{i.pk}}" class="candidatetabel" >
-                    <th scope="row" id="candidatepk_{{i.pk}}_{{obj_list.pk}}" class="removecandidate" onclick="removeCandidateVotepanel(this)"><span>❌</span></th>
+                    <th scope="row" id="candidatepk_{{i.pk}}" class="removecandidate" onclick="removeCandidateVotepanel(this)"><span>❌</span></th>
                     <th scope="row">{{ forloop.counter }}</th>
                     <th scope="row">{{ i.name }}</th>
                     <th scope="row">{% if i.image %}<img src="{{ i.image.url }}"  width="75px" height="75px" style="border-radius: 10px;">{% endif %}</th>  
                 </tr>
                 {% endfor %}
-
+            
             </tbody>
 
         </table>
@@ -182,31 +189,49 @@ $(document).ready(function() {
 
 
 
-async function removeCandidateVotepanel(elm){
-    let canid = elm.id;
-    
-    let votepanelPk = canid.split('_')[2];
-    let candpk = canid.split('_')[1];
 
+var candidateArray = [];
+
+async function removeCandidateVotepanel(elm){
+    let calledData = elm.id;
+    let candpk = calledData.split('_')[1];
     candrow = `candidaterow_${candpk}`;
     let rowCandidateCalled = document.getElementById(candrow);
     rowCandidateCalled.style.display = 'none';
-    
-    let candidateVptepanel = [votepanelPk, candpk];
+    candidateArray.push(candpk)
+};
 
+
+
+async function hardRemoveCandidateVotepanel(elm) {
+    let panelID = elm.id;
+    let panelPk = panelID.split('_')[1];
+    var addMessage = document.getElementById('success-msg');
+    let bodyData = [panelPk , candidateArray];
     const crsftoken = document.cookie.split('=')[1];
 
-    let response = await fetch(`${window.location.protocol}//${window.location.host}/removecandidate/`, {
 
-        headers: { 'content-type': 'application/json', 'X-CSRFToken': crsftoken },
-        method : "post",
-        body: JSON.stringify(candidateVptepanel)
-    });
-    
+    if (candidateArray.length == 0){
+            addMessage.style.display = 'block';
+            addMessage.textContent = 'هیچ کاندید برای حذف انتخاب نشده';
 
+        }
+    else {
+
+            let response = await fetch(`${window.location.protocol}//${window.location.host}/removecandidate/`, {
+                headers: { 'content-type': 'application/json', 'X-CSRFToken': crsftoken },
+                method : "post",
+                body: JSON.stringify(bodyData)}); 
+        
+            if (response.status == 200){
+                addMessage.style.display = 'block'
+                addMessage.textContent = 'کاندید ها با موفقیت حذف شدند'};
+        }  
+        
+    setTimeout(()=>{
+    addMessage.textContent = '';
+    location.reload();}, 1500)
 }
-
-
 </script> 
 
 

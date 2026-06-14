@@ -3,7 +3,6 @@
 
 
 <!-- TODO remove button for the pannel -->
-<!-- TODO add owner name on pannels -->
 <!-- TODO add search box -->
 
 <div class="votepanels-section">
@@ -33,7 +32,7 @@
         <div class="votepanels" >
             
            
-            <a href="{% url 'LoadSelectedVotePanel' id=i.id %}" style="background-image: url('{{i.image.url}}'); width: 400px; height: 400px;">
+            <a href="{% url 'LoadSelectedVotePanel' id=i.id %}" style="background-image: url('{{i.image.url}}'); width: 400px; height: 400px;background-size: cover;">
 
             <div class="votepanel-labels">
                 <p class="votepanel-name-label">نام انتخابات</p>
