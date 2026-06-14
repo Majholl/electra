@@ -79,7 +79,4 @@ db.sqlite3-journal
 # other's
 !entrypoint.sh
 front/
-*.mwb
-*.mwb.bak
-mydocker.txt
-electra.tar
+db-

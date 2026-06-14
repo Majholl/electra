@@ -19,8 +19,6 @@ samples/
 !requirements.txt
 
 # Postman collections
-music_player.postman_collection.json
-
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -78,10 +76,5 @@ db.sqlite3-journal
 
 # other's
 .git
-mydocker.txt
 !entrypoint.sh
-front/
-*.mwb
-*.mwb.bak
-mydocker.txt
-electra.tar
+db-
