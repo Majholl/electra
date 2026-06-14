@@ -1,4 +1,3 @@
-
 from urllib.request import Request
 from datetime import datetime
 
@@ -88,10 +87,16 @@ def ModifySelectedVotepanel(request ):
                 candidate_ = CandidateModel.objects.filter(id__in = vp_candidate).all()
                 vp_ = VotePanelModel.objects.get(id = vp_id)
                 
-                for i in candidate_:
-                    
-                    vp_.candidate.add(i.pk)
+                candcount = candidate_.count()
+               
                 
+                for i in candidate_:
+                    candcount -=1
+                    vp_.candidate.add(i.pk)
+                    
+                    if candcount == 0 :
+                        messages.add_message(request, messages.INFO, 'کاندید‌ها باموفقیت اضافه شدند')
+                    
                 
                 if vp_status  in ['active', 'deactive']:
                     votestatus = 1 if vp_status == 'active' else 0
@@ -128,11 +133,15 @@ def ModifySelectedVotepanel(request ):
 def RemoveCandidateFromVotepanel(request):
     try :
         access_body = json.loads(request.body)
-        votepanel = VotePanelModel.objects.get(id= int(access_body[0]))
-        candidate = CandidateModel.objects.get(id =int(access_body[-1]))
         
-        print(votepanel, candidate)
-        votepanel.candidate.remove(candidate)
+        
+        votepanel = VotePanelModel.objects.get(id= int(access_body[0]))
+        candidate = CandidateModel.objects.filter(id__in = access_body[-1])
+        
+
+        for i in candidate :
+            votepanel.candidate.remove(i)
+        messages.add_message(request, messages.info, 'کاندیدها با موفقیت از انتخابات حذف شدند')    
         return redirect(reverse('LoadSelectedVotePanel', kwargs={'id': votepanel.pk}))
         
     except Exception as err :
@@ -177,7 +186,7 @@ def AddNewVotePanel(request):
             vp_enddate  = request.POST.get('end_date')
             
             user = User.objects.get(id = request.user.id)                            
-                                        
+                                
             if ( len(name) or len(description)) == 0 :
                 messages.add_message(request, messages.INFO, 'فیلد ها نباید خالی باشد')
                 return redirect(reverse('NewVoting'))
@@ -187,19 +196,19 @@ def AddNewVotePanel(request):
                 messages.add_message(request, messages.INFO, 'تصویری برای پنل انتخابات ، انتخاب کنید')
                 return redirect(reverse('NewVoting'))
             
+           
             
-            if user.usertype != 'superadmin':
+            if user.usertype!='superadmin':
                 
-                if user.allowunlimitpanelcreation == 0 :
+                if user.allowunlimitpanelcreation==0:
                     if user.maxpanelcount > 0 :
-                        if (user.maxpanelcount - 1) == 0 :
-                            user.allowunlimitpanelcreation = 0
                         user.maxpanelcount -=1 
+                        if (user.maxpanelcount) == 0 :
+                            user.allowunlimitpanelcreation = 0
                         user.save()
-                    messages.add_message(request, messages.INFO, 'امکان ساخت پنل برای شما وجود ندارد ، اشتراک شما تمام شده است')
-                    return redirect(reverse('NewVoting'))
-                
-    
+                    else :
+                        messages.add_message(request, messages.INFO, 'امکان ساخت پنل برای شما وجود ندارد ، اشتراک شما تمام شده است')
+                        return redirect(reverse('NewVoting'))
                 
             AddVotePanle = VotePanelModel.objects.create(name = name , description=description, image=image, created_by = request.user)
             
@@ -209,6 +218,7 @@ def AddNewVotePanel(request):
             
             if  vp_enddate and len(vp_enddate) > 0:
                 AddVotePanle.end_date = make_aware(datetime.strptime(vp_enddate, "%Y-%m-%dT%H:%M"))
+                
             AddVotePanle.save()
                     
             return redirect(reverse('VotePanels'))
