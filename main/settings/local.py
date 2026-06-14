@@ -19,5 +19,7 @@ CSRF_TRUSTED_ORIGINS = json.loads(getenv("CSRF_TRUSTED_ORIGINS"))
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', ['https','http'])
 
+
 OTP_EXPIRE_TIME = timedelta(minutes=5)
 
+SESSION_COOKIE_AGE = int(getenv("SESSION_COOKIE_AGE"))

@@ -57,7 +57,6 @@ DATABASES = {
 AUTH_USER_MODEL = 'user.Users'
 
 
-
 # Middwares 
 
 LOCAL_MIDDLEWARE = ['core_apps.user.middleware.CustomMiddleware']
