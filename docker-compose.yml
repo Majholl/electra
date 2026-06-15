@@ -4,11 +4,8 @@ services:
     hostname: db
     container_name: MYSQL
     restart: unless-stopped
-    environment:
-      MYSQL_DATABASE: electra
-      MYSQL_USER: myuser
-      MYSQL_PASSWORD: mypassword
-      MYSQL_ROOT_PASSWORD: rootpassword
+
+    env_file: "./.envs/.env.product"
 
     ports:
       - "3307:3306" 
@@ -32,12 +29,7 @@ services:
     # mount code for live development (optional, remove for production)
     #volumes:
       #- .:/app
-    environment:
-      - DB_NAME=electra
-      - DB_USER=myuser
-      - DB_PASSWORD=mypassword
-      - DB_HOST=db
-      - DB_PORT=3306
+    env_file: "./.envs/.env.product"
 
     depends_on:
       db:
