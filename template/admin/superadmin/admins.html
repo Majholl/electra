@@ -8,7 +8,8 @@
     <div class="top-buttons">
 
         <div class="button-section-admins">
-            <button class="addadminbtn"><a href="{% url 'AddNewAdminList' %}">اضافه کردن ادمین جدید</a></button>
+            <button class="addadminbtn"><a href="{% url 'AddNewAdminList' %}">اضافه‌کردن‌ادمین‌جدید</a></button>
+            <button class="registeradminbtn"><a href="{% url 'RegisterNewAdmin' %}">ثبت‌ادمین‌جدید</a></button>
         </div>
 
         <div class="pagination-section-admin">
@@ -35,6 +36,8 @@
 
                     {% if i.profile %}
                     <img src="{{  i.profile.url }}" class="admin-image-section img" alt="{{ i.username }}" width="75px" height="75px">
+                    {% else %}
+                    <img src="../static/userimgs.jpg" class="admin-image-section img" style="border-radius: 10px;" width="75px" height="75px">
                     {% endif %}
 
 

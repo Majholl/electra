@@ -1,0 +1,38 @@
+{% load static %}
+
+
+
+<div class="registernewadmin-section">
+
+    <form class="registernewadmin-form" action="{% url 'SubmitRegisterNewAdmin' %}" method="POST">
+        {% csrf_token %}
+        <div class="nationalcode-div">
+            <label>کدملی</label>    
+            <input name="national_code">
+        </div>
+
+        <div class="firstname-div">
+            <label>نام</label>    
+            <input name="first_name">
+        </div>
+
+        <div class="lastname-div">
+            <label>نام خانوادگی</label>    
+            <input name="last_name">
+        </div>
+
+        <div class="email-div">
+            <label>ایمیل</label>    
+            <input name="email">
+        </div>
+
+        <div class="phonenumber-div">
+            <label>شماره همراه</label>    
+            <input name="phone_number">
+        </div>
+
+        <button type="submit">ثبت</button>    
+    
+    </form>
+
+</div>

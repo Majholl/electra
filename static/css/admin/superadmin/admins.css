@@ -16,6 +16,7 @@
 
 .button-section-admins {
     width: 15%;
+    display: flex;
 }
 
 .button-section-admins button {
