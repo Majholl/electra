@@ -252,6 +252,60 @@ def load_votes_tosuper_admin(request :Request):
 
 # SuperAdmin adding & modifying  admins pages
 
+def registerNewAdmin(request):
+    try :
+        
+        context = {}
+        content_template = 'admin/superadmin/registernewadmin.html'
+        content_html = render_to_string(content_template, context=context, request=request)
+        
+        return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html}) 
+    
+    except Exception as err :
+        print(err)
+        return redirect(reverse("404-nf"))
+
+ 
+ 
+ 
+ 
+ 
+def submitRegisterNewAdmin(request):
+    try:
+        
+        nationalCode = request.POST.get("national_code")
+        firstName = request.POST.get("first_name")
+        lastName = request.POST.get("last_name")
+        email = request.POST.get("email")
+        phoneNumber = request.POST.get("phone_number")
+        passWord = make_password('nationalCode')
+        print(passWord)
+        user = Users.objects.create(national_code=nationalCode,
+                                    first_name=firstName,
+                                    last_name=lastName,
+                                    email=email,
+                                    phone_number=phoneNumber,
+                                    usertype='admin',
+                                    password=passWord,
+                                    account_status='deactive',
+                                    is_active=0)
+        if user:
+            return redirect(reverse('AdminsList'))
+    
+    except Exception as err :
+        print(err)
+        return redirect(reverse("404-nf"))
+
+
+
+
+
+
+
+
+
+
+
 
 def adminsList(request :Request, page_num :int =1) :
     try :

@@ -8,6 +8,7 @@ from .views import (
                 
                 
                 #// Admins promotion & modifying modules //# 
+                registerNewAdmin, submitRegisterNewAdmin,
                 adminsList, loadSelectedAdmin, modifySelectedAdmin, newAdminList, promoteUserToAdmin,
                 
                 UserPanel,
@@ -40,6 +41,8 @@ urlpatterns = [
     
     #// Admins promotion & modifying urls 
     path('admins/', adminsList, name='AdminsList'),
+    path('registernewadmin/',registerNewAdmin, name='RegisterNewAdmin' ),
+    path('submitRegisterNewAdmin', submitRegisterNewAdmin, name='SubmitRegisterNewAdmin'),
     path('admins/<int:page_num>', adminsList, name='AdminsList'),
     path('admin/<int:id>', loadSelectedAdmin, name='LoadSelectedAdmin'), 
     path('admin/modifyadmin/', modifySelectedAdmin, name='ModifySelectedAdmin'),
