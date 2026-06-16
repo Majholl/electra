@@ -165,10 +165,8 @@ def loginUser(request  :Request):
         username_field = request.POST.get('username_field')
         password = request.POST.get('password')
         userFound =  Users.objects.get(national_code = str(username_field)) if username_field.isdigit() else User.objects.get(username= username_field)
-
         if userFound :
             if userFound.check_password(password): 
-                
                 if settings.OTP_REQUIRED :
                     if userFound.is_active == 0:
                         login(request, userFound, backend='core_apps.user.authentication.AllowInactiveUserBackend')
@@ -262,7 +260,6 @@ def registerNewAdmin(request):
         return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html}) 
     
     except Exception as err :
-        print(err)
         return redirect(reverse("404-nf"))
 
  
@@ -290,6 +287,7 @@ def submitRegisterNewAdmin(request):
                                     account_status='deactive',
                                     is_active=0)
         if user:
+            user.set_otp(generate_code())
             return redirect(reverse('AdminsList'))
     
     except Exception as err :
@@ -612,6 +610,7 @@ def verify_otp(request :Request):
     if request.method =='POST':
         
         otp_input = request.POST.get("otp-input")
+        
         user_verify = Users.objects.get(id = request.user.id)
         
         if user_verify.account_status != Users.AccountStatus.LOCKED:
@@ -622,7 +621,10 @@ def verify_otp(request :Request):
                     return redirect(reverse('verify-user-otp-page'))     
                 
                 if user_verify.verify_otp_code(otp_input):
-                    return redirect(reverse('UserPanel'))
+                    if user_verify.usertype == 'admin':
+                        return redirect(reverse('AdminDashboard'))
+                    else :
+                        return redirect(reverse('UserPanel'))
                 
                 else:
                     user_verify.otp_attempt_count
