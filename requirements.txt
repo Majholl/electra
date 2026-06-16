@@ -1,11 +1,16 @@
 asgiref==3.9.1
+click==8.4.1
+colorama==0.4.6
 Django==5.2.6
 django-jalali-date==2.0.0
 django-phonenumber-field==8.3.0
 dotenv==0.9.9
+gunicorn==26.0.0
+h11==0.16.0
 jalali_core==1.0.0
 jdatetime==5.2.0
 mysqlclient==2.2.7
+packaging==26.2
 phonenumberslite==9.0.17
 pillow==11.3.0
 python-dotenv==1.1.1
