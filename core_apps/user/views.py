@@ -278,7 +278,7 @@ def submitRegisterNewAdmin(request):
         passWord = make_password(nationalCode)
         
         if (len(nationalCode)) or len(phoneNumber) == 0 :
-            messages.add_message(request, messages.ERROR, 'فیلد ها نباید خالی باشن')
+            messages.add_message(request, messages.ERROR, 'فیلد ها نباید خالی باشند')
             return redirect(reverse("RegisterNewAdmin"))
         
         user = Users.objects.create(national_code=nationalCode,
