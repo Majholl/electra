@@ -275,8 +275,12 @@ def submitRegisterNewAdmin(request):
         lastName = request.POST.get("last_name")
         email = request.POST.get("email")
         phoneNumber = request.POST.get("phone_number")
-        passWord = make_password('nationalCode')
-        print(passWord)
+        passWord = make_password(nationalCode)
+        
+        if (len(nationalCode)) or len(phoneNumber) == 0 :
+            messages.add_message(request, messages.ERROR, 'فیلد ها نباید خالی باشن')
+            return redirect(reverse("RegisterNewAdmin"))
+        
         user = Users.objects.create(national_code=nationalCode,
                                     first_name=firstName,
                                     last_name=lastName,
