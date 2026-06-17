@@ -1,33 +1,23 @@
 {% load static %}
 {% load jalali_tags %}
 
-
 <div class="dashboard-home-user">
-
-
     <div class="voteslist-tovote-section">
-    
         {% for i in objs_list %}
-
         <div class="votepanels-tovote">
-
-            
             {% if i.image %}
-            <img src="{{i.image.url}}" ></img>
+            <img src="{{ i.image.url }}" alt="{{ i.name }}">
             {% endif %}
 
             <div class="vote-info">
-                <span class="vote-panel-name">{{i.name}}</span>
-                <button type="button"  class="vote-panel-btn"><a href="{% url 'AllVotings' id=i.id %}">ثبت رای</a></button>
+                <span class="vote-panel-name">{{ i.name }}</span>
+                <button type="button" class="vote-panel-btn">
+                    <a href="{% url 'AllVotings' id=i.id %}">ثبت رای</a>
+                </button>
             </div>
-
         </div>
         {% endfor %}
-        
     </div>
-
-
-
 </div>
 
 

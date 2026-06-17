@@ -1,278 +1,74 @@
-
 <div class="vote-to-votepanel-section">
 
-    <table class="vote-panels table">
 
-        <thead>
-                <tr>
-                    <th scope="col">اسم پنل</th>
-                    <th scope="col">تصویر پنل</th>
-                    <th scope="col">توضیحات پنل</th>
+    <div class="votepanel-deatils">
+        <label>اسم‌انتخابات</label>
+        <p scope="row" >{{ obj_list.name }}</p>
+
+        <label>توضیحات</label>
+        <p scope="row" >{{ obj_list.description }}</p>    
+
+        {% if obj_list.image %}<img src="{{ obj_list.image.url }}"  width="75px" height="75px" style="border-radius: 10px;">{% endif %}
+    </div>
+
+
+
+
+    <div class="votepanel-form">
+
+        <form method="POST" action="{% url 'SubmitVote' %}" class="form-vote">
+            {% csrf_token %}
+            <div class="candidate-tovote-section">
+            {% for i in obj_list_2 %}
+                <div class="candidates">
+
                     
-                </tr>
-        </thead>
+                    {% if i.image %}
+                    <img src="{{i.image.url}}" width="150px" height="150px"></img>
+                    {% endif %}
 
-        <tbody>
-            
-            <tr scope="row">
-                <th scope="row" > {{ obj_list.name }} </th>
-                <th scope="row">{% if obj_list.image %}<img src="{{ obj_list.image.url }}"  width="75px" height="75px" style="border-radius: 10px;">{% endif %}</th>  
-                <th scope="row">{{ obj_list.description }}</th>
-            </tr>
-            
+                    <div class="candidate-infos">
 
-        </tbody>
+                        <p class="candidate-name">{{i.name}}</p>
 
-    </table>
+                        <div  class="candidate-buttons">
+                            <input type="hidden" name="vp_pks" value="vp_{{ obj_list.pk }}">
+                            <input  class='checkbox-btn-candidates btn ' type="checkbox"  name="candiname_" value="cadname_{{ i.pk }}">انتخاب</button>
+                        </div>
 
-
-
-
-    <form method="POST" action="{% url 'SubmitVote' %}" class="form-vote">
-        {% csrf_token %}
-        <div class="candidate-tovote-section">
-        {% for i in obj_list_2 %}
-            <div class="candidates">
-
-                
-                {% if i.image %}
-                <img src="{{i.image.url}}" width="150px" height="150px"></img>
-                {% endif %}
-
-                <div class="candidate-infos">
-
-                    <p class="candidate-name">{{i.name}}</p>
-
-                    <div  class="candidate-buttons">
-                        <input type="hidden" name="vp_pks" value="vp_{{ obj_list.pk }}">
-                        <input  class='checkbox-btn-candidates btn ' type="checkbox"  name="candiname_" value="cadname_{{ i.pk }}">انتخاب</button>
                     </div>
 
                 </div>
+            {% endfor %}    
 
-            </div>
-        {% endfor %}    
+            </div>        
+        </form>
+        
+            {% if truth_obj %}
+            <button class="btn submitbtn btn-primary" type="submit">ثبت</button><br>
+            {% else %}
+            <button class="btn submitbtn btn-primary" type="submit" disabled>رای شما ثبت شده</button><br>
+            {% endif %}
 
+    </div>
+
+    <div class="submitedcandidate">
+        {% for i in obj_list_3 %}
+        <div class="candidatedvoted">
+            {% if i.candidate.image %}
+            <img class="votedcandidateimg" src="{{ i.candidate.image.url }}">
+            {% endif %}
+            <p class="votedcandidatename">{{ i.candidate.name }}</p>
+            <p class="votedcandidatdescription">{{ i.candidate.description }}</p>
         </div>
-
-        {% if truth_obj %}
-        <button class="btn submitbtn btn-primary" type="submit">ثبت</button><br>
-        {% else %}
-        <button class="btn submitbtn btn-primary" type="submit" disabled>رای شما ثبت شده</button><br>
-        {% endif %}
+        {% endfor %}
     
-
-    </form>
-
-
-
-
-
+    </div>
 
 
 </div>
 
 
-
-<style>
-.vote-to-votepanel-section {
-    width: 100%;
-    direction: rtl;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-.candidate-tovote-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 50px 0px
-}
-
-
-
-.candidates{
-    min-width: 250px;
-    margin: 10px;
-    width: auto;
-    border: 1px solid;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    position: relative;
-    height: 350px;
-    overflow: hidden;
-    transition: transform;
-    transition-duration: 0.5s;
-    transition-timing-function: ease;
-
-}
-  
-
-
-
-
-.candidate-buttons{
-    display: flex;
-    justify-content: space-around;
-    background: #ffffff;
-    padding: 5px;
-    font-weight: 700;
-    direction: ltr;
-}
-
-
-
-.candidate-name {
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    font-size: 20px;
-}
-
-
-.candidate-buttons button { 
-    background: #1E293B;
-    border-radius: 0px;
-    border-color: white;
-    color: white;
-    border-style: none;
-    font-weight: bold;
-    margin: 10px 40px;
-    padding: 5px 15px;
-}
-
-
-.candidate-buttons button:hover {
-    background-color: white;
-    color: black;
-}
-
-
-.candidate-buttons button a {
-    text-decoration: none;
-    color: white;
-}
-
-
-.candidate-buttons button:hover a {
-
-    background-color: white;
-    color: black;
-
-}
-
-.candidate-buttons p {
-    
-    color: white;
-    font-weight: bold;
-    width: 125px;
-    text-align: center;
-    justify-content: flex-end;
-    margin-top: 8px;
-
-}
-
-
-.candidates img {
-
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-}
-
-
-
-
-.candidate-infos {
-    width: 100%;
-    z-index: 1;
-}
-
-
-
-
-.candidates-top-section{
-    display: flex;
-    justify-content: right;
-    margin: 0px 50px;;
-
-}
-
-
-.candidates-top-section button {
-    background: #334155;
-    border: none;
-    border-radius: 15px;
-    margin: 10px;
-    padding: 15px;
-    transition: border-radius;
-    transition-delay: 200ms;
-    transition-duration: 250ms;
-}
-
-.candidates-top-section button:hover {
-    border-radius: 5px;
-
-}
-
-
-
-.candidates-top-section button a {
-    text-decoration: none;
-    color: white;
-}
-
-
-.checkbox-btn-candidates {
-    width: 10%;
-}
-
-
-.submitbtn {
-
-    width: 130px;
-    background: #1E293B;
-    color: white;
-    font-weight: bold;
-    border-style: none;
-}
-
-
-
-.btn-primary:active {
-    color: none !important; 
-    background-color: none !important;
-    border-color: none !important;
-    box-shadow: none !important
-}
-
-
-.btn-primary:focus {
-    color: none !important;
-    background-color: none !important;
-    border-color: none !important;
-    box-shadow: none  !important
-}
-
-</style>
 
 
 
