@@ -1,85 +1,102 @@
-
 .dashboard-home-admin {
     width: 100%;
-    height: auto;
-    margin: auto;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    padding: 24px 16px;
+    box-sizing: border-box;
+    direction: rtl;
+    direction: ltr;
 }
+
+.dahs {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+    border: 1px solid #eef2ff;
+    transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+    overflow: hidden;
     
-
-
-
-
-.dahs{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #ebf2ff;
-    width: 100%;
-    font-size: 30px;
-    margin: 30px;
-    border-radius: 20px;
-    box-shadow: 0px 0px 0.25em 0 #cacaca;
-    transition: border-radius;
-    transition-duration: 250ms;
-    transition-timing-function: cubic-bezier(0.66, 0.7, 0.16, 0.48);
 }
 
-
-.dahs:hover { 
-    border-radius: 5px;
-    background-color: rgb(255, 255, 255);
+.dahs:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
 }
-
-
 
 .dahs ul {
-    display: flex;
-    justify-content: center;
-    text-align: center;
     list-style: none;
-    text-decoration: none;
+    margin: 0;
+    padding: 0;
     width: 100%;
-    margin: 0px 15px 0px 15px;
 }
 
-
-
-.dahs ul li { 
-    height: 200px;
+.dahs ul li {
     width: 100%;
-    font-size: 120%;
-    font-weight: bold;
+    min-height: 180px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    direction: rtl;
+    justify-content: center;
 }
-
-
 
 .dahs ul a {
     width: 100%;
-    height: inherit;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
-    color: #4a4747;
+    color: #0f172a;
+    font-weight: 700;
+    font-size: 16px;
+    gap: 10px;
+    padding: 18px;
+    transition: color 0.2s ease;
+}
+
+.dahs ul a:hover {
+    color: #4a6cf7;
+}
+
+.dahs ul li i {
+    font-size: 34px;
+    color: #4a6cf7;
+    background: #eef4ff;
+    width: 72px;
+    height: 72px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color;
-    transition-duration: 250ms;
-    transition-delay: 100ms;
+    border-radius: 18px;
 }
 
+@media (max-width: 768px) {
+    .dashboard-home-admin {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        padding: 18px 12px;
+    }
 
-
-.dahs ul a:hover {
-    text-decoration: none;
+    .dahs ul li {
+        min-height: 150px;
+    }
 }
 
+@media (max-width: 576px) {
+    .dashboard-home-admin {
+        grid-template-columns: 1fr;
+    }
 
-.dahs ul li i {
-    margin: 15px;   
-} 
+    .dahs ul a {
+        font-size: 15px;
+    }
+
+    .dahs ul li i {
+        width: 64px;
+        height: 64px;
+        font-size: 28px;
+    }
+}
 
