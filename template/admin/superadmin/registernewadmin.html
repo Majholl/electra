@@ -1,6 +1,22 @@
 {% load static %}
 
 
+    <div class="registernewadmin-msg">
+
+        {% if messages %}
+        <div class="alert alert-danger d-flex  registernewadmin-sec fade-in" role="alert">
+            {% for msg in messages %}
+            <div>
+                {{ msg }}
+            </div>
+            {% endfor %}
+            <i class="fa-solid fa-comment"></i>
+
+        </div>
+        {% endif %} 
+
+    </div>
+
 
 <div class="registernewadmin-section">
 
@@ -36,3 +52,17 @@
     </form>
 
 </div>
+
+
+<script>
+
+setTimeout(function() {
+    var q_alert = document.querySelectorAll('.alert');
+    q_alert.forEach( function(alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            setTimeout(() => { alert.remove(), 500});}) 
+    }, 3000)
+
+
+</script>
