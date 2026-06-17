@@ -15,7 +15,7 @@
 
 
 .button-section-admins {
-    width: 15%;
+    width: auto;
     display: flex;
 }
 
@@ -39,6 +39,7 @@
 
 
 .button-section-admins button a {
+    width: auto;
     text-decoration: none;
     color: white;
 }
