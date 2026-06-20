@@ -115,7 +115,7 @@
 
 .candidate-detail-button {
     border: none;
-    background: linear-gradient(90deg, #4a6cf7, #6a8dff);
+    background-color: #1E293B !important;
     border-radius: 10px;
     padding: 0;
     transition: transform 0.2s ease;

@@ -3,7 +3,6 @@
     padding: 24px 18px;
     direction: rtl;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(180deg, #f8fafc 0%, #eef4ff 100%);
     box-sizing: border-box;
 }
 
@@ -130,13 +129,13 @@
 }
 
 .votepanel-labels {
-    top: 16px;
-    right: 16px;
+    bottom: 16px;
+    right: 50px;
     align-items: flex-end;
 }
 
 .votepanel-info {
-    left: 16px;
+    left: 50px;
     right: 16px;
     bottom: 16px;
     align-items: flex-end;
@@ -220,3 +219,6 @@
 
 
 
+.table>tbody {
+    vertical-align: middle;
+}

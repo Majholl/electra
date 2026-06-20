@@ -3,7 +3,6 @@
     padding: 32px 16px;
     box-sizing: border-box;
     direction: rtl;
-    background: linear-gradient(180deg, #f8fafc 0%, #eef4ff 100%);
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -107,7 +106,7 @@
 }
 
 .contentmodel p {
-    margin: 0;
+    margin: 20px 5px 20px;
     font-size: 15px;
     color: #0f172a;
     line-height: 1.7;
@@ -201,3 +200,6 @@
 }
 
 
+.success-msg-remove-candidate {
+    display: none;
+}
