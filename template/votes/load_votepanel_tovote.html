@@ -42,13 +42,14 @@
             {% endfor %}    
 
             </div>        
+                {% if usercanvote == 0 %}
+                <button class="btn submitbtn btn-primary" type="submit">ثبت</button><br>
+                {% else %}
+                <button class="btn submitbtn btn-primary" disabled type="submit">رای‌ شما‌ ثبت‌ شده‌ است</button><br>
+                {% endif %}
         </form>
-        
-            {% if truth_obj %}
-            <button class="btn submitbtn btn-primary" type="submit">ثبت</button><br>
-            {% else %}
-            <button class="btn submitbtn btn-primary" type="submit" disabled>رای شما ثبت شده</button><br>
-            {% endif %}
+         
+            
 
     </div>
 
