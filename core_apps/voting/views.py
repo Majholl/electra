@@ -45,6 +45,9 @@ def VotePanelsPage(request :Request, page_num :int =1):
 
 
 
+
+
+
 def LoadSelectedVotePanel(request:Request, id:int):
     try:    
     
@@ -134,7 +137,6 @@ def RemoveCandidateFromVotepanel(request):
     try :
         access_body = json.loads(request.body)
         
-        
         votepanel = VotePanelModel.objects.get(id= int(access_body[0]))
         candidate = CandidateModel.objects.filter(id__in = access_body[-1])
         
@@ -187,7 +189,7 @@ def AddNewVotePanel(request):
             
             user = User.objects.get(id = request.user.id)                            
                                 
-            if ( len(name) or len(description)) == 0 :
+            if (len(name) or len(description)) == 0 :
                 messages.add_message(request, messages.INFO, 'فیلد ها نباید خالی باشد')
                 return redirect(reverse('NewVoting'))
             

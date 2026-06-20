@@ -26,25 +26,21 @@ def load_vote_panel(request :Request, id:int):
         candidate = vote_panels.candidate.all()
         voteds = VotesModel.objects.filter(user_id = request.user, vote_panel =vote_panels)
         
-        for i in voteds :
-            
-            print(i.candidate.name)
-        
-        context = {'obj_list':vote_panels, 'obj_list_2':candidate, 'obj_list_3':voteds, 'truth_obj': False}
+        context = {'obj_list':vote_panels, 'obj_list_2':candidate, 'obj_list_3':voteds, }
         content_template = 'votes/load_votepanel_tovote.html'
         content_html = render_to_string(content_template, context=context, request=request)
-
-        if voteds.count() == 0:
-            context['truth_obj'] = True       
         
-        
+        if voteds.count() == 0 :
+            context['usercanvote'] = 0
+        else :
+            context['usercanvote'] = 1 
+       
         if request.user.usertype in ['superadmin', 'admin']: 
             return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
         
-        
         return render(request, template_name='user/userdashborad.html', context={** user_data(request), 'content':content_html})
     except Exception as err:
-        
+        print(err)
         return redirect(reverse('404-nf'))
 
 
@@ -68,7 +64,7 @@ def submit_vote(request):
         candidates_pks.append(int(pks_[-1]))
         
     vp = VotePanelModel.objects.get(id = vote_pane_pk.split('_')[1])
-  
+    
 
     for i in candidates_pks :
         create_vote = VotesModel.objects.create(vote_panel=vp, user=request.user)
