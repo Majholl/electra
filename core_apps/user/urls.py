@@ -58,9 +58,9 @@ urlpatterns = [
    
    
    
-    path('register/user', LoadAddUserPage_byAdmin, name='LoadAddUserPage'),
-    path('register/submit', RregisterUser_byAdmin, name='RegisterUserByadmin'),
-    path('admin/user/<int:id>/', LoadSelectedUser_byAdmin, name='LoadUserOfAdmin'),
+    path('admin/register/user', LoadAddUserPage_byAdmin, name='LoadAddUserPage'),
+    path('admin/register/submit', RregisterUser_byAdmin, name='RegisterUserByadmin'),
+    path('admin/register/user/<int:id>/', LoadSelectedUser_byAdmin, name='LoadUserOfAdmin'),
     
     
     
