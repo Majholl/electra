@@ -497,17 +497,16 @@ def promoteUserToAdmin(request):
 
 
 
-
-
-
-def loadAddUserPage_byAdmin(request :Request):
+def LoadAddUserPage_byAdmin(request :Request):
     try:
         
-        content_template = 'admin/users/register-user-byadmin.html'
+        content_template = 'admin/users/registeruserbyadmin.html'
         grusers = GroupUserAdminModel.objects.filter(relatedtoadmin = request.user).all()
+        
         content_html = render_to_string(content_template, context=None)
         userdata = user_data(request)
         content_html = render_to_string(content_template, context={** userdata, 'obj_list':grusers}, request=request)
+        
         return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
 
     except Exception as err:
@@ -519,7 +518,7 @@ def loadAddUserPage_byAdmin(request :Request):
 
 
 
-def registerUser_byadmin(request :Request):
+def RregisterUser_byAdmin(request :Request):
     try:
         
         if request.method == "POST":
@@ -528,8 +527,6 @@ def registerUser_byadmin(request :Request):
             national_code = request.POST.get('national-code')
             phonenumber = request.POST.get('phonenumber')
             
-            print(phonenumber)
-            
             user = Users.objects
             if user.filter(national_code = national_code).exists():
                 messages.add_message(request, messages.ERROR,'این کاربر در سیستم وجود دارد')
@@ -537,7 +534,7 @@ def registerUser_byadmin(request :Request):
                     
             create_user = Users.objects.create(national_code= national_code, 
                 first_name=first_name, last_name=last_name,
-                phone_number = phonenumber, password=make_password(phonenumber))
+                phone_number = phonenumber, password=make_password(national_code))
             
             if settings.OTP_REQUIRED is False :
                 create_user.is_active = 1
@@ -564,12 +561,12 @@ def registerUser_byadmin(request :Request):
     
     
 
-def load_selected_user_byadmin(request :Request, id :int):
+def LoadSelectedUser_byAdmin(request :Request, id :int):
     try:
         user = User.objects.get(national_code = id)
         
         context = {'obj_list': user}
-        content_template = 'admin/users/modify_register_user.html'
+        content_template = 'admin/users/modifyregisteruser.html'
         content_html = render_to_string(content_template, context, request=request)
         
         return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
@@ -606,6 +603,8 @@ def verify_otp_page(request :Request):
         print(err)
         redirect(reverse('500-se'))    
                 
+    
+    
     
     
 
@@ -659,14 +658,5 @@ def verify_otp(request :Request):
 
 
 
-
-
-
-
 def RegisterPage(request :Request):
     return render(request, template_name='authentications/register.html', context=None)
-
-
-
-
-

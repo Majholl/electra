@@ -5,19 +5,16 @@ from .views import (
                 LoginPage, RegisterPage, loginUser,  logoutUser ,
                 AdminDashboard, NotFound404, ServerError500,
                 
-                
-                
                 #// Admins promotion & modifying modules //# 
                 registerNewAdmin, submitRegisterNewAdmin,
                 adminsList, loadSelectedAdmin, modifySelectedAdmin, newAdminList, promoteUserToAdmin,
                 
                 UserPanel,
-                
+            
                 #//
-                loadAddUserPage_byAdmin,
-                registerUser_byadmin, 
-                load_selected_user_byadmin,
-                
+                LoadAddUserPage_byAdmin,
+                RregisterUser_byAdmin, 
+                LoadSelectedUser_byAdmin,
                 
                 verify_otp_page, verify_otp
                 
@@ -61,9 +58,9 @@ urlpatterns = [
    
    
    
-    path('register/user', loadAddUserPage_byAdmin, name='LoadAddUserPage'),
-    path('register/submit', registerUser_byadmin, name='RegisterUserByadmin'),
-    path('admin/user/<int:id>/', load_selected_user_byadmin, name='LoadUserOfAdmin'),
+    path('register/user', LoadAddUserPage_byAdmin, name='LoadAddUserPage'),
+    path('register/submit', RregisterUser_byAdmin, name='RegisterUserByadmin'),
+    path('admin/user/<int:id>/', LoadSelectedUser_byAdmin, name='LoadUserOfAdmin'),
     
     
     
