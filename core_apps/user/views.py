@@ -603,11 +603,7 @@ def verify_otp_page(request :Request):
         print(err)
         redirect(reverse('500-se'))    
                 
-    
-    
-    
-    
-
+                
     
 def verify_otp(request :Request):
     if request.method =='POST':
