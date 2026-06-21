@@ -1,0 +1,104 @@
+
+.adduserbyadmin-section{
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row-reverse;
+  width: 100%;
+  margin: 10px;
+  padding: 5px;
+  direction: rtl;
+}
+
+.adduserbyadmin-leftside{
+  display: flex;
+  justify-content: center;
+  width: auto;
+  margin: 10px;
+  padding: 5px;
+}
+
+
+
+
+.registeruserbyadmin-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  padding: 30px;
+  border-radius: 12px;
+  background-color: #f9fafb;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Inter', sans-serif;
+}
+
+
+
+.registeruserbyadmin-form h3 {
+  margin: auto;
+  width: 100%;
+  text-align: center;
+}
+
+
+.registeruserbyadmin-form  > * {
+  margin: 15px;
+  
+}
+
+
+.form-group label {
+  margin: 5px;
+  color: #303030;
+}
+
+
+.form-group input {
+  width: 100%;
+  padding: 5px 20px 5px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+
+.form-group input:focus {
+  border-color: #1E293B ;
+}
+
+
+
+.registeruserbyadmin-form button {
+  width: 75%;
+  padding: 5px 20px;
+  background-color: #1E293B;
+  color: #fff;
+  outline: none;
+  border: none;
+  font-weight: 700;
+  border-radius: 10px;
+}
+
+
+
+
+.adduserbyadmin-rightside {
+  width: 90%;
+  margin: 15px;
+}
+
+.tbodyusersadmin > tr {
+  opacity: 0.6;
+}
+
+
+.tbodyusersadmin > tr:hover {
+  opacity: 1;
+}
+
+
+*[data-href] {
+  cursor: pointer;
+}
+

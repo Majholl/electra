@@ -3,11 +3,11 @@
     padding: 24px 18px;
     direction: rtl;
     box-sizing: border-box;
-    background: linear-gradient(180deg, #f8fafc 0%, #eef4ff 100%);
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .candidate-top-div {
+    width: 10%;
     display: flex;
     align-items: center;
     justify-content: space-between;

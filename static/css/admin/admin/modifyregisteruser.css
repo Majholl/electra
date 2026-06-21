@@ -1,0 +1,51 @@
+.modify-adminusers-section {
+    width: 100%;
+}
+
+
+
+.mau-section-right-container{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+
+
+.settings-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+    font-size: 18px;
+    width: 20%;
+    margin: 10px 50px 10px;
+
+}
+
+
+
+.mt-2 {
+    margin: 10px !important;
+}
+
+.mau-section-right-container form {
+    direction: rtl;
+    padding: 10px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
