@@ -2,15 +2,9 @@
 
 <div class="modify-adminusers-section">
     
-    
-    <div class="back-button-top">
 
-        <a href="{% url 'LoadAddUserPage' %}"><i class="fa-solid fa-arrow-right"></i></a>
-
-    </div>
-
-        
     <div class="mau-section-right-container">
+
 
             <div class="settings-card p-4">
             
@@ -19,11 +13,12 @@
                 {% if obj_list.profile %}
                 <img src="{% url 'obj_list.profile.url' %}" alt="Profile" class="profile-pic">
                 {% else %}
-                <img src="../../../static/user.png" class="admin-image-section img" alt="{{ username }}" width="75px" height="75px">
+                <img src="../../../static/user.png" class="useraddedbyadmin-img" alt="{{ username }}" width="75px" height="75px">
                 {% endif %}
                 
                 <div class="mt-2">
-                <button class="btn btn-outline-primary btn-sm">تغییر عکس</button>
+                    <label class="edituserimgbyadmin-label">تغییر عکس</label>
+                    <input type="file" name='edituserimgbyadmin'>
                 </div>
 
                 <p> کد ملی : {{ obj_list.national_code }}</p>
@@ -40,31 +35,31 @@
 
             <form method="post">
                 {% csrf_token %}
-                <!-- نام -->
+                
                 <div class="mb-3">
                 <label class="form-label">نام : {{ obj_list.first_name }} </label>
                 <input type="text" class="form-control" placeholder="نام خود را وارد کنید">
                 </div>
 
-                <!-- نام خانوادگی -->
+                
                 <div class="mb-3">
                 <label class="form-label">نام خانوادگی : {{ obj_list.last_name }} </label>
                 <input type="text" class="form-control" placeholder="نام خانوادگی خود را وارد کنید">
                 </div>
 
-                <!-- ایمیل -->
+                
                 <div class="mb-3">
                 <label class="form-label">ایمیل: {{ obj_list.email }} </label>
                 <input type="email" class="form-control" placeholder="example@email.com">
                 </div>
 
-                <!-- شماره تماس -->
+                
                 <div class="mb-3">
                 <label class="form-label">شماره تماس : {{ obj_list.phone_number }} </label>
                 <input type="tel" class="form-control" placeholder="091xxxxxxxx">
                 </div>
 
-                <!-- رمز عبور -->
+                
                 <div class="mb-3">
                 <label class="form-label">تغییر رمز عبور :</label>
                 <input type="password" class="form-control" placeholder="رمز جدید">
@@ -100,88 +95,6 @@
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
-<style>
-
-
-
-.back-button-top {
-    display: flex;
-    justify-content: flex-end;
-    font-size: 30px;
-    font-weight: bold;
-    margin: 0px 50px 0px;
-    width: 75px;
-    position: fixed;
-    right: 250px;
-    border-radius: 10px;
-}
-
-
-.back-button-top:hover {
-    background-color: #1E283A;
-}
-
-
-.back-button-top a {
-    color: black;
-    padding: 0px 20px 0px 20px;
-}
-
-
-
-.back-button-top a:hover {
-    color: white;
-}
-
-.modify-adminusers-section {
-    width: 100%;
-}
-
-.mau-section-right-container{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    flex-direction: row-reverse;
-}
-
-.settings-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-weight: bold;
-    font-size: 18px;
-
-}
-
-.mt-2 {
-    margin: 10px !important;
-}
-
-.mau-section-right-container form {
-    direction: rtl;
-    padding: 10px 20px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-
-
-
-</style>
-
-
-
 
 
 
