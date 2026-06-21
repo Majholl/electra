@@ -1,28 +1,29 @@
 {% load jalali_tags %}
-
+{% load static %}
 <div class="modify-adminusers-section">
     
 
     <div class="mau-section-right-container">
 
 
-            <div class="settings-card p-4">
+            <div class="modify-adminusers-settings-card p-4">
             
-                <h4 class="mb-4 text-center">تنظیمات حساب کاربری</h4>
+                <h4 class="modify-adminusers-summrysetting">تنظیمات حساب کاربری</h4>
                 
                 {% if obj_list.profile %}
-                <img src="{% url 'obj_list.profile.url' %}" alt="Profile" class="profile-pic">
+                <img src="{% url 'obj_list.profile.url' %}" alt="{{ username }}" class="profile-pic">
                 {% else %}
-                <img src="../../../static/user.png" class="useraddedbyadmin-img" alt="{{ username }}" width="75px" height="75px">
+                <img src="{% static 'user.png' %}" class="useraddedbyadmin-img" alt="Profile" width="75px" height="75px">
                 {% endif %}
                 
-                <div class="mt-2">
-                    <label class="edituserimgbyadmin-label">تغییر عکس</label>
+
+                <div class="modify-adminusers-img-section">
                     <input type="file" name='edituserimgbyadmin'>
                 </div>
 
+
                 <p> کد ملی : {{ obj_list.national_code }}</p>
-                
+            
                 {% if obj_list.account_status == 'active' %}
                 <p> وضعیت حساب :‌ فعال</p>
                 {% elif obj_list.account_status == 'deactive'%}
@@ -33,43 +34,43 @@
             </div>
 
 
-            <form method="post">
+            <form method="POST" class="modify-adminusers-form">
                 {% csrf_token %}
                 
                 <div class="mb-3">
                 <label class="form-label">نام : {{ obj_list.first_name }} </label>
-                <input type="text" class="form-control" placeholder="نام خود را وارد کنید">
+                <input type="text" class="form-control" placeholder="">
                 </div>
 
                 
                 <div class="mb-3">
                 <label class="form-label">نام خانوادگی : {{ obj_list.last_name }} </label>
-                <input type="text" class="form-control" placeholder="نام خانوادگی خود را وارد کنید">
+                <input type="text" class="form-control" placeholder="">
                 </div>
 
                 
                 <div class="mb-3">
                 <label class="form-label">ایمیل: {{ obj_list.email }} </label>
-                <input type="email" class="form-control" placeholder="example@email.com">
+                <input type="email" class="form-control" placeholder="">
                 </div>
 
                 
                 <div class="mb-3">
                 <label class="form-label">شماره تماس : {{ obj_list.phone_number }} </label>
-                <input type="tel" class="form-control" placeholder="091xxxxxxxx">
+                <input type="tel" class="form-control" placeholder="">
                 </div>
 
                 
                 <div class="mb-3">
                 <label class="form-label">تغییر رمز عبور :</label>
-                <input type="password" class="form-control" placeholder="رمز جدید">
+                <input type="password" class="form-control" placeholder="">
                 </div>
 
-                <div class="text-end">
+                
                 <button type="submit" class="btn btn-primary">ذخیره تغییرات</button>
-                </div>
-            </form>
+                
 
+            </form>
     </div>
 
 

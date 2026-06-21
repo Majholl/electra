@@ -10,7 +10,7 @@
                     {% if profile %}
                     <img src="{{ profile.url }}" class="admin-image-section img" alt="{{ username }}" width="95px" height="95px">
                     {% else %}
-                    <img src="../static/user.png" class="admin-image-section img" alt="{{ username }}" width="95px" height="95px">
+                    <img src="{% static 'user.png' %}" class="admin-image-section img" alt="{{ username }}" width="95px" height="95px">
                     {% endif %}
                 </div>
 
