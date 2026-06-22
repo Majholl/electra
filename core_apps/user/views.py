@@ -579,6 +579,42 @@ def LoadSelectedUser_byAdmin(request :Request, id :int):
     
     
     
+def UpdateUsersOfadmin(request:Request):
+    try:
+        
+        if request.method == "POST":
+            
+                userid = request.POST.get("userid")
+                profile_image = request.FILES.get("profile_image")
+                fname = request.POST.get('fname')
+                lastname = request.POST.get('lastname')
+                email = request.POST.get('email')
+                phone = request.POST.get('phone')
+                password = request.POST.get('password')
+                user = Users.objects.get(id=userid)
+                
+                if fname :
+                    user.first_name = fname
+                if lastname : 
+                    user.last_name = lastname
+                if email :
+                    user.email = email
+                if phone :
+                    user.phone_number = phone
+                if password :
+                    user.password = make_password(password)                
+                if profile_image :
+                    user.profile = profile_image
+                
+                user.save()
+                
+                
+        return redirect(reverse('LoadUserOfAdmin', kwargs={'id':user.national_code}))
+    
+    except Exception as err:
+        print(err)
+        return redirect(reverse('404-nf'))    
+    
     
     
     

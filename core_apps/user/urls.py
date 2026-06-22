@@ -10,11 +10,9 @@ from .views import (
                 adminsList, loadSelectedAdmin, modifySelectedAdmin, newAdminList, promoteUserToAdmin,
                 
                 UserPanel,
-            
                 #//
-                LoadAddUserPage_byAdmin,
-                RregisterUser_byAdmin, 
-                LoadSelectedUser_byAdmin,
+                LoadAddUserPage_byAdmin,RregisterUser_byAdmin, 
+                LoadSelectedUser_byAdmin,UpdateUsersOfadmin,
                 
                 verify_otp_page, verify_otp
                 
@@ -61,7 +59,7 @@ urlpatterns = [
     path('admin/register/user', LoadAddUserPage_byAdmin, name='LoadAddUserPage'),
     path('admin/register/submit', RregisterUser_byAdmin, name='RegisterUserByadmin'),
     path('admin/register/user/<int:id>/', LoadSelectedUser_byAdmin, name='LoadUserOfAdmin'),
-    
+    path('admin/register/user/update/', UpdateUsersOfadmin, name='UpdateUserOfAdmin'),
     
     
 #// 
