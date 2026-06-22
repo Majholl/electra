@@ -61,6 +61,24 @@
 }
 
 
+.updateprofileofuser{
+    width: 85%;
+    padding: 5px 20px;
+    background-color: #1E293B;
+    color: #fff;
+    outline: none;
+    border: none;
+    font-weight: 700;
+    position: relative;
+    top: 150px;
+    border-radius: 10px;
+
+}
+.updateprofileofuser:hover , .updateprofileofuser:active , .updateprofileofuser:focus-visible , .updateprofileofuser:focus{
+    background-color: #405474;
+}
+
+
 
 .modify-adminusers-form button {
   width: 50%;
