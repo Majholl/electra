@@ -10,15 +10,17 @@
             
                 <h4 class="modify-adminusers-summrysetting">تنظیمات حساب کاربری</h4>
                 
+                <input hidden name="user_id" value="{{obj_list.pk}}" id="useridinput">
+                
                 {% if obj_list.profile %}
-                <img src="{% url 'obj_list.profile.url' %}" alt="{{ username }}" class="profile-pic">
+                <img src="{{obj_list.profile.url}}" alt="{{ username }}" class="profile-pic">
                 {% else %}
-                <img src="{% static 'user.png' %}" class="useraddedbyadmin-img" alt="Profile" width="75px" height="75px">
+                <img src="{% static 'user.png' %}" class="useraddedbyadmin-img" alt="Profile" width="75px" height="75px"  id="useraddedbyadminprofileimg">
                 {% endif %}
                 
 
                 <div class="modify-adminusers-img-section">
-                    <input type="file" name='edituserimgbyadmin'>
+                    <input type="file" name='edituserimgbyadmin' id="useraddedbyadminprofile">
                 </div>
 
 
@@ -29,41 +31,44 @@
                 {% elif obj_list.account_status == 'deactive'%}
                 <p>وضعیت حساب :‌ غیرفعال</p>
                 {% endif %}
+                
+                <button class="updateprofileofuser btn-primary" onclick="updateProfileServerSide()">بروزرسانی پروفایل</button>
 
     
             </div>
 
 
-            <form method="POST" class="modify-adminusers-form">
+            <form method="POST" class="modify-adminusers-form" action="{% url 'UpdateUserOfAdmin' %}">
                 {% csrf_token %}
-                
+                <input hidden name="userid" value="{{obj_list.pk}}" id="useridinput">
+
                 <div class="mb-3">
                 <label class="form-label">نام : {{ obj_list.first_name }} </label>
-                <input type="text" class="form-control" placeholder="">
+                <input type="text"  name="fname" class="form-control" placeholder="">
                 </div>
 
                 
                 <div class="mb-3">
                 <label class="form-label">نام خانوادگی : {{ obj_list.last_name }} </label>
-                <input type="text" class="form-control" placeholder="">
+                <input type="text" name="lastname" class="form-control" placeholder="">
                 </div>
 
                 
                 <div class="mb-3">
                 <label class="form-label">ایمیل: {{ obj_list.email }} </label>
-                <input type="email" class="form-control" placeholder="">
+                <input type="email" name="email" class="form-control" placeholder="">
                 </div>
 
                 
                 <div class="mb-3">
                 <label class="form-label">شماره تماس : {{ obj_list.phone_number }} </label>
-                <input type="tel" class="form-control" placeholder="">
+                <input type="tel" name="phone" class="form-control" placeholder="">
                 </div>
 
                 
                 <div class="mb-3">
                 <label class="form-label">تغییر رمز عبور :</label>
-                <input type="password" class="form-control" placeholder="">
+                <input type="password" name="password" class="form-control" placeholder="">
                 </div>
 
                 
@@ -111,7 +116,41 @@ setTimeout(function() {
             alert.classList.remove('show');
             alert.classList.add('fade');
             setTimeout(() => { alert.remove(), 500});}) 
-    }, 3000)
+    }, 3000);
 
+
+
+var userProfileUPdateing = document.getElementById('useraddedbyadminprofile');
+var useraddedbyadminprofileImg = document.getElementById('useraddedbyadminprofileimg');
+
+
+userProfileUPdateing.onchange = (elm) =>{
+    const file = userProfileUPdateing.files[0];
+    useraddedbyadminprofileImg.src = URL.createObjectURL(file)
+}
+
+
+
+async function updateProfileServerSide(){
+    const crsftoken = document.cookie.split('=')[1];
+    const inputfile = userProfileUPdateing.files[0];
+    const userid = document.getElementById('useridinput');
+
+    
+    const formData = new FormData();
+
+    formData.append('userid', userid.value);
+    formData.append('profile_image', inputfile);
+
+    let response = await fetch(`${window.location.protocol}//${window.location.host}/admin/register/user/update/`, {
+
+        headers: {'X-CSRFToken': crsftoken },
+        method : "post",
+        body: formData
+    });
+  
+    setTimeout(()=>{location.reload();}, 1500)
+
+}
 
 </script> 
