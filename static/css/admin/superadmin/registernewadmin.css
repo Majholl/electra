@@ -6,12 +6,13 @@
     display: flex;
     justify-content: center;  
 }
+
+
 .registernewadmin-sec {
     width: 20%;
     display: flex;
     justify-content: center;
     align-items: center !important;
-    padding: 8px;
     border-radius: 10px;
 
 }
@@ -23,24 +24,28 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px 16px;
-   
+    padding: 10px 0px;
     direction: rtl;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
+
 
 .registernewadmin-form {
     width: 100%;
     max-width: 520px;
     background: #fff;
-    padding: 32px 24px;
+    padding: 20px;
+    margin: 0px 0px 50px 0px;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
+
 .registernewadmin-form > div {
     margin-bottom: 18px;
 }
+
 
 .registernewadmin-form label {
     display: block;
@@ -69,18 +74,20 @@
     box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
 }
 
+
 .registernewadmin-form button {
-    width: 100%;
+    width: 95%;
     height: 48px;
     border: none;
     border-radius: 10px;
-    background: linear-gradient(90deg, #4a6cf7, #6a8dff);
+    background: #334155;
     color: #fff;
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
     transition: transform 0.15s ease, opacity 0.2s ease;
 }
+
 
 .registernewadmin-form button:hover {
     opacity: 0.95;
