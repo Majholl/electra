@@ -277,7 +277,7 @@ def submitRegisterNewAdmin(request):
         phoneNumber = request.POST.get("phone_number")
         passWord = make_password(nationalCode)
         
-        if (len(nationalCode)) or len(phoneNumber) == 0 :
+        if (len(nationalCode))  == 0 or len(phoneNumber) == 0 :
             messages.add_message(request, messages.ERROR, 'فیلد ها نباید خالی باشند')
             return redirect(reverse("RegisterNewAdmin"))
         

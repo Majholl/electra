@@ -26,15 +26,16 @@ def load_vote_panel(request :Request, id:int):
         candidate = vote_panels.candidate.all()
         voteds = VotesModel.objects.filter(user_id = request.user, vote_panel =vote_panels)
         
-        context = {'obj_list':vote_panels, 'obj_list_2':candidate, 'obj_list_3':voteds, }
+        context = {'obj_list':vote_panels, 'obj_list_2':candidate, 'obj_list_3':voteds, 'usercanvote':False}
         content_template = 'votes/load_votepanel_tovote.html'
-        content_html = render_to_string(content_template, context=context, request=request)
         
         if voteds.count() == 0 :
-            context['usercanvote'] = 0
-        else :
-            context['usercanvote'] = 1 
-       
+            context['usercanvote'] = True
+            
+        content_html = render_to_string(content_template, context=context, request=request)
+            
+
+        
         if request.user.usertype in ['superadmin', 'admin']: 
             return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':content_html})
         
