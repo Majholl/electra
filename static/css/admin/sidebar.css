@@ -44,7 +44,7 @@
 
 .dashboard-menu {
     display: flex;
-    min-width: 500px;
+    min-width: 450px;
     width: 60%;
     height: 110px;
     margin: 25px 10px 10px 10px;
@@ -65,6 +65,7 @@
 .dashboard-menu-options {
     display: flex;
     flex-wrap: wrap;
+    overflow: auto;
     
 }
 
@@ -182,6 +183,16 @@ img {
 
 
 @media (max-width: 576px) {
+    .userlogged-in {
+        width: 60%;
+        flex-wrap: wrap;
+    }
+    .admin-info-section p {
+        font-size: 12px;
+        width: max-content;
+        margin: 0px 10px 0px;
+    }
+    
     .main-sidebar {
         display: flex;
         flex-direction: column;
@@ -190,8 +201,14 @@ img {
 
     .dashboard-menu{
         width: stretch;
+        min-width: 500px;
     }
-
+    .container-fluid {
+        width: fit-content;
+    }
+    .logo-section {
+        width: inherit;
+    }
     .options {
         width: auto;
         flex-wrap: wrap;
@@ -199,24 +216,13 @@ img {
 }
 
 
-/* 
-@media (max-width: 576px) {
-    .dashboard-home-admin {
-        grid-template-columns: 1fr;
+ 
+@media (width < 1200px) {
+    .admin-info-section {
+        font-size: 10px;
+        margin: 0px 10px;
     }
-
-    .dahs ul a {
-        font-size: 15px;
-    }
-
-    .dahs ul li i {
-        width: 64px;
-        height: 64px;
-        font-size: 28px;
-    } */
-
-
-
+}
 
 
 
