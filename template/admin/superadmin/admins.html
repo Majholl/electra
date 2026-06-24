@@ -71,7 +71,7 @@
                         <div class="modal-content">
             
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modallabel_{{ i.id }}"> {{i.username }} :‌ جزییات کاربر </h5>
+                                <h5 class="modal-title" id="modallabel_{{ i.id }}"> {{i.first_name }}{{i.last_name}} :‌ جزییات کاربر </h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="بستن"></button>
                             </div>
             
@@ -94,9 +94,9 @@
                                     {% endif %}
 
                                     {% if i.account_status == 'acitve' %}
-                                    <p>وضعیت حساب : فعال</p>
+                                    <p>وضعیت حساب :غیر فعال</p>
                                     {% else %}
-                                    <p>وضعیت حساب : غیر فعال</p>
+                                    <p>وضعیت حساب :  فعال</p>
                                     {% endif %}
                                     
                                     {% if i.email  %}
