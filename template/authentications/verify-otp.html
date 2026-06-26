@@ -10,26 +10,8 @@
     </div>
 
     <div class="otp-form">
-        <p>برای وارد شدن به سیستم باید وریفای شوید </p>
 
-        <form method="post" action="{% url 'verify-user-otp' %}">
-            {% csrf_token %}
-
-            <label>کد یکبار مصرف</label>
-            <input type="text" name="otp-input" placeholder="کد یکبار مصرف ارسال شده ؟">
-            {% if locked_account %}
-            <button disabled > امکان وریفای اکانت شما وجود ندارد</button>
-            {% else %}
-            <button>وریفای</button>
-            {% endif %}
-        </form>
-
-        <button class="logout-otp"><a href="{% url 'logoutFromSystem' %}">خروج</a></button>
-    </div>
-
-
-    <div class="success-msg-otp">
-
+        <div class="success-msg-otp">
         {% if messages %}
         <div class="alert alert-danger d-flex align-items-center fade-in" role="alert">
             {% for msg in messages %}
@@ -41,8 +23,26 @@
 
         </div>
         {% endif %} 
+        </div>
 
+        <p>برای وارد شدن به سیستم باید وریفای شوید </p>
+
+        <form method="post" action="{% url 'verify-user-otp' %}">
+            {% csrf_token %}
+
+            <input type="text" name="otp-input" placeholder="کد یکبار مصرف ارسال شده ؟">
+            {% if locked_account %}
+            <button  class="otpverifybutton" disabled > امکان وریفای اکانت شما وجود ندارد</button>
+            {% else %}
+            <button class="otpverifybutton">وریفای</button>
+            {% endif %}
+        </form>
+
+        <button class="logout-otp"><a href="{% url 'logoutFromSystem' %}">خروج</a></button>
     </div>
+
+
+
     
 </div>
 
@@ -51,7 +51,7 @@
 
 
 
-<script>
+<!-- <script>
 
 setTimeout(function() {
     var q_alert = document.querySelectorAll('.alert');
@@ -62,7 +62,7 @@ setTimeout(function() {
     }, 3000)
 
 
-</script>
+</script> -->
 
 
 {% endblock %}
