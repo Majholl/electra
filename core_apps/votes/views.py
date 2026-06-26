@@ -20,7 +20,7 @@ from ..user.views import user_data
 
 
 
-def load_vote_panel(request :Request, id:int):
+def LoadVotePanel(request :Request, id:int):
     try:    
         vote_panels = VotePanelModel.objects.get(pk = int(id))
         candidate = vote_panels.candidate.all()
@@ -55,27 +55,37 @@ def load_vote_panel(request :Request, id:int):
 #//TODO redirect to status of panel
 #//TODO add limitation to vote 
 def submit_vote(request):
-    candidate_pks = request.POST.getlist('candiname_')
-    vote_pane_pk = request.POST.get('vp_pks')
-    
-    candidates_pks = []
-    
-    for i in candidate_pks:   
-        pks_ = i.split('_')
-        candidates_pks.append(int(pks_[-1]))
+    try:
         
-    vp = VotePanelModel.objects.get(id = vote_pane_pk.split('_')[1])
-    
+        candidate_pks = request.POST.getlist('candiname_')
+        vote_pane_pk = request.POST.get('vp_pks')
+        
+        candidates_pks = []
+        
+        for i in candidate_pks:   
+            pks_ = i.split('_')
+            candidates_pks.append(int(pks_[-1]))
+            
+        vp = VotePanelModel.objects.get(id = vote_pane_pk.split('_')[1])
+        
+        
+            
+        for i in candidates_pks :
+            create_vote = VotesModel.objects.create(vote_panel=vp, user=request.user)
+            create_vote.candidate =  CandidateModel.objects.get(pk = i)
+            create_vote.save()
+        
+        if request.user.usertype == 'superadmin' or request.user.usertype =='admin':
+            return redirect(reverse('LoadVotingsToVote', kwargs={"id": vp.pk}))
+        
+        
+        return redirect(reverse('LoadVotingsToVote', kwargs={"id": vp.pk}))
+        
+    except Exception as err:
+        print(err)
+        return redirect(reverse('404-nf'))
 
-    for i in candidates_pks :
-        create_vote = VotesModel.objects.create(vote_panel=vp, user=request.user)
-        create_vote.candidate =  CandidateModel.objects.get(pk = i)
-        create_vote.save()
-    
-    if request.user.usertype == 'superadmin' or request.user.usertype =='admin':
-        return redirect(reverse('VotesSection'))
-    
-    return redirect(reverse('UserPanel'))
 
+            
 
 

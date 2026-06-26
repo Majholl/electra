@@ -1,14 +1,16 @@
 from django.urls import path
 
-from .views import load_vote_panel, submit_vote
-from ..user.views import load_votes_tosuper_admin
+from .views import LoadVotePanel, submit_vote
+from ..user.views import loadVotesToSuperAdmin
 
 
 
 urlpatterns = [
     
-    path('vote', load_votes_tosuper_admin , name='VotesSection'),
-    path('vote/<int:id>', load_vote_panel, name='AllVotings'),
+    path('vote', loadVotesToSuperAdmin , name='VotesSection'),
+    
+    path('vote/<int:id>', LoadVotePanel, name='LoadVotingsToVote'),
+    
     path('vote/submit', submit_vote , name='SubmitVote')
     
 ]

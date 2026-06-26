@@ -148,10 +148,8 @@ def AdminDashboard(request :Request):
 
 
 
-
-
 def UserPanel(request :Request):
-    return render(request, template_name='user/userdashborad.html', context={** user_data(request), 'content':load_vote_section(request)})
+    return render(request, template_name='user/userdashborad.html', context={** user_data(request), 'content':loadVoteSection(request)})
 
 
 
@@ -198,21 +196,13 @@ def loginUser(request  :Request):
 
 
 
+#//TODO add paginator for vote panels to vote
+
+def loadVotesToSuperAdmin(request :Request):
+    return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':loadVoteSection(request)})
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-def load_vote_section(request  :Request):
+def loadVoteSection(request  :Request):
     
     if request.user.usertype =='admin':
         vote_panels = VotePanelModel.objects.filter(created_by=request.user)
@@ -227,17 +217,6 @@ def load_vote_section(request  :Request):
     return content_html
 
 
-
-
-
-
-
-#//TODO add paginator for vote panels to vote
-
-
-
-def load_votes_tosuper_admin(request :Request):
-    return render(request, template_name='admin/admindash.html', context={** user_data(request), 'content':load_vote_section(request)})
 
 
 
