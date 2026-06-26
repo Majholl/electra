@@ -2,6 +2,7 @@
     width: 100%;
     display: grid;
     grid-template-columns: 360px 1fr;
+    margin: 10px 0px 50px 0px;
     gap: 24px;
     direction: rtl;
     padding: 24px;
@@ -53,7 +54,8 @@
 
 .submitedcandidate {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    
     gap: 12px;
     padding: 16px;
     background: #f8fafc;
