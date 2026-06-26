@@ -190,7 +190,6 @@ img {
     .admin-info-section p {
         font-size: 12px;
         width: max-content;
-        margin: 0px 10px 0px;
     }
     
     .main-sidebar {
@@ -219,11 +218,10 @@ img {
  
 @media (width < 1200px) {
     .admin-info-section {
-        font-size: 10px;
+        font-size: small;
         margin: 0px 10px;
     }
 }
-
 
 
 
