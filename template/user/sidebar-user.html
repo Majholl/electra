@@ -1,11 +1,12 @@
 {% load static %}
+
 <aside class="right-sidebar">
 
     <section class="inner-top-sidebar">
 
         <a class="rel-dashboard" href="{% url 'UserPanel' %}">
 
-            <div class="inner-top-sidebar admin">
+            <div class="inner-top-sidebar user">
 
                 <div class="admin-image-section">
                     {% if profile %}
@@ -15,7 +16,7 @@
                     {% endif %}
                 </div>
 
-                <div class="admin-info-section">
+                <div class="user-info-section">
                     <p class="admin-info-section p ">{{ userauth.first_name }}{{ userauth.last_name }}</p>
                     <i class="fa-solid fa-circle-user"></i>
                 </div>
@@ -36,15 +37,7 @@
             <li class="vote-panels-page">
                 <a href="{% url 'UserPanel' %}"><span class="fa fa-square-poll-vertical"></span><span>صفحه رای</span></a>
             </li>
-            <!--
-            <li class="candidate-page">
-                <a href="#"><i class="fa fa-users"></i><span> -#- </span></a>
-            </li>
-            
-            <li class="votes-page">
-                <a href="#"><i class="fa fa-black-tie"></i> <span> -#- </span></a>
-            </li>
-            > -->
+           
             <li >
                 <a href="{% url 'logoutFromSystem' %}"><span>خروج</span></a>
             </li>
@@ -57,89 +50,6 @@
 
 
 
-
-
-
-<style>
-
-.right-sidebar {
-        height: 100%;
-        width: 200px;
-        position: fixed;
-        z-index: 1;
-        top: 50px;
-        right: 0px;
-        background-color: #334155;
-        overflow-x: hidden;
-        padding-top: 20px;
-        direction: rtl;
-        }
-
-.right-sidebar a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    color: #e4e4e4;
-    display: block;
-
-}
-
-.right-sidebar a:hover{
-    color: #ffffff;
-}
-
-
-.rel-dashboard{
-    display: grid;
-    justify-items: center;
-}
-
-.inner-bottom-sidebar {
-    margin: 30px 0px 20px 0px;
-}
-
-.inner-top-sidebar.admin {
-    width: 100%;
-    padding: 10px;
-}
-
-
-.admin-image-section {
-    text-align: center;
-    margin-top: 10px;
-}
-
-
-.admin-image-section.img {
-    border-radius: 20px;
-}
-
-
-.admin-info-section { 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row-reverse;
-
-}
-
-
-.admin-info-section.p{
-    font-size: 20px;
-    margin : 0px 5px !important;
-} 
-
-.inner-bottom-sidebar ul li {
-    display: flex;
-    margin: 10px 5px;
-    list-style: none;
-    font-weight: bold;
-    align-items: center;
-    justify-content: center;
-}
-
-
-</style>
 
 
 

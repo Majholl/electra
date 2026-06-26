@@ -15,10 +15,15 @@
             <div class="vote-info">
 
                 <span class="vote-panel-name">{{ i.name }}</span>
+                {% if i.is_active %}
                 <button type="button" class="vote-panel-btn">
                     <a href="{% url 'LoadVotingsToVote' id=i.id %}">ثبت رای</a>
                 </button>
-
+                {% else %}
+                <button type="button" class="vote-panel-btn" disabled>
+                    <a href="">انتخابات غیرفعال</a>
+                </button>
+                {% endif %}
             </div>
 
         </div>
