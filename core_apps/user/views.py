@@ -587,7 +587,7 @@ def UpdateUsersOfadmin(request:Request):
                 
                 user.save()
                 
-                
+        messages.add_message(request, messages.INFO, 'اطلاعات کاربر بروزرسانی شد')
         return redirect(reverse('LoadUserOfAdmin', kwargs={'id':user.national_code}))
     
     except Exception as err:
@@ -642,7 +642,7 @@ def verify_otp(request :Request):
                 
                 else:
                     user_verify.otp_attempt_count
-                    messages.add_message(request, messages.INFO, 'کد تاییدیه شما اشتباه است')
+                    messages.add_message(request, messages.INFO, 'کد تایید شما اشتباه است')
                     return redirect(reverse('verify-user-otp-page'))
                 
         else:
