@@ -4,7 +4,7 @@
 # PY - modules
 from ast import Dict
 from urllib.request import Request
-import random , json
+import random
 
 
 # DJANGO - modules
@@ -22,8 +22,7 @@ from django.conf import settings
 
 from ..votes.models import VotePanelModel
 from ..user.models import Users, GroupUserAdminModel
-
-
+from .email import send_otp_email
 
 
 
@@ -505,6 +504,7 @@ def RregisterUser_byAdmin(request :Request):
             last_name = request.POST.get('last-name')
             national_code = request.POST.get('national-code')
             phonenumber = request.POST.get('phonenumber')
+            email = request.POST.get('email')
             
             user = Users.objects
             if user.filter(national_code = national_code).exists():
@@ -512,7 +512,7 @@ def RregisterUser_byAdmin(request :Request):
                 return redirect(reverse('LoadAddUserPage'))
                     
             create_user = Users.objects.create(national_code= national_code, 
-                first_name=first_name, last_name=last_name,
+                first_name=first_name, last_name=last_name, email=email,
                 phone_number = phonenumber, password=make_password(national_code))
             
             if settings.OTP_REQUIRED is False :
@@ -520,7 +520,9 @@ def RregisterUser_byAdmin(request :Request):
                 create_user.save()
                 
             if settings.OTP_REQUIRED:
-                create_user.set_otp(generate_code())
+                otp = generate_code()
+                send_otp_email(email=create_user.email, username=create_user.username, otp_link=otp)
+                create_user.set_otp(otp)
                 create_user.account_status='deactive'
                 create_user.save()
                 
