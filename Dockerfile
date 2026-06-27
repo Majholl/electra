@@ -1,4 +1,4 @@
-FROM docker.arvancloud.ir/python:3.11-slim AS builder
+FROM docker.arvancloud.ir/python:3.14-slim AS builder
 
 RUN apt-get update && apt-get upgrade && apt-get install --no-install-recommends -y \
    pkg-config \  
@@ -23,7 +23,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 
 
-FROM docker.arvancloud.ir/python:3.11-slim
+FROM docker.arvancloud.ir/python:3.14-slim
  
 RUN useradd -m -r appuser && \
    mkdir /app && \
