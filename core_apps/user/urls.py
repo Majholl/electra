@@ -51,10 +51,7 @@ urlpatterns = [
     
     path('panel/', UserPanel, name='UserPanel'),
    
-   
-   
-   
-   
+
    
     path('admin/register/user', LoadAddUserPage_byAdmin, name='LoadAddUserPage'),
     path('admin/register/submit', RregisterUser_byAdmin, name='RegisterUserByadmin'),

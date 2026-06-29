@@ -24,6 +24,8 @@ class CustomMiddleware(MiddlewareMixin):
         if request.path in urls and not user.is_authenticated :
             return redirect(reverse("AuthLogin"))
         
+        if request.path in urls and request.user.is_active == 0 :
+            return redirect(reverse('verify-user-otp-page'))
 
         
         return response 
