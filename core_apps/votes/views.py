@@ -27,7 +27,7 @@ def LoadVotePanel(request :Request, id:int):
         voteds = VotesModel.objects.filter(user_id = request.user, vote_panel =vote_panels)
         
         context = {'obj_list':vote_panels, 'obj_list_2':candidate, 'obj_list_3':voteds, 'usercanvote':False}
-        content_template = 'votes/load_votepanel_tovote.html'
+        content_template = "votes/loadvotepaneltovote.html"
         
         if voteds.count() == 0 :
             context['usercanvote'] = True
